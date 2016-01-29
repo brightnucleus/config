@@ -159,6 +159,10 @@ class Config extends AbstractConfig
      */
     protected function resolveOptions($config)
     {
+        if ( ! $this->schema) {
+            return false;
+        }
+
         try {
             $resolver = new OptionsResolver();
             if ($this->configureOptions($resolver)) {
@@ -189,11 +193,6 @@ class Config extends AbstractConfig
      */
     protected function configureOptions(OptionsResolver $resolver)
     {
-
-        if ( ! $this->schema) {
-            return false;
-        }
-
         $defined  = $this->schema->getDefinedOptions();
         $defaults = $this->schema->getDefaultOptions();
         $required = $this->schema->getRequiredOptions();
