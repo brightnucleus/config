@@ -1,0 +1,23 @@
+{
+	"name": "brightnucleus/config",
+	"description": "Minimal, reusable Config component.",
+	"version": "0.1.0",
+	"require-dev": {
+		"phpunit/phpunit": "~5.1"
+	},
+	"license": "GPL-2.0+",
+	"authors": [
+		{
+			"name": "Alain Schlesser",
+			"email": "alain.schlesser@gmail.com"
+		}
+	],
+	"require": {
+		"symfony/options-resolver": "~3.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"BrightNucleus\\Config\\": "src/"
+		}
+	}
+}
