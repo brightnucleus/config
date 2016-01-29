@@ -160,7 +160,7 @@ class Config extends AbstractConfig
     protected function resolveOptions($config)
     {
         if ( ! $this->schema) {
-            return false;
+            return $config;
         }
 
         try {
