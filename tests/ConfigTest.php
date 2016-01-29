@@ -36,23 +36,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         'negative_boolean' => false,
     ];
 
-    const TEST_SCHEMA = [
-        'random_string'    => [
-            'default'  => 'default_test_value',
-            'required' => true,
-        ],
-        'positive_integer' => [
-            'default'  => 'default_test_value',
-            'required' => 'true',
-        ],
-        'negative_integer' => [
-            'default'  => 'default_test_value',
-            'required' => 'Yes',
-        ],
-        'positive_boolean' => ['default' => 'default_test_value'],
-        'negative_boolean' => ['default' => 'default_test_value'],
-    ];
-
     /**
      * Test creation and value retrieval.
      *
@@ -121,7 +104,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             [
                 'RuntimeException',
                 'File inclusion did not return an array.',
-                __DIR__ . '/dummy_file.txt',
+                __DIR__ . '/fixtures/dummy_file.txt',
             ],
         ];
     }
@@ -201,7 +184,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testConfigFileWithoutDefaults()
     {
-        $config = new Config(__DIR__ . '/config_file.php');
+        $config = new Config(__DIR__ . '/fixtures/config_file.php');
         $this->assertTrue($config->hasKey('random_string'));
         $this->assertTrue($config->hasKey('positive_integer'));
         $this->assertTrue($config->hasKey('negative_integer'));
@@ -224,21 +207,33 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      * @covers BrightNucleus\Config\Config::resolveOptions
      * @covers BrightNucleus\Config\Config::configureOptions
      */
+    public function testConfigFileWithMissingKeys() {
+        $schema = new ConfigSchema(new Config(__DIR__ . '/fixtures/schema_config_file.php'));
+        $this->setExpectedException('UnexpectedValueException', 'Error while resolving config options: The required option "negative_integer" is missing.');
+        $config = new Config([], $schema);
+    }
+
+    /**
+     * @covers BrightNucleus\Config\Config::__construct
+     * @covers BrightNucleus\Config\Config::fetchArrayData
+     * @covers BrightNucleus\Config\Config::resolveOptions
+     * @covers BrightNucleus\Config\Config::configureOptions
+     */
     public function testConfigFileWithDefaults()
     {
-        $schema = new ConfigSchema(ConfigTest::TEST_SCHEMA);
-        $config = new Config(__DIR__ . '/config_file.php', $schema);
+        $schema = new ConfigSchema(new Config(__DIR__ . '/fixtures/schema_config_file.php'));
+        $config = new Config(['negative_integer' => -333], $schema);
         $this->assertTrue($config->hasKey('random_string'));
         $this->assertTrue($config->hasKey('positive_integer'));
         $this->assertTrue($config->hasKey('negative_integer'));
         $this->assertTrue($config->hasKey('positive_boolean'));
-        $this->assertTrue($config->hasKey('negative_boolean'));
+        $this->assertFalse($config->hasKey('negative_boolean'));
         $this->assertFalse($config->hasKey('some_other_key'));
-        $this->assertEquals('test_value', $config->getKey('random_string'));
-        $this->assertEquals(42, $config->getKey('positive_integer'));
-        $this->assertEquals(-256, $config->getKey('negative_integer'));
+        $this->assertEquals('default_test_value',
+            $config->getKey('random_string'));
+        $this->assertEquals(99, $config->getKey('positive_integer'));
+        $this->assertEquals(-333, $config->getKey('negative_integer'));
         $this->assertTrue($config->getKey('positive_boolean'));
-        $this->assertFalse($config->getKey('negative_boolean'));
         $this->setExpectedException('OutOfRangeException',
             'The configuration key some_other_key does not exist.');
         $this->assertFalse($config->getKey('some_other_key'));

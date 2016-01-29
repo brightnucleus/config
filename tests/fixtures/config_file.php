@@ -2,14 +2,14 @@
 /**
  * Config file with test data for the unit tests.
  *
- * @package   brightnucleus
+ * @package   BrightNucleus\Config
  * @author    Alain Schlesser <alain.schlesser@gmail.com>
  * @license   GPL-2.0+
  * @link      http://www.brightnucleus.com/
- * @copyright 2015-2016 Alain Schlesser, Bright Nucleus
+ * @copyright 2016 Alain Schlesser, Bright Nucleus
  */
 
-namespace BrightNucleus\Core;
+namespace BrightNucleus\Config;
 
 $test_data = [
 
