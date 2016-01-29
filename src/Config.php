@@ -71,7 +71,6 @@ class Config extends AbstractConfig
         Schema $schema = null,
         Validator $validator = null
     ) {
-
         $this->schema    = $schema;
         $this->validator = $validator;
 
@@ -113,7 +112,6 @@ class Config extends AbstractConfig
      */
     protected function fetchArrayData($config)
     {
-
         if (is_string($config) && ! ('' === $config)) {
 
             // $config is a valid string, make sure it is an existing file.
@@ -161,7 +159,6 @@ class Config extends AbstractConfig
      */
     protected function resolveOptions($config)
     {
-
         try {
             $resolver = new OptionsResolver();
             if ($this->configureOptions($resolver)) {
@@ -234,7 +231,6 @@ class Config extends AbstractConfig
      */
     public function isValid()
     {
-
         if ($this->validator) {
             return $this->validator->isValid($this);
         }

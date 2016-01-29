@@ -63,7 +63,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testConfigFileCreation()
     {
-
         $config = new Config(ConfigTest::TEST_ARRAY);
 
         $this->assertInstanceOf('\BrightNucleus\Config\ConfigInterface',
@@ -98,7 +97,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $defaults = null,
         $validator = null
     ) {
-
         $this->setExpectedException($exception, $message);
         $config = new Config($config, $defaults, $validator);
     }
