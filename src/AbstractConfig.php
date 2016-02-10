@@ -76,7 +76,7 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      * Get the an array with all the keys
      *
      * @since 0.1.0
-     * @return mixed
+     * @return array
      */
     public function getKeys()
     {
