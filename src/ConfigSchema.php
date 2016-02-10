@@ -88,14 +88,14 @@ class ConfigSchema extends AbstractConfigSchema
     {
         $this->parseDefined($key, $data);
 
-        if (array_key_exists(ConfigSchema::REQUIRED_KEY, $data)) {
+        if (array_key_exists(self::REQUIRED_KEY, $data)) {
             $this->parseRequired($key,
-                $data[ConfigSchema::REQUIRED_KEY]);
+                $data[self::REQUIRED_KEY]);
         }
 
-        if (array_key_exists(ConfigSchema::DEFAULT_VALUE, $data)) {
+        if (array_key_exists(self::DEFAULT_VALUE, $data)) {
             $this->parseDefault($key,
-                $data[ConfigSchema::DEFAULT_VALUE]);
+                $data[self::DEFAULT_VALUE]);
         }
     }
 
@@ -151,6 +151,6 @@ class ConfigSchema extends AbstractConfigSchema
      */
     protected function isTruthy($data)
     {
-        return in_array($data, ConfigSchema::TRUTHY_VALUES, true);
+        return in_array($data, self::TRUTHY_VALUES, true);
     }
 }
