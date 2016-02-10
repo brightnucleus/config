@@ -31,7 +31,7 @@ class ConfigSchemaTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\BrightNucleus\Config\ConfigSchema', $schema);
         $this->setExpectedException('InvalidArgumentException',
             'Invalid schema source:');
-        $no_schema = new ConfigSchema(25);
+        new ConfigSchema(25);
     }
 
     /**
