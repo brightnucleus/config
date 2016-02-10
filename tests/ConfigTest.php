@@ -207,9 +207,13 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      * @covers BrightNucleus\Config\Config::resolveOptions
      * @covers BrightNucleus\Config\Config::configureOptions
      */
-    public function testConfigFileWithMissingKeys() {
+    public function testConfigFileWithMissingKeys()
+    {
         $schema = new ConfigSchema(new Config(__DIR__ . '/fixtures/schema_config_file.php'));
-        $this->setExpectedException('UnexpectedValueException', 'Error while resolving config options: The required option "negative_integer" is missing.');
+        $this->setExpectedException(
+            'UnexpectedValueException',
+            'Error while resolving config options: The required option "negative_integer" is missing.'
+        );
         $config = new Config([], $schema);
     }
 
