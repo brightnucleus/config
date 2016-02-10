@@ -18,6 +18,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [0.1.1] - 2016-01-29
 ### Added
 - Tests for schema requirements.
+
 ### Fixed
 - Don't instantiate `OptionsResolver` if not needed.
 - Formatting tweaks
