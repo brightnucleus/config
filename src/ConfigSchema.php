@@ -86,7 +86,7 @@ class ConfigSchema extends AbstractConfigSchema
      */
     protected function parseSchema($data, $key)
     {
-        $this->parseDefined($key, $data);
+        $this->parseDefined($key);
 
         if (array_key_exists(self::REQUIRED_KEY, $data)) {
             $this->parseRequired($key,
@@ -104,10 +104,9 @@ class ConfigSchema extends AbstractConfigSchema
      *
      * @since 0.1.0
      *
-     * @param string $key  The key of the schema data.
-     * @param mixed  $data The data associated with the key.
+     * @param string $key The key of the schema data.
      */
-    protected function parseDefined($key, $data)
+    protected function parseDefined($key)
     {
         $this->defined[] = $key;
     }
