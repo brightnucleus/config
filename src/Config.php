@@ -55,16 +55,16 @@ class Config extends AbstractConfig
      * @since 0.1.0
      * @since 0.1.6 Accepts a delimiter to parse configuration keys.
      *
-     * @param array|string   $config    Array with settings or filename for the
-     *                                  settings file.
-     * @param Schema|null    $schema    Optional. Config that contains default
-     *                                  values that can get overwritten.
-     * @param Validator|null $validator Optional. Validator class that does the
-     *                                  actual validation.
-     * @param array|string   $delimiter A string or array of strings that are used as delimiters to parse configuration
-     *                                  keys. Defaults to "\", "/" & ".".
+     * @param array|string         $config    Array with settings or filename for the
+     *                                        settings file.
+     * @param Schema|null          $schema    Optional. Config that contains default
+     *                                        values that can get overwritten.
+     * @param Validator|null       $validator Optional. Validator class that does the
+     *                                        actual validation.
+     * @param string[]|string|null $delimiter A string or array of strings that are used as delimiters to parse
+     *                                        configuration keys. Defaults to "\", "/" & ".".
      * @throws InvalidArgumentException If the config source is not a string or
-     *                                  array.
+     *                                        array.
      * @throws RuntimeException         If loading of the config source failed.
      * @throws UnexpectedValueException If the config file is not valid.
      */
