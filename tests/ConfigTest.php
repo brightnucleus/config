@@ -298,7 +298,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             'UnexpectedValueException',
             'Error while resolving config options: The required option "negative_integer" is missing.'
         );
-        $config = new Config([], $schema);
+        new Config([], $schema);
     }
 
     /**
