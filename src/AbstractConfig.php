@@ -42,9 +42,9 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      * @since 0.1.0
      * @since 0.1.6 Accepts a delimiter to parse configuration keys.
      *
-     * @param array        $config    Array with settings.
-     * @param array|string $delimiter A string or array of strings that are used as delimiters to parse configuration
-     *                                keys. Defaults to "\", "/" & ".".
+     * @param array                $config    Array with settings.
+     * @param string[]|string|null $delimiter A string or array of strings that are used as delimiters to parse
+     *                                        configuration keys. Defaults to "\", "/" & ".".
      */
     public function __construct(array $config, $delimiter = null)
     {
