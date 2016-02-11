@@ -28,7 +28,10 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      * TODO: There's still lots of work to do to render these tests useful.
      */
 
-    const TEST_ARRAY = [
+    /*
+     * Don't use an array const to avoid bumping PHP requirement to 5.6.
+     */
+    protected static $test_array = [
         'random_string'    => 'test_value',
         'positive_integer' => 42,
         'negative_integer' => -256,
@@ -46,7 +49,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testConfigFileCreation()
     {
-        $config = new Config(ConfigTest::TEST_ARRAY);
+        $config = new Config(ConfigTest::$test_array);
 
         $this->assertInstanceOf('\BrightNucleus\Config\ConfigInterface',
             $config);
@@ -115,14 +118,14 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testValidation()
     {
-        $unvalidated_config = new Config(ConfigTest::TEST_ARRAY, null, null);
+        $unvalidated_config = new Config(ConfigTest::$test_array, null, null);
         $this->assertTrue($unvalidated_config->isValid());
 
         $true_validator = $this->getMockBuilder('\BrightNucleus\Config\ConfigValidatorInterface')
                                ->getMock();
         $true_validator->method('isValid')
                        ->willReturn(true);
-        $valid_config = new Config(ConfigTest::TEST_ARRAY, null,
+        $valid_config = new Config(ConfigTest::$test_array, null,
             $true_validator);
         $this->assertTrue($valid_config->isValid());
 
@@ -132,7 +135,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
                         ->willReturn(false);
         $this->setExpectedException('UnexpectedValueException',
             'ConfigInterface file is not valid');
-        $invalid_config = new Config(ConfigTest::TEST_ARRAY, null,
+        $invalid_config = new Config(ConfigTest::$test_array, null,
             $false_validator);
     }
 
@@ -141,7 +144,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testHasKey()
     {
-        $config = new Config(ConfigTest::TEST_ARRAY);
+        $config = new Config(ConfigTest::$test_array);
         $this->assertTrue($config->hasKey('random_string'));
         $this->assertTrue($config->hasKey('positive_integer'));
         $this->assertTrue($config->hasKey('negative_integer'));
@@ -155,8 +158,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetKeys()
     {
-        $config = new Config(ConfigTest::TEST_ARRAY);
-        $this->assertEquals(array_keys(ConfigTest::TEST_ARRAY),
+        $config = new Config(ConfigTest::$test_array);
+        $this->assertEquals(array_keys(ConfigTest::$test_array),
             $config->getKeys());
     }
 
@@ -165,7 +168,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetKey()
     {
-        $config = new Config(ConfigTest::TEST_ARRAY);
+        $config = new Config(ConfigTest::$test_array);
         $this->assertEquals('test_value', $config->getKey('random_string'));
         $this->assertEquals(42, $config->getKey('positive_integer'));
         $this->assertEquals(-256, $config->getKey('negative_integer'));
