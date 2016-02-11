@@ -28,16 +28,32 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
 {
 
     /**
+     * Array of strings that are used as delimiters to parse configuration keys.
+     *
+     * @since 0.1.6
+     *
+     * @var array
+     */
+    protected $delimiter = ['\\', '/', '.'];
+
+    /**
      * Instantiate the AbstractConfig object.
      *
      * @since 0.1.0
+     * @since 0.1.6 Accepts a delimiter to parse configuration keys.
      *
-     * @param  array $config Array with settings.
+     * @param array        $config    Array with settings.
+     * @param array|string $delimiter A string or array of strings that are used as delimiters to parse configuration
+     *                                keys. Defaults to "\", "/" & ".".
      */
-    public function __construct(array $config)
+    public function __construct(array $config, $delimiter = null)
     {
         // Make sure the config entries can be accessed as properties.
         parent::__construct($config, ArrayObject::ARRAY_AS_PROPS);
+
+        if (null !== $delimiter) {
+            $this->delimiter = (array)$delimiter;
+        }
     }
 
     /**
@@ -50,10 +66,11 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      *
      * @param string ... List of keys.
      * @return bool
+     * @throws BadMethodCallException If no argument was provided.
      */
     public function hasKey()
     {
-        $keys = array_reverse(func_get_args());
+        $keys = array_reverse($this->getKeyArguments(func_get_args()));
 
         $array = $this->getArrayCopy();
         while (count($keys) > 0) {
@@ -82,13 +99,9 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      */
     public function getKey()
     {
-        if (func_num_args() < 1) {
-            throw new BadMethodCallException(_('No configuration was provided to getKey().'));
-        }
+        $keys = $this->getKeyArguments(func_get_args());
 
-        $keys = func_get_args();
-
-        if ( ! call_user_func_array([$this, 'hasKey'], $keys)) {
+        if ( ! $this->hasKey($keys)) {
             throw new OutOfRangeException(sprintf(_('The configuration key %1$s does not exist.'),
                 implode('->', $keys)));
         }
@@ -124,6 +137,50 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
     public function getKeys()
     {
         return array_keys((array)$this);
+    }
+
+    /**
+     * Extract the configuration key arguments from an arbitrary array.
+     *
+     * @since 0.1.6
+     *
+     * @param array $arguments Array as fetched through get_func_args().
+     * @return array Array of strings.
+     * @throws BadMethodCallException If no argument was provided.
+     */
+    protected function getKeyArguments($arguments)
+    {
+        if (count($arguments) < 1) {
+            throw new BadMethodCallException(_('No configuration key was provided.'));
+        }
+
+        $keys = [];
+        foreach ($arguments as $argument) {
+            if (is_array($argument)) {
+                $keys = array_merge($keys, $this->getKeyArguments($argument));
+            }
+            if (is_string($argument)) {
+                $keys = array_merge($keys, $this->parseKeysString($argument));
+            }
+        }
+
+        return $keys;
+    }
+
+    /**
+     * Extract individual keys from a delimited string.
+     *
+     * @since 0.1.6
+     *
+     * @param string $keyString Delimited string of keys.
+     * @return array Array of key strings.
+     */
+    protected function parseKeysString($keyString)
+    {
+        // Replace all of the configured delimiters by the first one, so that we can then use explode().
+        $normalizedString = str_replace($this->delimiter, $this->delimiter[0], $keyString);
+
+        return (array)explode($this->delimiter[0], $normalizedString);
     }
 
     /**

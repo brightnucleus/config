@@ -58,6 +58,13 @@ class ConfigTraitTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->hasConfigKey('level1', 'level2'));
         $this->assertTrue($this->hasConfigKey('level1', 'level2', 'level3'));
         $this->assertTrue($this->hasConfigKey('level1', 'level2', 'level3', 'level4_key'));
+        $this->assertTrue($this->hasConfigKey('level1\level2', 'level3', 'level4_key'));
+        $this->assertTrue($this->hasConfigKey('level1', 'level2/level3', 'level4_key'));
+        $this->assertTrue($this->hasConfigKey('level1', 'level2', 'level3.level4_key'));
+        $this->assertTrue($this->hasConfigKey('level1\level2\level3\level4_key'));
+        $this->assertTrue($this->hasConfigKey('level1/level2/level3/level4_key'));
+        $this->assertTrue($this->hasConfigKey('level1.level2.level3.level4_key'));
+        $this->assertTrue($this->hasConfigKey('level1\level2/level3.level4_key'));
         $this->assertFalse($this->hasConfigKey('level1', 'level2', 'level4_key'));
         $this->assertFalse($this->hasConfigKey('level1', 'level3'));
         $this->assertFalse($this->hasConfigKey('level2'));
@@ -88,6 +95,13 @@ class ConfigTraitTest extends \PHPUnit_Framework_TestCase
             'level1' => ['level2' => ['level3' => ['level4_key' => 'level4_value'],],],
         ]));
         $this->assertEquals('level4_value', $this->getConfigKey('level1', 'level2', 'level3', 'level4_key'));
+        $this->assertEquals('level4_value', $this->getConfigKey('level1\level2', 'level3', 'level4_key'));
+        $this->assertEquals('level4_value', $this->getConfigKey('level1', 'level2/level3', 'level4_key'));
+        $this->assertEquals('level4_value', $this->getConfigKey('level1', 'level2', 'level3.level4_key'));
+        $this->assertEquals('level4_value', $this->getConfigKey('level1\level2\level3\level4_key'));
+        $this->assertEquals('level4_value', $this->getConfigKey('level1/level2/level3/level4_key'));
+        $this->assertEquals('level4_value', $this->getConfigKey('level1.level2.level3.level4_key'));
+        $this->assertEquals('level4_value', $this->getConfigKey('level1\level2/level3.level4_key'));
         $this->setExpectedException('OutOfRangeException',
             'The configuration key level1->level2->level4_key does not exist.');
         $this->getConfigKey('level1', 'level2', 'level4_key');

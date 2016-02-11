@@ -53,14 +53,16 @@ class Config extends AbstractConfig
      * filename pointing to a PHP file it can include.
      *
      * @since 0.1.0
+     * @since 0.1.6 Accepts a delimiter to parse configuration keys.
      *
-     * @param  array|string  $config    Array with settings or filename for the
+     * @param array|string   $config    Array with settings or filename for the
      *                                  settings file.
      * @param Schema|null    $schema    Optional. Config that contains default
      *                                  values that can get overwritten.
      * @param Validator|null $validator Optional. Validator class that does the
      *                                  actual validation.
-     *
+     * @param array|string   $delimiter A string or array of strings that are used as delimiters to parse configuration
+     *                                  keys. Defaults to "\", "/" & ".".
      * @throws InvalidArgumentException If the config source is not a string or
      *                                  array.
      * @throws RuntimeException         If loading of the config source failed.
@@ -69,7 +71,8 @@ class Config extends AbstractConfig
     public function __construct(
         $config,
         Schema $schema = null,
-        Validator $validator = null
+        Validator $validator = null,
+        $delimiter = null
     ) {
         $this->schema    = $schema;
         $this->validator = $validator;
@@ -88,7 +91,7 @@ class Config extends AbstractConfig
 
         $config = $this->resolveOptions($config);
 
-        parent::__construct($config);
+        parent::__construct($config, $delimiter);
 
         // Finally, validate the resulting config.
         if ( ! $this->isValid()) {

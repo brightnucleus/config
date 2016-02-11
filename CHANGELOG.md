@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.1.6] - 2016-02-11
+### Added
+- The `has*` & `get*` methods now support keys with delimiters. The delimiters are set via the Config constructor.
+- Tests for the above.
+
 ## [0.1.5] - 2016-02-11
 ### Added
 - `ConfigTrait::hasConfigKey()` and `ConfigTrait::getConfigKey()` now support a list of strings to fetch a value from several levels deep.

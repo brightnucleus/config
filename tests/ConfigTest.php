@@ -173,10 +173,37 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($config->hasKey('level1', 'level2'));
         $this->assertTrue($config->hasKey('level1', 'level2', 'level3'));
         $this->assertTrue($config->hasKey('level1', 'level2', 'level3', 'level4_key'));
+        $this->assertTrue($config->hasKey(['level1', 'level2', 'level3', 'level4_key']));
+        $this->assertTrue($config->hasKey('level1\level2', 'level3', 'level4_key'));
+        $this->assertTrue($config->hasKey('level1\level2', ['level3', 'level4_key']));
+        $this->assertTrue($config->hasKey('level1', 'level2/level3', 'level4_key'));
+        $this->assertTrue($config->hasKey('level1', 'level2', 'level3.level4_key'));
+        $this->assertTrue($config->hasKey('level1\level2\level3\level4_key'));
+        $this->assertTrue($config->hasKey('level1/level2/level3/level4_key'));
+        $this->assertTrue($config->hasKey('level1.level2.level3.level4_key'));
+        $this->assertTrue($config->hasKey('level1\level2/level3.level4_key'));
+        $this->assertTrue($config->hasKey(['level1\level2'], ['level3.level4_key']));
+        $this->assertTrue($config->hasKey(['level1\level2/level3.level4_key']));
         $this->assertFalse($config->hasKey('level2'));
         $this->assertFalse($config->hasKey('level1', 'level3'));
         $this->assertFalse($config->hasKey('level1', 'level2', 'level4_key'));
         $this->assertFalse($config->hasKey('level0', 'level1', 'level2', 'level3', 'level4_key'));
+        $this->assertFalse($config->hasKey('level1.level3'));
+        $this->assertFalse($config->hasKey('level1.level2.level4_key'));
+        $this->assertFalse($config->hasKey('level0.level1.level2.level3.level4_key'));
+
+        $config = new Config(ConfigTest::$test_multi_array, null, null, ['@', ':', ';']);
+        $this->assertTrue($config->hasKey('level1'));
+        $this->assertTrue($config->hasKey('level1', 'level2'));
+        $this->assertTrue($config->hasKey('level1', 'level2', 'level3'));
+        $this->assertTrue($config->hasKey('level1', 'level2', 'level3', 'level4_key'));
+        $this->assertTrue($config->hasKey('level1@level2', 'level3', 'level4_key'));
+        $this->assertTrue($config->hasKey('level1', 'level2:level3', 'level4_key'));
+        $this->assertTrue($config->hasKey('level1', 'level2', 'level3;level4_key'));
+        $this->assertTrue($config->hasKey('level1@level2@level3@level4_key'));
+        $this->assertTrue($config->hasKey('level1:level2:level3:level4_key'));
+        $this->assertTrue($config->hasKey('level1;level2;level3;level4_key'));
+        $this->assertTrue($config->hasKey('level1@level2:level3;level4_key'));
     }
 
     /**
@@ -212,6 +239,13 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     {
         $config = new Config(ConfigTest::$test_multi_array);
         $this->assertEquals('level4_value', $config->getKey('level1', 'level2', 'level3', 'level4_key'));
+        $this->assertEquals('level4_value', $config->getKey('level1\level2', 'level3', 'level4_key'));
+        $this->assertEquals('level4_value', $config->getKey('level1', 'level2/level3', 'level4_key'));
+        $this->assertEquals('level4_value', $config->getKey('level1', 'level2', 'level3.level4_key'));
+        $this->assertEquals('level4_value', $config->getKey('level1\level2\level3\level4_key'));
+        $this->assertEquals('level4_value', $config->getKey('level1/level2/level3/level4_key'));
+        $this->assertEquals('level4_value', $config->getKey('level1.level2.level3.level4_key'));
+        $this->assertEquals('level4_value', $config->getKey('level1\level2/level3.level4_key'));
         $this->setExpectedException('OutOfRangeException',
             'The configuration key level1->level2->level4_key does not exist.');
         $config->getKey('level1', 'level2', 'level4_key');
