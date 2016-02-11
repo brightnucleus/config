@@ -11,6 +11,7 @@
 
 namespace BrightNucleus\Config;
 
+use Exception;
 use ArrayObject;
 use OutOfRangeException;
 use BadMethodCallException;
@@ -66,19 +67,22 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      *
      * @param string ... List of keys.
      * @return bool
-     * @throws BadMethodCallException If no argument was provided.
      */
     public function hasKey()
     {
-        $keys = array_reverse($this->getKeyArguments(func_get_args()));
+        try {
+            $keys = array_reverse($this->getKeyArguments(func_get_args()));
 
-        $array = $this->getArrayCopy();
-        while (count($keys) > 0) {
-            $key = array_pop($keys);
-            if ( ! array_key_exists($key, $array)) {
-                return false;
+            $array = $this->getArrayCopy();
+            while (count($keys) > 0) {
+                $key = array_pop($keys);
+                if ( ! array_key_exists($key, $array)) {
+                    return false;
+                }
+                $array = $array[$key];
             }
-            $array = $array[$key];
+        } catch (Exception $exception) {
+            return false;
         }
 
         return true;

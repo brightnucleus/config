@@ -164,11 +164,13 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \BrightNucleus\Config\AbstractConfig::__construct
      * @covers \BrightNucleus\Config\AbstractConfig::hasKey
      */
     public function testHasKeyWithMultipleLevels()
     {
         $config = new Config(ConfigTest::$test_multi_array);
+        $this->assertFalse($config->hasKey());
         $this->assertTrue($config->hasKey('level1'));
         $this->assertTrue($config->hasKey('level1', 'level2'));
         $this->assertTrue($config->hasKey('level1', 'level2', 'level3'));
@@ -218,6 +220,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \BrightNucleus\Config\AbstractConfig::getKey
+     * @covers \BrightNucleus\Config\AbstractConfig::getKeyArguments
      */
     public function testGetKey()
     {
@@ -227,9 +230,28 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(-256, $config->getKey('negative_integer'));
         $this->assertTrue($config->getKey('positive_boolean'));
         $this->assertFalse($config->getKey('negative_boolean'));
+    }
+
+    /**
+     * @covers \BrightNucleus\Config\AbstractConfig::getKeyArguments
+     */
+    public function testGetKeyThrowsExceptionOnWrongKey()
+    {
+        $config = new Config(ConfigTest::$test_array);
         $this->setExpectedException('OutOfRangeException',
             'The configuration key some_other_key does not exist.');
         $config->getKey('some_other_key');
+    }
+
+    /**
+     * @covers \BrightNucleus\Config\AbstractConfig::getKeyArguments
+     */
+    public function testGetKeyThrowsExceptionOnNoKey()
+    {
+        $config = new Config(ConfigTest::$test_array);
+        $this->setExpectedException('BadMethodCallException',
+            'No configuration key was provided.');
+        $config->getKey();
     }
 
     /**
