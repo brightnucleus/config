@@ -234,6 +234,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \BrightNucleus\Config\AbstractConfig::getKey
+     * @covers \BrightNucleus\Config\AbstractConfig::getKeyArguments
+     * @covers \BrightNucleus\Config\AbstractConfig::parseKeysString
      */
     public function testGetKeyWithMultipleLevels()
     {
