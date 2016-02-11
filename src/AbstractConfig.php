@@ -73,6 +73,18 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
     }
 
     /**
+     * Get a (multi-dimensional) array of all the configuration settings.
+     *
+     * @since 0.1.4
+     *
+     * @return array
+     */
+    public function getAll()
+    {
+        return (array)$this;
+    }
+
+    /**
      * Get the an array with all the keys
      *
      * @since 0.1.0

@@ -180,6 +180,15 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers BrightNucleus\Config\AbstractConfig::getAll
+     */
+    public function testGetAll()
+    {
+        $config = new Config(ConfigTest::$test_array);
+        $this->assertEquals(ConfigTest::$test_array, $config->getAll());
+    }
+
+    /**
      * @covers BrightNucleus\Config\Config::__construct
      * @covers BrightNucleus\Config\Config::fetchArrayData
      * @covers BrightNucleus\Config\Config::resolveOptions

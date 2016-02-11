@@ -62,6 +62,21 @@ class ConfigTraitTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \BrightNucleus\Config\ConfigTrait::getConfigArray
+     */
+    public function testGetArray()
+    {
+        $this->processConfig(new Config([
+            'testkey1' => 'testvalue1',
+            'testkey2' => 'testvalue2',
+        ]));
+        $this->assertEquals(
+            ['testkey1' => 'testvalue1', 'testkey2' => 'testvalue2'],
+            $this->getConfigArray()
+        );
+    }
+
+    /**
      * @covers \BrightNucleus\Config\ConfigTrait::getConfigKeys
      */
     public function testGetKeys()

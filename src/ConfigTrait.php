@@ -64,7 +64,19 @@ trait ConfigTrait
     }
 
     /**
-     * Get an array o all the keys that are known by the Config.
+     * Get a (multi-dimensional) array of all the configuration settings.
+     *
+     * @since 0.1.4
+     *
+     * @return array All the configuration settings.
+     */
+    protected function getConfigArray()
+    {
+        return $this->config->getAll();
+    }
+
+    /**
+     * Get an array of all the keys that are known by the Config.
      *
      * @since 0.1.2
      *

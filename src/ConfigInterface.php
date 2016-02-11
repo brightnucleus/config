@@ -63,6 +63,15 @@ interface ConfigInterface extends IteratorAggregate, ArrayAccess, Serializable, 
     public function getKey($key);
 
     /**
+     * Get a (multi-dimensional) array of all the configuration settings.
+     *
+     * @since 0.1.4
+     *
+     * @return array
+     */
+    public function getAll();
+
+    /**
      * Get the an array with all the keys
      *
      * @since 0.1.0
