@@ -40,27 +40,37 @@ trait ConfigTrait
     /**
      * Check whether the Config has a specific key.
      *
-     * @since 0.1.2
+     * To get a value several levels deep, add the keys for each level as a comma-separated list.
      *
-     * @param string $key The key to check.
+     * @since 0.1.2
+     * @since 0.1.5 Accepts list of keys.
+     *
+     * @param string ... List of keys.
      * @return bool Whether the key is known.
      */
-    protected function hasConfigKey($key)
+    protected function hasConfigKey()
     {
-        return $this->config->hasKey($key);
+        $keys = func_get_args();
+
+        return call_user_func_array([$this->config, 'hasKey'], $keys);
     }
 
     /**
      * Get the Config value for a specific key.
      *
-     * @since 0.1.2
+     * To get a value several levels deep, add the keys for each level as a comma-separated list.
      *
-     * @param string $key The key for which to get the value.
+     * @since 0.1.2
+     * @since 0.1.5 Accepts list of keys.
+     *
+     * @param string ... List of keys.
      * @return mixed Value of the key.
      */
-    protected function getConfigKey($key)
+    protected function getConfigKey()
     {
-        return $this->config->getKey($key);
+        $keys = func_get_args();
+
+        return call_user_func_array([$this->config, 'getKey'], $keys);
     }
 
     /**

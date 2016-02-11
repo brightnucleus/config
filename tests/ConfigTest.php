@@ -52,8 +52,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     /**
      * Test creation and value retrieval.
      *
-     * @covers BrightNucleus\Config\AbstractConfig::__construct
-     * @covers BrightNucleus\Config\Config::__construct
+     * @covers \BrightNucleus\Config\AbstractConfig::__construct
+     * @covers \BrightNucleus\Config\Config::__construct
      *
      * @since  1.0.0
      */
@@ -123,8 +123,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers BrightNucleus\Config\Config::__construct
-     * @covers BrightNucleus\Config\Config::isValid
+     * @covers \BrightNucleus\Config\Config::__construct
+     * @covers \BrightNucleus\Config\Config::isValid
      */
     public function testValidation()
     {
@@ -150,7 +150,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers BrightNucleus\Config\AbstractConfig::hasKey
+     * @covers \BrightNucleus\Config\AbstractConfig::hasKey
      */
     public function testHasKey()
     {
@@ -164,7 +164,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers BrightNucleus\Config\AbstractConfig::hasKey
+     * @covers \BrightNucleus\Config\AbstractConfig::hasKey
      */
     public function testHasKeyWithMultipleLevels()
     {
@@ -180,7 +180,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers BrightNucleus\Config\AbstractConfig::getKeys
+     * @covers \BrightNucleus\Config\AbstractConfig::getKeys
      */
     public function testGetKeys()
     {
@@ -190,7 +190,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers BrightNucleus\Config\AbstractConfig::getKey
+     * @covers \BrightNucleus\Config\AbstractConfig::getKey
      */
     public function testGetKey()
     {
@@ -206,7 +206,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers BrightNucleus\Config\AbstractConfig::getKey
+     * @covers \BrightNucleus\Config\AbstractConfig::getKey
      */
     public function testGetKeyWithMultipleLevels()
     {
@@ -218,7 +218,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers BrightNucleus\Config\AbstractConfig::getAll
+     * @covers \BrightNucleus\Config\AbstractConfig::getAll
      */
     public function testGetAll()
     {
@@ -227,10 +227,10 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers BrightNucleus\Config\Config::__construct
-     * @covers BrightNucleus\Config\Config::fetchArrayData
-     * @covers BrightNucleus\Config\Config::resolveOptions
-     * @covers BrightNucleus\Config\Config::configureOptions
+     * @covers \BrightNucleus\Config\Config::__construct
+     * @covers \BrightNucleus\Config\Config::fetchArrayData
+     * @covers \BrightNucleus\Config\Config::resolveOptions
+     * @covers \BrightNucleus\Config\Config::configureOptions
      */
     public function testConfigFileWithoutDefaults()
     {
@@ -252,10 +252,10 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers BrightNucleus\Config\Config::__construct
-     * @covers BrightNucleus\Config\Config::fetchArrayData
-     * @covers BrightNucleus\Config\Config::resolveOptions
-     * @covers BrightNucleus\Config\Config::configureOptions
+     * @covers \BrightNucleus\Config\Config::__construct
+     * @covers \BrightNucleus\Config\Config::fetchArrayData
+     * @covers \BrightNucleus\Config\Config::resolveOptions
+     * @covers \BrightNucleus\Config\Config::configureOptions
      */
     public function testConfigFileWithMissingKeys()
     {
@@ -268,10 +268,10 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers BrightNucleus\Config\Config::__construct
-     * @covers BrightNucleus\Config\Config::fetchArrayData
-     * @covers BrightNucleus\Config\Config::resolveOptions
-     * @covers BrightNucleus\Config\Config::configureOptions
+     * @covers \BrightNucleus\Config\Config::__construct
+     * @covers \BrightNucleus\Config\Config::fetchArrayData
+     * @covers \BrightNucleus\Config\Config::resolveOptions
+     * @covers \BrightNucleus\Config\Config::configureOptions
      */
     public function testConfigFileWithDefaults()
     {

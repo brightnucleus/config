@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.1.5] - 2016-02-11
+### Added
+- `ConfigTrait::hasConfigKey()` and `ConfigTrait::getConfigKey()` now support a list of strings to fetch a value from several levels deep.
+- Tests for the above.
+
 ## [0.1.4] - 2016-02-11
 ### Added
 - `AbstractConfig:getAll()` and `ConfigTrait::getConfigArray()`.
@@ -36,6 +41,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Initial release to GitHub.
 
+[0.1.5]: https://github.com/brightnucleus/config/compare/v0.1.4...v0.1.5
 [0.1.4]: https://github.com/brightnucleus/config/compare/v0.1.3...v0.1.4
 [0.1.3]: https://github.com/brightnucleus/config/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/brightnucleus/config/compare/v0.1.1...v0.1.2

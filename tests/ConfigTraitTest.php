@@ -35,7 +35,7 @@ class ConfigTraitTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \BrightNucleus\Config\ConfigTrait::hasConfigKey
      */
-    public function testHasKey()
+    public function testHasConfigKey()
     {
         $this->processConfig(new Config([
             'testkey1' => 'testvalue1',
@@ -47,9 +47,27 @@ class ConfigTraitTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \BrightNucleus\Config\ConfigTrait::hasConfigKey
+     */
+    public function testHasConfigKeyWithMultipleLevels()
+    {
+        $this->processConfig(new Config([
+            'level1' => ['level2' => ['level3' => ['level4_key' => 'level4_value'],],],
+        ]));
+        $this->assertTrue($this->hasConfigKey('level1'));
+        $this->assertTrue($this->hasConfigKey('level1', 'level2'));
+        $this->assertTrue($this->hasConfigKey('level1', 'level2', 'level3'));
+        $this->assertTrue($this->hasConfigKey('level1', 'level2', 'level3', 'level4_key'));
+        $this->assertFalse($this->hasConfigKey('level1', 'level2', 'level4_key'));
+        $this->assertFalse($this->hasConfigKey('level1', 'level3'));
+        $this->assertFalse($this->hasConfigKey('level2'));
+        $this->assertFalse($this->hasConfigKey('some_other_key'));
+    }
+
+    /**
      * @covers \BrightNucleus\Config\ConfigTrait::getConfigKey
      */
-    public function testGetKey()
+    public function testGetConfigKey()
     {
         $this->processConfig(new Config([
             'testkey1' => 'testvalue1',
@@ -62,9 +80,23 @@ class ConfigTraitTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \BrightNucleus\Config\ConfigTrait::getConfigKey
+     */
+    public function testGetConfigKeyWithMultipleLevels()
+    {
+        $this->processConfig(new Config([
+            'level1' => ['level2' => ['level3' => ['level4_key' => 'level4_value'],],],
+        ]));
+        $this->assertEquals('level4_value', $this->getConfigKey('level1', 'level2', 'level3', 'level4_key'));
+        $this->setExpectedException('OutOfRangeException',
+            'The configuration key level1->level2->level4_key does not exist.');
+        $this->getConfigKey('level1', 'level2', 'level4_key');
+    }
+
+    /**
      * @covers \BrightNucleus\Config\ConfigTrait::getConfigArray
      */
-    public function testGetArray()
+    public function testGetConfigArray()
     {
         $this->processConfig(new Config([
             'testkey1' => 'testvalue1',
@@ -79,7 +111,7 @@ class ConfigTraitTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \BrightNucleus\Config\ConfigTrait::getConfigKeys
      */
-    public function testGetKeys()
+    public function testGetConfigKeys()
     {
         $this->processConfig(new Config([
             'testkey1' => 'testvalue1',
