@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.1.7] - 2016-02-11
+### Fixed
+- The `hasKey()` method doesn't throw an exception, returns `false` instead.
+
 ## [0.1.6] - 2016-02-11
 ### Added
 - The `has*` & `get*` methods now support keys with delimiters. The delimiters are set via the Config constructor.
@@ -46,6 +50,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Initial release to GitHub.
 
+[0.1.7]: https://github.com/brightnucleus/config/compare/v0.1.6...v0.1.7
 [0.1.6]: https://github.com/brightnucleus/config/compare/v0.1.5...v0.1.6
 [0.1.5]: https://github.com/brightnucleus/config/compare/v0.1.4...v0.1.5
 [0.1.4]: https://github.com/brightnucleus/config/compare/v0.1.3...v0.1.4
