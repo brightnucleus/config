@@ -145,7 +145,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
                         ->willReturn(false);
         $this->setExpectedException('UnexpectedValueException',
             'ConfigInterface file is not valid');
-        $invalid_config = new Config(ConfigTest::$test_array, null,
+        new Config(ConfigTest::$test_array, null,
             $false_validator);
     }
 
