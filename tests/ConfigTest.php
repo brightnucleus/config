@@ -240,6 +240,9 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     public function testGetKeyWithMultipleLevels()
     {
         $config = new Config(ConfigTest::$test_multi_array);
+        $this->assertEquals(['level2' => ['level3' => ['level4_key' => 'level4_value']]], $config->getKey('level1'));
+        $this->assertEquals(['level3' => ['level4_key' => 'level4_value']], $config->getKey('level1', 'level2'));
+        $this->assertEquals(['level4_key' => 'level4_value'], $config->getKey('level1', 'level2', 'level3'));
         $this->assertEquals('level4_value', $config->getKey('level1', 'level2', 'level3', 'level4_key'));
         $this->assertEquals('level4_value', $config->getKey('level1\level2', 'level3', 'level4_key'));
         $this->assertEquals('level4_value', $config->getKey('level1', 'level2/level3', 'level4_key'));
