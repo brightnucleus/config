@@ -43,33 +43,64 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
     /**
      * Check whether the Config has a specific key.
      *
-     * @since 0.1.0
+     * To check a value several levels deep, add the keys for each level as a comma-separated list.
      *
-     * @param string $key The key to check the existence for.
+     * @since 0.1.0
+     * @since 0.1.4 Accepts list of keys.
+     *
+     * @param string ... List of keys.
      * @return bool
      */
-    public function hasKey($key)
+    public function hasKey()
     {
-        return array_key_exists($key, (array)$this);
+        $keys = array_reverse(func_get_args());
+
+        $array = $this->getArrayCopy();
+        while (count($keys) > 0) {
+            $key = array_pop($keys);
+            if ( ! array_key_exists($key, $array)) {
+                return false;
+            }
+            $array = $array[$key];
+        }
+
+        return true;
     }
 
     /**
      * Get the value of a specific key.
      *
-     * @since 0.1.0
+     * To get a value several levels deep, add the keys for each level as a comma-separated list.
      *
-     * @param string $key The key to get the value for.
+     * @since 0.1.0
+     * @since 0.1.4 Accepts list of keys.
+     *
+     * @param string ... List of keys.
      * @return mixed
+     * @throws BadMethodCallException If no argument was provided.
      * @throws OutOfRangeException If an unknown key is requested.
      */
-    public function getKey($key)
+    public function getKey()
     {
-        if ( ! $this->hasKey($key)) {
-            throw new OutOfRangeException(sprintf(_('The configuration key %1$s does not exist.'),
-                (string)$key));
+        if (func_num_args() < 1) {
+            throw new BadMethodCallException(_('No configuration was provided to getKey().'));
         }
 
-        return $this[$key];
+        $keys = func_get_args();
+
+        if ( ! call_user_func_array([$this, 'hasKey'], $keys)) {
+            throw new OutOfRangeException(sprintf(_('The configuration key %1$s does not exist.'),
+                implode('->', $keys)));
+        }
+
+        $keys  = array_reverse($keys);
+        $array = $this->getArrayCopy();
+        while (count($keys) > 0) {
+            $key   = array_pop($keys);
+            $array = $array[$key];
+        }
+
+        return $array;
     }
 
     /**
@@ -81,7 +112,7 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      */
     public function getAll()
     {
-        return (array)$this;
+        return $this->getArrayCopy();
     }
 
     /**

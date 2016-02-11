@@ -4,7 +4,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [0.1.4] - 2016-02-11
 ### Added
-- getAll() and getConfigArray() with corresponding unit tests.
+- `AbstractConfig:getAll()` and `ConfigTrait::getConfigArray()`.
+- `hasKey()` and `getKey()` now support a list of strings to fetch a value from several levels deep.
+- Tests for the above.
+
+### Fixed
+- PHP requirement for unit tests was lowered from 5.6 to 5.4.
 
 ## [0.1.3] - 2016-02-10
 ### Added

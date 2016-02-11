@@ -43,24 +43,29 @@ interface ConfigInterface extends IteratorAggregate, ArrayAccess, Serializable, 
     /**
      * Check whether the Config has a specific key.
      *
+     * To check a value several levels deep, add the keys for each level as a comma-separated list.
+     *
      * @since 0.1.0
+     * @since 0.1.4 Accepts list of keys.
      *
-     * @param string $key The key to check the existence for.
-     *
+     * @param string ... List of keys.
      * @return bool
      */
-    public function hasKey($key);
+    public function hasKey();
 
     /**
      * Get the value of a specific key.
      *
-     * @since 0.1.0
+     * To get a value several levels deep, add the keys for each level as a comma-separated list.
      *
-     * @param string $key The key to get the value for.
+     * @since 0.1.0
+     * @since 0.1.4 Accepts list of keys.
+     *
+     * @param string ... List of keys.
      *
      * @return mixed
      */
-    public function getKey($key);
+    public function getKey();
 
     /**
      * Get a (multi-dimensional) array of all the configuration settings.

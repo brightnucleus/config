@@ -39,6 +39,16 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         'negative_boolean' => false,
     ];
 
+    protected static $test_multi_array = [
+        'level1' => [
+            'level2' => [
+                'level3' => [
+                    'level4_key' => 'level4_value',
+                ],
+            ],
+        ],
+    ];
+
     /**
      * Test creation and value retrieval.
      *
@@ -154,6 +164,22 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers BrightNucleus\Config\AbstractConfig::hasKey
+     */
+    public function testHasKeyWithMultipleLevels()
+    {
+        $config = new Config(ConfigTest::$test_multi_array);
+        $this->assertTrue($config->hasKey('level1'));
+        $this->assertTrue($config->hasKey('level1', 'level2'));
+        $this->assertTrue($config->hasKey('level1', 'level2', 'level3'));
+        $this->assertTrue($config->hasKey('level1', 'level2', 'level3', 'level4_key'));
+        $this->assertFalse($config->hasKey('level2'));
+        $this->assertFalse($config->hasKey('level1', 'level3'));
+        $this->assertFalse($config->hasKey('level1', 'level2', 'level4_key'));
+        $this->assertFalse($config->hasKey('level0', 'level1', 'level2', 'level3', 'level4_key'));
+    }
+
+    /**
      * @covers BrightNucleus\Config\AbstractConfig::getKeys
      */
     public function testGetKeys()
@@ -176,7 +202,19 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($config->getKey('negative_boolean'));
         $this->setExpectedException('OutOfRangeException',
             'The configuration key some_other_key does not exist.');
-        $this->assertFalse($config->getKey('some_other_key'));
+        $config->getKey('some_other_key');
+    }
+
+    /**
+     * @covers BrightNucleus\Config\AbstractConfig::getKey
+     */
+    public function testGetKeyWithMultipleLevels()
+    {
+        $config = new Config(ConfigTest::$test_multi_array);
+        $this->assertEquals('level4_value', $config->getKey('level1', 'level2', 'level3', 'level4_key'));
+        $this->setExpectedException('OutOfRangeException',
+            'The configuration key level1->level2->level4_key does not exist.');
+        $config->getKey('level1', 'level2', 'level4_key');
     }
 
     /**
