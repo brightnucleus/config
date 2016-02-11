@@ -11,6 +11,8 @@
 
 namespace BrightNucleus\Config;
 
+use Exception;
+use RuntimeException;
 use BrightNucleus\Config\ConfigInterface;
 
 trait ConfigTrait
@@ -31,9 +33,23 @@ trait ConfigTrait
      * @since 0.1.2
      *
      * @param ConfigInterface $config The Config to process.
+     * @param                 string  ... List of keys.
+     * @throws RuntimeException If the arguments could not be parsed into a Config.
      */
     protected function processConfig(ConfigInterface $config)
     {
+        if (func_num_args() > 1) {
+            try {
+                $keys = func_get_args();
+                array_shift($keys);
+                $config = new Config($config->getKey($keys));
+            } catch (Exception $exception) {
+                throw new RuntimeException(sprintf(
+                    _('Could not process the config with the arguments "%1$s".'),
+                    print_r(func_get_args(), true)
+                ));
+            }
+        }
         $this->config = $config;
     }
 
@@ -52,7 +68,7 @@ trait ConfigTrait
     {
         $keys = func_get_args();
 
-        return call_user_func_array([$this->config, 'hasKey'], $keys);
+        return $this->config->hasKey($keys);
     }
 
     /**
@@ -70,7 +86,7 @@ trait ConfigTrait
     {
         $keys = func_get_args();
 
-        return call_user_func_array([$this->config, 'getKey'], $keys);
+        return $this->config->getKey($keys);
     }
 
     /**

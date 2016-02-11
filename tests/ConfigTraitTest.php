@@ -133,4 +133,35 @@ class ConfigTraitTest extends \PHPUnit_Framework_TestCase
         ]));
         $this->assertEquals(['testkey1', 'testkey2'], $this->getConfigKeys());
     }
+
+    /**
+     * @covers \BrightNucleus\Config\ConfigTrait::processConfig
+     */
+    public function testProcessConfigAllowsPreKeying()
+    {
+        $this->processConfig(new Config([
+            'vendor' => [
+                'package' => [
+                    'testkey1' => 'testvalue1',
+                    'testkey2' => 'testvalue2',
+                ],
+            ],
+        ]), 'vendor\package');
+        $this->assertEquals(
+            ['testkey1' => 'testvalue1', 'testkey2' => 'testvalue2'],
+            $this->getConfigArray()
+        );
+    }
+
+    /**
+     * @covers \BrightNucleus\Config\ConfigTrait::processConfig
+     */
+    public function testProcessConfigThrowsException()
+    {
+        $this->setExpectedException('RuntimeException', 'Could not process the config with the arguments');
+        $this->processConfig(new Config([
+            'testkey1' => 'testvalue1',
+            'testkey2' => 'testvalue2',
+        ]), 'vendor\package');
+    }
 }

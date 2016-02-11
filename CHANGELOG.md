@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.1.8] - 2016-02-11
+### Added
+- The `ConfigTrait::processConfig()` method now accepts one or more additional parameters (can be delimited strings) to start with a Config at a specific level. Useful to include different `vendor\package` levels in a single merged Config file.
+
 ## [0.1.7] - 2016-02-11
 ### Fixed
 - The `hasKey()` method doesn't throw an exception, returns `false` instead.
@@ -50,6 +54,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Initial release to GitHub.
 
+[0.1.8]: https://github.com/brightnucleus/config/compare/v0.1.7...v0.1.8
 [0.1.7]: https://github.com/brightnucleus/config/compare/v0.1.6...v0.1.7
 [0.1.6]: https://github.com/brightnucleus/config/compare/v0.1.5...v0.1.6
 [0.1.5]: https://github.com/brightnucleus/config/compare/v0.1.4...v0.1.5
