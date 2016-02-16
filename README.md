@@ -29,4 +29,9 @@ See [link to post coming soon] for more details.
 
 ## Contributing
 
-All feedback / bug report / pull request is welcome.
+All feedback / bug reports / pull requests are welcome.
+
+Please use the provided `pre-commit` hook. To install it, run the following command from the project's root:
+```BASH
+ln -s ../../.pre-commit .git/hooks/pre-commit
+```
