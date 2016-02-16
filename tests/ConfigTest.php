@@ -30,7 +30,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      * Don't use an array const to avoid bumping PHP requirement to 5.6.
      */
     protected static $test_array = [
-        'random_string'    => 'test_value',
+        'random_string' => 'test_value',
         'positive_integer' => 42,
         'negative_integer' => -256,
         'positive_boolean' => true,
@@ -106,12 +106,12 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             // $exception, $message, $config, $defaults, $validator
             ['InvalidArgumentException', 'Invalid configuration source', null],
             [
-                'RuntimeException',
+                'BrightNucleus\Exception\RuntimeException',
                 'File "/folder/missing_file.php" was expected to exist.',
                 '/folder/missing_file.php',
             ],
             [
-                'RuntimeException',
+                'BrightNucleus\Exception\RuntimeException',
                 'is not an array.',
                 __DIR__ . '/fixtures/dummy_file.txt',
             ],
@@ -138,7 +138,10 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
                                 ->getMock();
         $false_validator->method('isValid')
                         ->willReturn(false);
-        $this->setExpectedException('UnexpectedValueException', 'ConfigInterface file is not valid');
+        $this->setExpectedException(
+            'BrightNucleus\Exception\UnexpectedValueException',
+            'ConfigInterface file is not valid'
+        );
         new Config(ConfigTest::$test_array, null, $false_validator);
     }
 
@@ -230,7 +233,10 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     public function testGetKeyThrowsExceptionOnWrongKey()
     {
         $config = new Config(ConfigTest::$test_array);
-        $this->setExpectedException('OutOfRangeException', 'The configuration key some_other_key does not exist.');
+        $this->setExpectedException(
+            'BrightNucleus\Exception\OutOfRangeException',
+            'The configuration key some_other_key does not exist.'
+        );
         $config->getKey('some_other_key');
     }
 
@@ -264,7 +270,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('level4_value', $config->getKey('level1.level2.level3.level4_key'));
         $this->assertEquals('level4_value', $config->getKey('level1\level2/level3.level4_key'));
         $this->setExpectedException(
-            'OutOfRangeException',
+            'BrightNucleus\Exception\OutOfRangeException',
             'The configuration key level1->level2->level4_key does not exist.'
         );
         $config->getKey('level1', 'level2', 'level4_key');
@@ -299,7 +305,10 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(-256, $config->getKey('negative_integer'));
         $this->assertTrue($config->getKey('positive_boolean'));
         $this->assertFalse($config->getKey('negative_boolean'));
-        $this->setExpectedException('OutOfRangeException', 'The configuration key some_other_key does not exist.');
+        $this->setExpectedException(
+            'BrightNucleus\Exception\OutOfRangeException',
+            'The configuration key some_other_key does not exist.'
+        );
         $this->assertFalse($config->getKey('some_other_key'));
     }
 
@@ -313,7 +322,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     {
         $schema = new ConfigSchema(new Config(__DIR__ . '/fixtures/schema_config_file.php'));
         $this->setExpectedException(
-            'UnexpectedValueException',
+            'BrightNucleus\Exception\UnexpectedValueException',
             'Error while resolving config options: The required option "negative_integer" is missing.'
         );
         new Config([], $schema);
@@ -339,7 +348,10 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(99, $config->getKey('positive_integer'));
         $this->assertEquals(-333, $config->getKey('negative_integer'));
         $this->assertTrue($config->getKey('positive_boolean'));
-        $this->setExpectedException('OutOfRangeException', 'The configuration key some_other_key does not exist.');
+        $this->setExpectedException(
+            'BrightNucleus\Exception\OutOfRangeException',
+            'The configuration key some_other_key does not exist.'
+        );
         $this->assertFalse($config->getKey('some_other_key'));
     }
 }

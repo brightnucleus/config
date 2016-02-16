@@ -11,13 +11,14 @@
 
 namespace BrightNucleus\Config;
 
+use Assert;
 use BrightNucleus\Config\ConfigSchemaInterface as Schema;
 use BrightNucleus\Config\ConfigValidatorInterface as Validator;
+use BrightNucleus\Exception\InvalidArgumentException;
+use BrightNucleus\Exception\RuntimeException;
+use BrightNucleus\Exception\UnexpectedValueException;
 use Exception;
-use InvalidArgumentException;
-use RuntimeException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use UnexpectedValueException;
 
 /**
  * Class Config
@@ -92,7 +93,7 @@ class Config extends AbstractConfig
         }
 
         // Run the $config through the OptionsResolver.
-        \Assert\that($config)->isArray();
+        Assert\that($config)->isArray();
         $config = $this->resolveOptions($config);
 
         // Instantiate the parent class.
@@ -149,7 +150,7 @@ class Config extends AbstractConfig
     {
         try {
             // Assert that $filename is a readable file.
-            \Assert\that($filename)
+            Assert\that($filename)
                 ->notEmpty()
                 ->file()
                 ->readable();
@@ -161,7 +162,7 @@ class Config extends AbstractConfig
             ob_clean();
 
             // The included should return an array.
-            \Assert\that($config)->isArray();
+            Assert\that($config)->isArray();
         } catch (Exception $exception) {
             throw new RuntimeException(
                 sprintf(

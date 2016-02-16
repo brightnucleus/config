@@ -11,7 +11,7 @@
 
 namespace BrightNucleus\Config;
 
-use InvalidArgumentException;
+use BrightNucleus\Exception\InvalidArgumentException;
 
 /**
  * Class ConfigSchema

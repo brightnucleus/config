@@ -12,9 +12,10 @@
 namespace BrightNucleus\Config;
 
 use ArrayObject;
-use BadMethodCallException;
+use Assert;
+use BrightNucleus\Exception\BadMethodCallException;
+use BrightNucleus\Exception\OutOfRangeException;
 use Exception;
-use OutOfRangeException;
 
 /**
  * Config loader used to load config PHP files as objects.
@@ -72,7 +73,7 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
     public function getKey()
     {
         $keys = $this->getKeyArguments(func_get_args());
-        \Assert\thatAll($keys)->string()->notEmpty();
+        Assert\that($keys)->all()->string()->notEmpty();
 
         if (! $this->hasKey($keys)) {
             throw new OutOfRangeException(
@@ -108,7 +109,7 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
     {
         try {
             $keys = array_reverse($this->getKeyArguments(func_get_args()));
-            \Assert\thatAll($keys)->string()->notEmpty();
+            Assert\thatAll($keys)->string()->notEmpty();
 
             $array = $this->getArrayCopy();
             while (count($keys) > 0) {
@@ -159,7 +160,7 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      */
     protected function getKeyArguments($arguments)
     {
-        \Assert\that($arguments)->isArray()->notEmpty();
+        Assert\that($arguments)->isArray()->notEmpty();
 
         $keys = [];
         foreach ($arguments as $argument) {
@@ -184,7 +185,7 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      */
     protected function parseKeysString($keyString)
     {
-        \Assert\that($keyString)->string()->notEmpty();
+        Assert\that($keyString)->string()->notEmpty();
 
         // Replace all of the configured delimiters by the first one, so that we can then use explode().
         $normalizedString = str_replace($this->delimiter, $this->delimiter[0], $keyString);

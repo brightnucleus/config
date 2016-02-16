@@ -11,8 +11,9 @@
 
 namespace BrightNucleus\Config;
 
+use Assert;
+use BrightNucleus\Exception\RuntimeException;
 use Exception;
-use RuntimeException;
 
 trait ConfigTrait
 {
@@ -41,7 +42,7 @@ trait ConfigTrait
             try {
                 $keys = func_get_args();
                 array_shift($keys);
-                \Assert\thatAll($keys)->string()->notEmpty();
+                Assert\that($keys)->all()->string()->notEmpty();
                 $config = new Config($config->getKey($keys));
             } catch (Exception $exception) {
                 throw new RuntimeException(
@@ -69,7 +70,7 @@ trait ConfigTrait
     protected function hasConfigKey()
     {
         $keys = func_get_args();
-        \Assert\thatAll($keys)->string()->notEmpty();
+        Assert\that($keys)->all()->string()->notEmpty();
 
         return $this->config->hasKey($keys);
     }
@@ -88,7 +89,7 @@ trait ConfigTrait
     protected function getConfigKey()
     {
         $keys = func_get_args();
-        \Assert\thatAll($keys)->string()->notEmpty();
+        Assert\that($keys)->all()->string()->notEmpty();
 
         return $this->config->getKey($keys);
     }
