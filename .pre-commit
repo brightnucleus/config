@@ -1,0 +1,107 @@
+#!/bin/bash
+
+# PHP to use.
+php=`which php`
+
+# PHPUnit to use.
+phpunit='vendor/bin/phpunit'
+
+# Any extra arguments to phpunit should go here.
+phpunit_args=''
+
+# Get name of the project (probably topmost directory name).
+projectname="${PWD##*/}"
+
+# The code standard to use.
+codestandard='PSR2'
+
+echo
+echo -e "  + Starting unit tests for \033[1;33m${projectname}\033[1;0m..."
+
+# execute unit tests. (Assume that phpunit.xml is in root of project).
+output=`${phpunit} ${phpunit_args}`
+returnCode=$?
+
+# if unit tests fail, output a summary and exit with failure code.
+if [ $returnCode -ne 0 ]; then
+
+    # find the line with the summary.
+    while read -r line; do
+      if [[ $line =~ Failures: ]] ; then
+        summary=$line
+        break
+      fi
+    done <<< "$output"
+
+    # output the status.
+    echo -e "  + Test suite \033[1;31mfailed\033[1;0m: "
+    echo
+    echo -e "$summary"
+    echo
+
+    # abort the commit.
+    echo -e "  + \033[1;31mABORTING COMMIT\033[1;0m"
+    echo
+    exit $returnCode
+else
+  echo -e "  + All tests \033[1;32mpassed\033[1;0m"
+  echo
+fi
+
+# create empty errors array
+declare -a errors
+
+# Check if we're on a semi-secret empty tree
+if git rev-parse --verify HEAD
+then
+	against=HEAD
+else
+	# Initial commit: diff against an empty tree object
+	against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
+fi
+
+# fetch all changed php files and validate them
+files=$(git diff-index --name-only --diff-filter=ACMR $against | grep '\.php$')
+if [ -n "$files" ]; then
+
+	for file in $files; do
+
+		echo
+		echo -e "  + Checking the PHP files of \033[1;33m${projectname}\033[1;0m for syntax errors..."
+
+		# first check if they are valid php files
+		output=`$php -l $file | grep 'Errors parsing'`
+
+		# if it did contain errors, we have output
+		if [ -n "$output" ]; then
+			echo -e "\033[1;31m$file contains php syntax errors\033[1;0m"
+			echo
+			errors=("${errors[@]}" "$output")
+		fi
+
+		echo
+		echo -e "  + Validating the PHP files of \033[1;33m${projectname}\033[1;0m for adherence to code standards..."
+
+		# checks if the phpcs output contains '| ERROR |'
+		output=`vendor/bin/phpcs --standard=$codestandard --extensions=php --encoding=utf8 --report=full $file | grep '| ERROR |'`
+
+		# if it did contain errors, we have output
+		if [ -n "$output" ]; then
+			echo -e "\033[1;31m$file fails coding standards\033[1;0m"
+			echo
+			phpcs --standard=PSR2 --extensions=php --encoding=utf8 --report=full $file
+			errors=("${errors[@]}" "$output")
+		fi
+	done
+fi
+
+# if we have errors, exit with 1
+if [ -n "$errors" ]; then
+    echo -e "  + \033[1;31mABORTING COMMIT\033[1;0m"
+    echo
+    exit 1
+fi
+
+echo -e '  + \033[1;32mNo errors found!\033[1;0m'
+echo
+exit 0
