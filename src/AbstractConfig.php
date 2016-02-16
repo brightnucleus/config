@@ -184,6 +184,8 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      */
     protected function parseKeysString($keyString)
     {
+        \Assert\that($keyString)->string()->notEmpty();
+
         // Replace all of the configured delimiters by the first one, so that we can then use explode().
         $normalizedString = str_replace($this->delimiter, $this->delimiter[0], $keyString);
 
