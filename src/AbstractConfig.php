@@ -72,6 +72,7 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
     public function getKey()
     {
         $keys = $this->getKeyArguments(func_get_args());
+        \Assert\thatAll($keys)->string()->notEmpty();
 
         if (! $this->hasKey($keys)) {
             throw new OutOfRangeException(
