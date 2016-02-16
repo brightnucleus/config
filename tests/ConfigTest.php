@@ -59,10 +59,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     {
         $config = new Config(ConfigTest::$test_array);
 
-        $this->assertInstanceOf('\BrightNucleus\Config\ConfigInterface',
-            $config);
-        $this->assertInstanceOf('\BrightNucleus\Config\AbstractConfig',
-            $config);
+        $this->assertInstanceOf('\BrightNucleus\Config\ConfigInterface', $config);
+        $this->assertInstanceOf('\BrightNucleus\Config\AbstractConfig', $config);
         $this->assertInstanceOf('\BrightNucleus\Config\Config', $config);
     }
 
@@ -133,18 +131,15 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
                                ->getMock();
         $true_validator->method('isValid')
                        ->willReturn(true);
-        $valid_config = new Config(ConfigTest::$test_array, null,
-            $true_validator);
+        $valid_config = new Config(ConfigTest::$test_array, null, $true_validator);
         $this->assertTrue($valid_config->isValid());
 
         $false_validator = $this->getMockBuilder('\BrightNucleus\Config\ConfigValidatorInterface')
                                 ->getMock();
         $false_validator->method('isValid')
                         ->willReturn(false);
-        $this->setExpectedException('UnexpectedValueException',
-            'ConfigInterface file is not valid');
-        new Config(ConfigTest::$test_array, null,
-            $false_validator);
+        $this->setExpectedException('UnexpectedValueException', 'ConfigInterface file is not valid');
+        new Config(ConfigTest::$test_array, null, $false_validator);
     }
 
     /**
@@ -212,8 +207,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     public function testGetKeys()
     {
         $config = new Config(ConfigTest::$test_array);
-        $this->assertEquals(array_keys(ConfigTest::$test_array),
-            $config->getKeys());
+        $this->assertEquals(array_keys(ConfigTest::$test_array), $config->getKeys());
     }
 
     /**
@@ -236,8 +230,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     public function testGetKeyThrowsExceptionOnWrongKey()
     {
         $config = new Config(ConfigTest::$test_array);
-        $this->setExpectedException('OutOfRangeException',
-            'The configuration key some_other_key does not exist.');
+        $this->setExpectedException('OutOfRangeException', 'The configuration key some_other_key does not exist.');
         $config->getKey('some_other_key');
     }
 
@@ -247,8 +240,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     public function testGetKeyThrowsExceptionOnNoKey()
     {
         $config = new Config(ConfigTest::$test_array);
-        $this->setExpectedException('BadMethodCallException',
-            'No configuration key was provided.');
+        $this->setExpectedException('Assert\InvalidArgumentException', 'is empty, but non empty value was expected.');
         $config->getKey();
     }
 
@@ -271,8 +263,10 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('level4_value', $config->getKey('level1/level2/level3/level4_key'));
         $this->assertEquals('level4_value', $config->getKey('level1.level2.level3.level4_key'));
         $this->assertEquals('level4_value', $config->getKey('level1\level2/level3.level4_key'));
-        $this->setExpectedException('OutOfRangeException',
-            'The configuration key level1->level2->level4_key does not exist.');
+        $this->setExpectedException(
+            'OutOfRangeException',
+            'The configuration key level1->level2->level4_key does not exist.'
+        );
         $config->getKey('level1', 'level2', 'level4_key');
     }
 
@@ -305,8 +299,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(-256, $config->getKey('negative_integer'));
         $this->assertTrue($config->getKey('positive_boolean'));
         $this->assertFalse($config->getKey('negative_boolean'));
-        $this->setExpectedException('OutOfRangeException',
-            'The configuration key some_other_key does not exist.');
+        $this->setExpectedException('OutOfRangeException', 'The configuration key some_other_key does not exist.');
         $this->assertFalse($config->getKey('some_other_key'));
     }
 
@@ -342,13 +335,11 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($config->hasKey('positive_boolean'));
         $this->assertFalse($config->hasKey('negative_boolean'));
         $this->assertFalse($config->hasKey('some_other_key'));
-        $this->assertEquals('default_test_value',
-            $config->getKey('random_string'));
+        $this->assertEquals('default_test_value', $config->getKey('random_string'));
         $this->assertEquals(99, $config->getKey('positive_integer'));
         $this->assertEquals(-333, $config->getKey('negative_integer'));
         $this->assertTrue($config->getKey('positive_boolean'));
-        $this->setExpectedException('OutOfRangeException',
-            'The configuration key some_other_key does not exist.');
+        $this->setExpectedException('OutOfRangeException', 'The configuration key some_other_key does not exist.');
         $this->assertFalse($config->getKey('some_other_key'));
     }
 }

@@ -154,9 +154,7 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      */
     protected function getKeyArguments($arguments)
     {
-        if (count($arguments) < 1) {
-            throw new BadMethodCallException(_('No configuration key was provided.'));
-        }
+        \Assert\that( $arguments )->isArray()->notEmpty();
 
         $keys = [];
         foreach ($arguments as $argument) {
