@@ -108,6 +108,7 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
     {
         try {
             $keys = array_reverse($this->getKeyArguments(func_get_args()));
+            \Assert\thatAll($keys)->string()->notEmpty();
 
             $array = $this->getArrayCopy();
             while (count($keys) > 0) {
