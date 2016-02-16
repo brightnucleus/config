@@ -111,12 +111,12 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             ['InvalidArgumentException', 'Invalid configuration source', null],
             [
                 'RuntimeException',
-                'Non-existing configuration source',
+                'File "/folder/missing_file.php" was expected to exist.',
                 '/folder/missing_file.php',
             ],
             [
                 'RuntimeException',
-                'File inclusion did not return an array.',
+                'is not an array.',
                 __DIR__ . '/fixtures/dummy_file.txt',
             ],
         ];

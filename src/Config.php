@@ -117,46 +117,38 @@ class Config extends AbstractConfig
      *
      * @since 0.1.0
      *
-     * @param  string $config           Filename for the settings file.
+     * @param  string $filename         Filename for the settings file.
      * @return array                    Array with configuration settings.
      * @throws RuntimeException         If the config source is a non-existing
      *                                  file.
      * @throws RuntimeException         If loading of the config source failed.
      */
-    protected function fetchArrayData($config)
+    protected function fetchArrayData($filename)
     {
-        if (is_string($config) && ! ('' === $config)) {
-
-            // $config is a valid string, make sure it is an existing file.
-            if ( ! file_exists($config)) {
-                throw new RuntimeException(sprintf(
-                    _('Non-existing configuration source: %1$s'),
-                    (string)$config
-                ));
-            }
+        try {
+            // Assert that $filename is a readable file.
+            \Assert\that($filename)
+                ->notEmpty()
+                ->file()
+                ->readable();
 
             // Try to load the file through PHP's include().
-            $configString = $config;
-            try {
-                // Make sure we don't accidentally create output.
-                ob_get_contents();
-                $config = include($configString);
-                ob_clean();
+            // Make sure we don't accidentally create output.
+            ob_get_contents();
+            $config = include($filename);
+            ob_clean();
 
-                // The included should return an array.
-                if ( ! is_array($config)) {
-                    throw new RuntimeException(_('File inclusion did not return an array.'));
-                }
-            } catch (Exception $exception) {
-                throw new RuntimeException(sprintf(
-                    _('Loading from configuration source %1$s failed. Reason: %2$s'),
-                    (string)$configString,
-                    (string)$exception->getMessage()
-                ));
-            }
+            // The included should return an array.
+            \Assert\that($config)->isArray();
+        } catch (Exception $exception) {
+            throw new RuntimeException(sprintf(
+                _('Loading from configuration source %1$s failed. Reason: %2$s'),
+                (string)$filename,
+                (string)$exception->getMessage()
+            ));
         }
 
-        return (array)$config;
+        return $config;
     }
 
     /**
