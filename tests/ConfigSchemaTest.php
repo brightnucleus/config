@@ -24,13 +24,19 @@ class ConfigSchemaTest extends \PHPUnit_Framework_TestCase
         $schema_config->method('getArrayCopy')
                       ->willReturn([]);
         $schema = new ConfigSchema($schema_config);
-        $this->assertInstanceOf('\BrightNucleus\Config\ConfigSchemaInterface',
-            $schema);
-        $this->assertInstanceOf('\BrightNucleus\Config\AbstractConfigSchema',
-            $schema);
+        $this->assertInstanceOf(
+            '\BrightNucleus\Config\ConfigSchemaInterface',
+            $schema
+        );
+        $this->assertInstanceOf(
+            '\BrightNucleus\Config\AbstractConfigSchema',
+            $schema
+        );
         $this->assertInstanceOf('\BrightNucleus\Config\ConfigSchema', $schema);
-        $this->setExpectedException('InvalidArgumentException',
-            'Invalid schema source:');
+        $this->setExpectedException(
+            'InvalidArgumentException',
+            'Invalid schema source:'
+        );
         new ConfigSchema(25);
     }
 
@@ -45,10 +51,14 @@ class ConfigSchemaTest extends \PHPUnit_Framework_TestCase
     {
         $schema_config = new Config(__DIR__ . '/fixtures/schema_config_file.php');
         $schema        = new ConfigSchema($schema_config);
-        $this->assertInstanceOf('\BrightNucleus\Config\ConfigSchemaInterface',
-            $schema);
-        $this->assertInstanceOf('\BrightNucleus\Config\AbstractConfigSchema',
-            $schema);
+        $this->assertInstanceOf(
+            '\BrightNucleus\Config\ConfigSchemaInterface',
+            $schema
+        );
+        $this->assertInstanceOf(
+            '\BrightNucleus\Config\AbstractConfigSchema',
+            $schema
+        );
         $this->assertInstanceOf('\BrightNucleus\Config\ConfigSchema', $schema);
     }
 }

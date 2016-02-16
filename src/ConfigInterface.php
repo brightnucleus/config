@@ -11,10 +11,10 @@
 
 namespace BrightNucleus\Config;
 
-use Countable;
 use ArrayAccess;
-use Serializable;
+use Countable;
 use IteratorAggregate;
+use Serializable;
 
 /**
  * Config loader used to load config PHP files as objects.

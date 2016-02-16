@@ -13,7 +13,6 @@ namespace BrightNucleus\Config;
 
 use Exception;
 use RuntimeException;
-use BrightNucleus\Config\ConfigInterface;
 
 trait ConfigTrait
 {
@@ -44,10 +43,12 @@ trait ConfigTrait
                 array_shift($keys);
                 $config = new Config($config->getKey($keys));
             } catch (Exception $exception) {
-                throw new RuntimeException(sprintf(
-                    _('Could not process the config with the arguments "%1$s".'),
-                    print_r(func_get_args(), true)
-                ));
+                throw new RuntimeException(
+                    sprintf(
+                        _('Could not process the config with the arguments "%1$s".'),
+                        print_r(func_get_args(), true)
+                    )
+                );
             }
         }
         $this->config = $config;

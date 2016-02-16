@@ -11,8 +11,6 @@
 
 namespace BrightNucleus\Config;
 
-use BrightNucleus\Config\ConfigInterface;
-
 /**
  * Interface ConfigValidatorInterface
  *

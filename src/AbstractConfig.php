@@ -11,11 +11,10 @@
 
 namespace BrightNucleus\Config;
 
-use Exception;
 use ArrayObject;
-use OutOfRangeException;
 use BadMethodCallException;
-use BrightNucleus\Config\ConfigInterface;
+use Exception;
+use OutOfRangeException;
 
 /**
  * Config loader used to load config PHP files as objects.
@@ -58,6 +57,42 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
     }
 
     /**
+     * Get the value of a specific key.
+     *
+     * To get a value several levels deep, add the keys for each level as a comma-separated list.
+     *
+     * @since 0.1.0
+     * @since 0.1.4 Accepts list of keys.
+     *
+     * @param string ... List of keys.
+     * @return mixed
+     * @throws BadMethodCallException If no argument was provided.
+     * @throws OutOfRangeException If an unknown key is requested.
+     */
+    public function getKey()
+    {
+        $keys = $this->getKeyArguments(func_get_args());
+
+        if (! $this->hasKey($keys)) {
+            throw new OutOfRangeException(
+                sprintf(
+                    _('The configuration key %1$s does not exist.'),
+                    implode('->', $keys)
+                )
+            );
+        }
+
+        $keys  = array_reverse($keys);
+        $array = $this->getArrayCopy();
+        while (count($keys) > 0) {
+            $key   = array_pop($keys);
+            $array = $array[$key];
+        }
+
+        return $array;
+    }
+
+    /**
      * Check whether the Config has a specific key.
      *
      * To check a value several levels deep, add the keys for each level as a comma-separated list.
@@ -76,7 +111,7 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
             $array = $this->getArrayCopy();
             while (count($keys) > 0) {
                 $key = array_pop($keys);
-                if ( ! array_key_exists($key, $array)) {
+                if (! array_key_exists($key, $array)) {
                     return false;
                 }
                 $array = $array[$key];
@@ -86,38 +121,6 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
         }
 
         return true;
-    }
-
-    /**
-     * Get the value of a specific key.
-     *
-     * To get a value several levels deep, add the keys for each level as a comma-separated list.
-     *
-     * @since 0.1.0
-     * @since 0.1.4 Accepts list of keys.
-     *
-     * @param string ... List of keys.
-     * @return mixed
-     * @throws BadMethodCallException If no argument was provided.
-     * @throws OutOfRangeException If an unknown key is requested.
-     */
-    public function getKey()
-    {
-        $keys = $this->getKeyArguments(func_get_args());
-
-        if ( ! $this->hasKey($keys)) {
-            throw new OutOfRangeException(sprintf(_('The configuration key %1$s does not exist.'),
-                implode('->', $keys)));
-        }
-
-        $keys  = array_reverse($keys);
-        $array = $this->getArrayCopy();
-        while (count($keys) > 0) {
-            $key   = array_pop($keys);
-            $array = $array[$key];
-        }
-
-        return $array;
     }
 
     /**
@@ -154,7 +157,7 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      */
     protected function getKeyArguments($arguments)
     {
-        \Assert\that( $arguments )->isArray()->notEmpty();
+        \Assert\that($arguments)->isArray()->notEmpty();
 
         $keys = [];
         foreach ($arguments as $argument) {

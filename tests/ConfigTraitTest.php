@@ -11,9 +11,6 @@
 
 namespace BrightNucleus\Config;
 
-use BrightNucleus\Config\Config;
-use BrightNucleus\Config\ConfigTrait;
-
 class ConfigTraitTest extends \PHPUnit_Framework_TestCase
 {
 
@@ -27,8 +24,10 @@ class ConfigTraitTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($this->config);
         $this->processConfig(new Config([]));
         $this->assertNotNull($this->config);
-        $this->assertInstanceOf('BrightNucleus\Config\ConfigInterface',
-            $this->config);
+        $this->assertInstanceOf(
+            'BrightNucleus\Config\ConfigInterface',
+            $this->config
+        );
         unset($this->config);
     }
 
@@ -37,10 +36,14 @@ class ConfigTraitTest extends \PHPUnit_Framework_TestCase
      */
     public function testHasConfigKey()
     {
-        $this->processConfig(new Config([
-            'testkey1' => 'testvalue1',
-            'testkey2' => 'testvalue2',
-        ]));
+        $this->processConfig(
+            new Config(
+                [
+                    'testkey1' => 'testvalue1',
+                    'testkey2' => 'testvalue2',
+                ]
+            )
+        );
         $this->assertTrue($this->hasConfigKey('testkey1'));
         $this->assertTrue($this->hasConfigKey('testkey2'));
         $this->assertFalse($this->hasConfigKey('testkey3'));
@@ -51,9 +54,13 @@ class ConfigTraitTest extends \PHPUnit_Framework_TestCase
      */
     public function testHasConfigKeyWithMultipleLevels()
     {
-        $this->processConfig(new Config([
-            'level1' => ['level2' => ['level3' => ['level4_key' => 'level4_value'],],],
-        ]));
+        $this->processConfig(
+            new Config(
+                [
+                    'level1' => ['level2' => ['level3' => ['level4_key' => 'level4_value'],],],
+                ]
+            )
+        );
         $this->assertTrue($this->hasConfigKey('level1'));
         $this->assertTrue($this->hasConfigKey('level1', 'level2'));
         $this->assertTrue($this->hasConfigKey('level1', 'level2', 'level3'));
@@ -76,10 +83,14 @@ class ConfigTraitTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetConfigKey()
     {
-        $this->processConfig(new Config([
-            'testkey1' => 'testvalue1',
-            'testkey2' => 'testvalue2',
-        ]));
+        $this->processConfig(
+            new Config(
+                [
+                    'testkey1' => 'testvalue1',
+                    'testkey2' => 'testvalue2',
+                ]
+            )
+        );
         $this->assertEquals('testvalue1', $this->getConfigKey('testkey1'));
         $this->assertEquals('testvalue2', $this->getConfigKey('testkey2'));
         $this->setExpectedException('OutOfRangeException');
@@ -91,9 +102,13 @@ class ConfigTraitTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetConfigKeyWithMultipleLevels()
     {
-        $this->processConfig(new Config([
-            'level1' => ['level2' => ['level3' => ['level4_key' => 'level4_value'],],],
-        ]));
+        $this->processConfig(
+            new Config(
+                [
+                    'level1' => ['level2' => ['level3' => ['level4_key' => 'level4_value'],],],
+                ]
+            )
+        );
         $this->assertEquals('level4_value', $this->getConfigKey('level1', 'level2', 'level3', 'level4_key'));
         $this->assertEquals('level4_value', $this->getConfigKey('level1\level2', 'level3', 'level4_key'));
         $this->assertEquals('level4_value', $this->getConfigKey('level1', 'level2/level3', 'level4_key'));
@@ -102,8 +117,10 @@ class ConfigTraitTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('level4_value', $this->getConfigKey('level1/level2/level3/level4_key'));
         $this->assertEquals('level4_value', $this->getConfigKey('level1.level2.level3.level4_key'));
         $this->assertEquals('level4_value', $this->getConfigKey('level1\level2/level3.level4_key'));
-        $this->setExpectedException('OutOfRangeException',
-            'The configuration key level1->level2->level4_key does not exist.');
+        $this->setExpectedException(
+            'OutOfRangeException',
+            'The configuration key level1->level2->level4_key does not exist.'
+        );
         $this->getConfigKey('level1', 'level2', 'level4_key');
     }
 
@@ -112,10 +129,14 @@ class ConfigTraitTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetConfigArray()
     {
-        $this->processConfig(new Config([
-            'testkey1' => 'testvalue1',
-            'testkey2' => 'testvalue2',
-        ]));
+        $this->processConfig(
+            new Config(
+                [
+                    'testkey1' => 'testvalue1',
+                    'testkey2' => 'testvalue2',
+                ]
+            )
+        );
         $this->assertEquals(
             ['testkey1' => 'testvalue1', 'testkey2' => 'testvalue2'],
             $this->getConfigArray()
@@ -127,10 +148,14 @@ class ConfigTraitTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetConfigKeys()
     {
-        $this->processConfig(new Config([
-            'testkey1' => 'testvalue1',
-            'testkey2' => 'testvalue2',
-        ]));
+        $this->processConfig(
+            new Config(
+                [
+                    'testkey1' => 'testvalue1',
+                    'testkey2' => 'testvalue2',
+                ]
+            )
+        );
         $this->assertEquals(['testkey1', 'testkey2'], $this->getConfigKeys());
     }
 
@@ -139,14 +164,19 @@ class ConfigTraitTest extends \PHPUnit_Framework_TestCase
      */
     public function testProcessConfigAllowsPreKeying()
     {
-        $this->processConfig(new Config([
-            'vendor' => [
-                'package' => [
-                    'testkey1' => 'testvalue1',
-                    'testkey2' => 'testvalue2',
-                ],
-            ],
-        ]), 'vendor\package');
+        $this->processConfig(
+            new Config(
+                [
+                    'vendor' => [
+                        'package' => [
+                            'testkey1' => 'testvalue1',
+                            'testkey2' => 'testvalue2',
+                        ],
+                    ],
+                ]
+            ),
+            'vendor\package'
+        );
         $this->assertEquals(
             ['testkey1' => 'testvalue1', 'testkey2' => 'testvalue2'],
             $this->getConfigArray()
@@ -159,9 +189,14 @@ class ConfigTraitTest extends \PHPUnit_Framework_TestCase
     public function testProcessConfigThrowsException()
     {
         $this->setExpectedException('RuntimeException', 'Could not process the config with the arguments');
-        $this->processConfig(new Config([
-            'testkey1' => 'testvalue1',
-            'testkey2' => 'testvalue2',
-        ]), 'vendor\package');
+        $this->processConfig(
+            new Config(
+                [
+                    'testkey1' => 'testvalue1',
+                    'testkey2' => 'testvalue2',
+                ]
+            ),
+            'vendor\package'
+        );
     }
 }

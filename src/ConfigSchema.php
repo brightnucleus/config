@@ -12,7 +12,6 @@
 namespace BrightNucleus\Config;
 
 use InvalidArgumentException;
-use BrightNucleus\Config\ConfigInterface;
 
 /**
  * Class ConfigSchema
@@ -26,15 +25,13 @@ class ConfigSchema extends AbstractConfigSchema
 {
 
     /**
-     * The key that is used in the schema to define a required value.
-     */
-    const REQUIRED_KEY = 'required';
-
-    /**
      * The key that is used in the schema to define a default value.
      */
     const DEFAULT_VALUE = 'default';
-
+    /**
+     * The key that is used in the schema to define a required value.
+     */
+    const REQUIRED_KEY = 'required';
     /**
      * The list of values that are recognized as true in the schema.
      */
@@ -66,11 +63,13 @@ class ConfigSchema extends AbstractConfigSchema
             $schema = $schema->getArrayCopy();
         }
 
-        if ( ! is_array($schema)) {
-            throw new InvalidArgumentException(sprintf(
-                _('Invalid schema source: %1$s'),
-                print_r($schema, true)
-            ));
+        if (! is_array($schema)) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    _('Invalid schema source: %1$s'),
+                    print_r($schema, true)
+                )
+            );
         }
 
         array_walk($schema, [$this, 'parseSchema']);
@@ -89,13 +88,17 @@ class ConfigSchema extends AbstractConfigSchema
         $this->parseDefined($key);
 
         if (array_key_exists(self::REQUIRED_KEY, $data)) {
-            $this->parseRequired($key,
-                $data[self::REQUIRED_KEY]);
+            $this->parseRequired(
+                $key,
+                $data[self::REQUIRED_KEY]
+            );
         }
 
         if (array_key_exists(self::DEFAULT_VALUE, $data)) {
-            $this->parseDefault($key,
-                $data[self::DEFAULT_VALUE]);
+            $this->parseDefault(
+                $key,
+                $data[self::DEFAULT_VALUE]
+            );
         }
     }
 

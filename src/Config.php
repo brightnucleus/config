@@ -79,10 +79,12 @@ class Config extends AbstractConfig
 
         // Make sure $config is either a string or array.
         if (! (is_string($config) || is_array($config))) {
-            throw new InvalidArgumentException(sprintf(
-                _('Invalid configuration source: %1$s'),
-                print_r($config, true)
-            ));
+            throw new InvalidArgumentException(
+                sprintf(
+                    _('Invalid configuration source: %1$s'),
+                    print_r($config, true)
+                )
+            );
         }
 
         if (is_string($config)) {
@@ -97,19 +99,39 @@ class Config extends AbstractConfig
         try {
             parent::__construct($config, $delimiter);
         } catch (Exception $exception) {
-            throw new RuntimeException(sprintf(
-                _('Could not instantiate the configuration through its parent. Reason: %1$s'),
-                $exception->getMessage()
-            ));
+            throw new RuntimeException(
+                sprintf(
+                    _('Could not instantiate the configuration through its parent. Reason: %1$s'),
+                    $exception->getMessage()
+                )
+            );
         }
 
         // Finally, validate the resulting config.
         if (! $this->isValid()) {
-            throw new UnexpectedValueException(sprintf(
-                _('ConfigInterface file is not valid: %1$s'),
-                print_r($config, true)
-            ));
+            throw new UnexpectedValueException(
+                sprintf(
+                    _('ConfigInterface file is not valid: %1$s'),
+                    print_r($config, true)
+                )
+            );
         }
+    }
+
+    /**
+     * Validate the Config file.
+     *
+     * @since  0.1.0
+     *
+     * @return boolean
+     */
+    public function isValid()
+    {
+        if ($this->validator) {
+            return $this->validator->isValid($this);
+        }
+
+        return true;
     }
 
     /**
@@ -141,11 +163,13 @@ class Config extends AbstractConfig
             // The included should return an array.
             \Assert\that($config)->isArray();
         } catch (Exception $exception) {
-            throw new RuntimeException(sprintf(
-                _('Loading from configuration source %1$s failed. Reason: %2$s'),
-                (string)$filename,
-                (string)$exception->getMessage()
-            ));
+            throw new RuntimeException(
+                sprintf(
+                    _('Loading from configuration source %1$s failed. Reason: %2$s'),
+                    (string)$filename,
+                    (string)$exception->getMessage()
+                )
+            );
         }
 
         return $config;
@@ -174,10 +198,12 @@ class Config extends AbstractConfig
                 $config = $resolver->resolve($config);
             }
         } catch (Exception $exception) {
-            throw new UnexpectedValueException(sprintf(
-                _('Error while resolving config options: %1$s'),
-                $exception->getMessage()
-            ));
+            throw new UnexpectedValueException(
+                sprintf(
+                    _('Error while resolving config options: %1$s'),
+                    $exception->getMessage()
+                )
+            );
         }
 
         return $config;
@@ -217,26 +243,12 @@ class Config extends AbstractConfig
                 $resolver->setRequired($required);
             }
         } catch (Exception $exception) {
-            throw new UnexpectedValueException(sprintf(
-                _('Error while processing config options: %1$s'),
-                $exception->getMessage()
-            ));
-        }
-
-        return true;
-    }
-
-    /**
-     * Validate the Config file.
-     *
-     * @since  0.1.0
-     *
-     * @return boolean
-     */
-    public function isValid()
-    {
-        if ($this->validator) {
-            return $this->validator->isValid($this);
+            throw new UnexpectedValueException(
+                sprintf(
+                    _('Error while processing config options: %1$s'),
+                    $exception->getMessage()
+                )
+            );
         }
 
         return true;
