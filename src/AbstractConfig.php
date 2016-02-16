@@ -149,7 +149,7 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
     }
 
     /**
-     * Extract the configuration key arguments from an arbitrary array.
+     * Recursively extract the configuration key arguments from an arbitrary array.
      *
      * @since 0.1.6
      *
