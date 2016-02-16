@@ -11,13 +11,13 @@
 
 namespace BrightNucleus\Config;
 
-use Exception;
-use RuntimeException;
-use InvalidArgumentException;
-use UnexpectedValueException;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use BrightNucleus\Config\ConfigSchemaInterface as Schema;
 use BrightNucleus\Config\ConfigValidatorInterface as Validator;
+use Exception;
+use InvalidArgumentException;
+use RuntimeException;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use UnexpectedValueException;
 
 /**
  * Class Config
@@ -89,9 +89,19 @@ class Config extends AbstractConfig
             $config = $this->fetchArrayData($config);
         }
 
+        // Run the $config through the OptionsResolver.
+        \Assert\that($config)->isArray();
         $config = $this->resolveOptions($config);
 
-        parent::__construct($config, $delimiter);
+        // Instantiate the parent class.
+        try {
+            parent::__construct($config, $delimiter);
+        } catch (Exception $exception) {
+            throw new RuntimeException(sprintf(
+                _('Could not instantiate the configuration through its parent. Reason: %1$s'),
+                $exception->getMessage()
+            ));
+        }
 
         // Finally, validate the resulting config.
         if ( ! $this->isValid()) {
