@@ -88,6 +88,7 @@ trait ConfigTrait
     protected function getConfigKey()
     {
         $keys = func_get_args();
+        \Assert\thatAll($keys)->string()->notEmpty();
 
         return $this->config->getKey($keys);
     }
