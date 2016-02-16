@@ -12,7 +12,8 @@
 		}
 	],
 	"require": {
-		"symfony/options-resolver": "~3.0"
+		"symfony/options-resolver": "~3.0",
+		"beberlei/assert": "~2.4"
 	},
 	"autoload": {
 		"psr-4": {
