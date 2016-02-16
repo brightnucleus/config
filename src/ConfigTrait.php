@@ -69,6 +69,7 @@ trait ConfigTrait
     protected function hasConfigKey()
     {
         $keys = func_get_args();
+        \Assert\thatAll($keys)->string()->notEmpty();
 
         return $this->config->hasKey($keys);
     }
