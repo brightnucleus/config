@@ -11,8 +11,6 @@
 
 namespace BrightNucleus\Config;
 
-use BrightNucleus\Config\Config;
-
 /**
  * Class ConfigTest
  *

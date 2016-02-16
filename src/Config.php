@@ -123,7 +123,7 @@ class Config extends AbstractConfig
      *                                  file.
      * @throws RuntimeException         If loading of the config source failed.
      */
-    protected function fetchArrayData($filename)
+    protected function fetchArrayData ( $filename )
     {
         try {
             // Assert that $filename is a readable file.
