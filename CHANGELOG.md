@@ -2,6 +2,16 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.1.9] - 2016-02-16
+### Added
+- The `beberlei/assert` package has been added as a development dependency.
+- Several assertions have been added to check the arguments passed in to the methods.
+- A `pre-commit` hook has been added to run unit tests and validate code standards.
+
+### Fixed
+- Methods have been rearranged.
+- A few code style tweaks have been made to adhere to PHPCS PSR-2.
+
 ## [0.1.8] - 2016-02-11
 ### Added
 - The `ConfigTrait::processConfig()` method now accepts one or more additional parameters (can be delimited strings) to start with a Config at a specific level. Useful to include different `vendor\package` levels in a single merged Config file.
@@ -54,6 +64,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Initial release to GitHub.
 
+[0.1.9]: https://github.com/brightnucleus/config/compare/v0.1.8...v0.1.9
 [0.1.8]: https://github.com/brightnucleus/config/compare/v0.1.7...v0.1.8
 [0.1.7]: https://github.com/brightnucleus/config/compare/v0.1.6...v0.1.7
 [0.1.6]: https://github.com/brightnucleus/config/compare/v0.1.5...v0.1.6
