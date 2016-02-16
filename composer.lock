@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6da2a539593c790f12e003361755ec98",
+    "hash": "2c047f75b8765a883bba69709d6c4cd8",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -58,6 +58,43 @@
                 "validation"
             ],
             "time": "2015-08-21 16:50:17"
+        },
+        {
+            "name": "brightnucleus/exceptions",
+            "version": "v0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/brightnucleus/exceptions.git",
+                "reference": "aa65d1b7a13776cb3bebd9c93f0543cb0ae66900"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/brightnucleus/exceptions/zipball/aa65d1b7a13776cb3bebd9c93f0543cb0ae66900",
+                "reference": "aa65d1b7a13776cb3bebd9c93f0543cb0ae66900",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4",
+                "squizlabs/php_codesniffer": "~2.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "BrightNucleus\\Exception\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Alain Schlesser",
+                    "email": "alain.schlesser@gmail.com"
+                }
+            ],
+            "description": "Exceptions shared across Bright Nucleus components.",
+            "time": "2016-02-16 17:48:47"
         },
         {
             "name": "symfony/options-resolver",

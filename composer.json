@@ -14,7 +14,8 @@
 	],
 	"require": {
 		"symfony/options-resolver": "~3.0",
-		"beberlei/assert": "~2.4"
+		"beberlei/assert": "~2.4",
+		"brightnucleus/exceptions": "0.1.*"
 	},
 	"autoload": {
 		"psr-4": {
