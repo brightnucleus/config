@@ -25,6 +25,71 @@ composer require brightnucleus/config
 
 A class that wants to be configurable should accept a `ConfigInterface` in its constructor, so that the Config can be injected. The surrounding code then should inject an instance of an object (for example the generic `Config` that is provided with this component). This way, the class that accepts the Config can be written in a 100% reusable way, while all project-specific stuff will be injected through the Config.
 
+### Example configuration file
+
+The snippet below shows the basic structure of a config file.
+
+```PHP
+<?php namespace BrightNucleus\Example;
+
+/*
+ * Example class main settings.
+ */
+$example = [
+	'test_key' => 'test_value',
+];
+
+return [
+	'BrightNucleus' => [
+		'Example' => $example,
+	],
+];
+```
+
+### Example of a configurable class
+
+Here is an example setup of how you could feed this configuration into a plugin.
+
+```PHP
+<?php namespace BrightNucleus\Example;
+
+use BrightNucleus\Config\ConfigInterface;
+use BrightNucleus\Config\ConfigTrait;
+use BrightNucleus\Exception\RuntimeException;
+
+class Example {
+
+	use ConfigTrait;
+
+	/**
+	 * Instantiate an Example object.
+	 *
+	 * @param ConfigInterface $config     Config to parametrize the object.
+	 * @param string|null     $config_key Optional. Config key that represents the
+ 	 *                                    subtree for this class.
+	 * @throws RuntimeException           If the Config could not be parsed correctly.
+	 */
+	public function __construct( ConfigInterface $config, $config_key = null ) {
+		$this->processConfig( $config, $config_key ?: 'BrightNucleus\Example' );
+	}
+
+	/**
+	 * Do something.
+	 */
+	public function run() {
+		$key = 'test_key;';
+
+		// Outputs:
+		// The value of the config key "test_key" is "test_value".
+		printf(
+		_( 'The value of the config key "$1%s" is "$2%s".'),
+			$key,
+			$this->getConfigKey( $key )
+		);
+	}
+}
+```
+
 See [link to post coming soon] for more details.
 
 ## Contributing
