@@ -61,16 +61,16 @@
         },
         {
             "name": "brightnucleus/exceptions",
-            "version": "v0.1.0",
+            "version": "v0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brightnucleus/exceptions.git",
-                "reference": "aa65d1b7a13776cb3bebd9c93f0543cb0ae66900"
+                "reference": "db45d5b4557d947da26b5f759b3642e2e08c4cc6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brightnucleus/exceptions/zipball/aa65d1b7a13776cb3bebd9c93f0543cb0ae66900",
-                "reference": "aa65d1b7a13776cb3bebd9c93f0543cb0ae66900",
+                "url": "https://api.github.com/repos/brightnucleus/exceptions/zipball/db45d5b4557d947da26b5f759b3642e2e08c4cc6",
+                "reference": "db45d5b4557d947da26b5f759b3642e2e08c4cc6",
                 "shasum": ""
             },
             "require-dev": {
@@ -94,7 +94,7 @@
                 }
             ],
             "description": "Exceptions shared across Bright Nucleus components.",
-            "time": "2016-02-16 17:48:47"
+            "time": "2016-02-17 16:20:23"
         },
         {
             "name": "symfony/options-resolver",
