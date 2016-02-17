@@ -42,8 +42,7 @@ trait ConfigTrait
             try {
                 $keys = func_get_args();
                 array_shift($keys);
-                Assert\that($keys)->all()->string()->notEmpty();
-                $config = new Config($config->getKey($keys));
+                $config = $config->getSubConfig($keys);
             } catch (Exception $exception) {
                 throw new RuntimeException(
                     sprintf(

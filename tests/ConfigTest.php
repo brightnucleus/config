@@ -30,7 +30,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      * Don't use an array const to avoid bumping PHP requirement to 5.6.
      */
     protected static $test_array = [
-        'random_string' => 'test_value',
+        'random_string'    => 'test_value',
         'positive_integer' => 42,
         'negative_integer' => -256,
         'positive_boolean' => true,
@@ -353,5 +353,38 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             'The configuration key some_other_key does not exist.'
         );
         $this->assertFalse($config->getKey('some_other_key'));
+    }
+
+    public function testGetSubConfig()
+    {
+        $config      = new Config(__DIR__ . '/fixtures/deep_config_file.php');
+        $subconfig   = $config->getSubConfig('vendor/package');
+        $subsection1 = $config->getSubConfig('vendor', 'package', 'section_1');
+        $subsection2 = $subconfig->getSubConfig('section_2');
+        $this->assertInstanceOf('\BrightNucleus\Config\ConfigInterface', $config);
+        $this->assertInstanceOf('\BrightNucleus\Config\AbstractConfig', $config);
+        $this->assertInstanceOf('\BrightNucleus\Config\Config', $config);
+        $this->assertInstanceOf('\BrightNucleus\Config\ConfigInterface', $subconfig);
+        $this->assertInstanceOf('\BrightNucleus\Config\AbstractConfig', $subconfig);
+        $this->assertInstanceOf('\BrightNucleus\Config\Config', $subconfig);
+        $this->assertInstanceOf('\BrightNucleus\Config\ConfigInterface', $subsection1);
+        $this->assertInstanceOf('\BrightNucleus\Config\AbstractConfig', $subsection1);
+        $this->assertInstanceOf('\BrightNucleus\Config\Config', $subsection1);
+        $this->assertInstanceOf('\BrightNucleus\Config\ConfigInterface', $subsection2);
+        $this->assertInstanceOf('\BrightNucleus\Config\AbstractConfig', $subsection2);
+        $this->assertInstanceOf('\BrightNucleus\Config\Config', $subsection2);
+        $this->assertTrue($config->hasKey('vendor/package'));
+        $this->assertTrue($config->hasKey('vendor/package/section_1/test_key_1'));
+        $this->assertTrue($config->hasKey('vendor/package/section_2/test_key_2'));
+        $this->assertTrue($subconfig->hasKey('section_1/test_key_1'));
+        $this->assertTrue($subconfig->hasKey('section_2/test_key_2'));
+        $this->assertTrue($subsection1->hasKey('test_key_1'));
+        $this->assertTrue($subsection2->hasKey('test_key_2'));
+        $this->setExpectedException(
+            'BrightNucleus\Exception\OutOfRangeException',
+            'The configuration key some_other_key does not exist.'
+        );
+        $this->assertFalse($config->getSubConfig('some_other_key'));
+
     }
 }

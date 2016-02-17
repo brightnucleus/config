@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.1.13] - 2016-02-17
+### Added
+- Added `getSubConfig()` to extract the subtree at a specific level & key.
+- Added corresponding tests.
+
 ## [0.1.12] - 2016-02-17
 ### Fixed
 - Updated `brightnucleus/exceptions` dependency.
@@ -76,6 +81,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Initial release to GitHub.
 
+[0.1.13]: https://github.com/brightnucleus/config/compare/v0.1.12...v0.1.13
 [0.1.12]: https://github.com/brightnucleus/config/compare/v0.1.11...v0.1.12
 [0.1.11]: https://github.com/brightnucleus/config/compare/v0.1.10...v0.1.11
 [0.1.10]: https://github.com/brightnucleus/config/compare/v0.1.9...v0.1.10

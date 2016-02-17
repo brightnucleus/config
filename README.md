@@ -64,29 +64,45 @@ class Example {
 	/**
 	 * Instantiate an Example object.
 	 *
-	 * @param ConfigInterface $config     Config to parametrize the object.
-	 * @param string|null     $config_key Optional. Config key that represents the
- 	 *                                    subtree for this class.
-	 * @throws RuntimeException           If the Config could not be parsed correctly.
+	 * @param ConfigInterface $config Config to parametrize the object.
+	 * @throws RuntimeException       If the Config could not be parsed correctly.
 	 */
-	public function __construct( ConfigInterface $config, $config_key = null ) {
-		$this->processConfig( $config, $config_key ?: 'BrightNucleus\Example' );
+	public function __construct( ConfigInterface $config ) {
+		$this->processConfig( $config );
 	}
 
 	/**
 	 * Do something.
 	 */
 	public function run() {
-		$key = 'test_key;';
+		$key = 'test_key';
 
-		// Outputs:
-		// The value of the config key "test_key" is "test_value".
-		printf(
+		return sprintf(
 		_( 'The value of the config key "$1%s" is "$2%s".'),
 			$key,
 			$this->getConfigKey( $key )
 		);
 	}
+}
+```
+
+### Example of how to put the configuration into the class
+
+You can combine all of your configurations into 1 single file and only pass "Sub-Configurations" to the individual components. This way, you can save a file access and a complete validation pass for each component.
+
+Here's how you can pass the configuration file into the class:
+
+```PHP
+<?php namespace BrightNucleus\Example;
+
+function init() {
+	$configFile = __DIR__ . '/config/example_settings.php';
+	$config     = new Config( include( $configFile ) );
+	$example    = new Example( $config->getSubConfig( 'BrightNucleus\Example' ) );
+
+	// Outputs:
+	// The value of the config key "test_key" is "test_value".
+	echo $example->run();
 }
 ```
 

@@ -72,17 +72,7 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      */
     public function getKey()
     {
-        $keys = $this->getKeyArguments(func_get_args());
-        Assert\that($keys)->all()->string()->notEmpty();
-
-        if (! $this->hasKey($keys)) {
-            throw new OutOfRangeException(
-                sprintf(
-                    _('The configuration key %1$s does not exist.'),
-                    implode('->', $keys)
-                )
-            );
-        }
+        $keys = $this->validateKeys(func_get_args());
 
         $keys  = array_reverse($keys);
         $array = $this->getArrayCopy();
@@ -109,7 +99,6 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
     {
         try {
             $keys = array_reverse($this->getKeyArguments(func_get_args()));
-            Assert\thatAll($keys)->string()->notEmpty();
 
             $array = $this->getArrayCopy();
             while (count($keys) > 0) {
@@ -147,6 +136,66 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
     public function getKeys()
     {
         return array_keys((array)$this);
+    }
+
+    /**
+     * Get a new config at a specific sub-level.
+     *
+     * @since 0.1.13
+     *
+     * @param string ... List of keys.
+     * @return ConfigInterface
+     * @throws BadMethodCallException If no argument was provided.
+     * @throws OutOfRangeException If an unknown key is requested.
+     */
+    public function getSubConfig()
+    {
+        $keys = $this->validateKeys(func_get_args());
+
+        $subConfig = clone $this;
+        $subConfig->reduceToSubKey($keys);
+
+        return $subConfig;
+    }
+
+    /**
+     * Validate a set of keys to make sure they exist.
+     *
+     * @since 0.1.13
+     *
+     * @param string ... List of keys.
+     * @return array List of keys.
+     * @throws BadMethodCallException If no argument was provided.
+     * @throws OutOfRangeException If an unknown key is requested.
+     */
+    public function validateKeys()
+    {
+        $keys = $this->getKeyArguments(func_get_args());
+
+        Assert\that($keys)->all()->string()->notEmpty();
+
+        if (! $this->hasKey($keys)) {
+            throw new OutOfRangeException(
+                sprintf(
+                    _('The configuration key %1$s does not exist.'),
+                    implode('->', $keys)
+                )
+            );
+        }
+
+        return $keys;
+    }
+
+    /**
+     * Reduce the currently stored config array to a subarray at a specific level.
+     *
+     * @since 0.1.13
+     *
+     * @param array $keys Array of keys that point to a key down in the hierarchy.
+     */
+    protected function reduceToSubkey(array $keys)
+    {
+        $this->exchangeArray($this->getKey($keys));
     }
 
     /**

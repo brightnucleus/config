@@ -62,7 +62,6 @@ interface ConfigInterface extends IteratorAggregate, ArrayAccess, Serializable, 
      * @since 0.1.4 Accepts list of keys.
      *
      * @param string ... List of keys.
-     *
      * @return mixed
      */
     public function getKey();
@@ -93,4 +92,14 @@ interface ConfigInterface extends IteratorAggregate, ArrayAccess, Serializable, 
      * @return boolean
      */
     public function isValid();
+
+    /**
+     * Get a new config at a specific sub-level.
+     *
+     * @since 0.1.13
+     *
+     * @param string ... List of keys.
+     * @return ConfigInterface
+     */
+    public function getSubConfig();
 }
