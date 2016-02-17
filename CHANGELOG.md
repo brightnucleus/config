@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.1.11] - 2016-02-17
+### Fixed
+- Lowered version requirement for `symfony/options-resolver`.
+
 ## [0.1.10] - 2016-02-16
 ### Added
 - Added `brightnucleus/exceptions` to have coherentexceptions across all Bright Nucleus packages.
@@ -68,6 +72,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Initial release to GitHub.
 
+[0.1.11]: https://github.com/brightnucleus/config/compare/v0.1.10...v0.1.11
 [0.1.10]: https://github.com/brightnucleus/config/compare/v0.1.9...v0.1.10
 [0.1.9]: https://github.com/brightnucleus/config/compare/v0.1.8...v0.1.9
 [0.1.8]: https://github.com/brightnucleus/config/compare/v0.1.7...v0.1.8
