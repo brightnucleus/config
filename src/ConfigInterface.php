@@ -48,10 +48,10 @@ interface ConfigInterface extends IteratorAggregate, ArrayAccess, Serializable, 
      * @since 0.1.0
      * @since 0.1.4 Accepts list of keys.
      *
-     * @param string ... List of keys.
+     * @param string $_ List of keys.
      * @return bool
      */
-    public function hasKey();
+    public function hasKey($_);
 
     /**
      * Get the value of a specific key.
@@ -61,10 +61,10 @@ interface ConfigInterface extends IteratorAggregate, ArrayAccess, Serializable, 
      * @since 0.1.0
      * @since 0.1.4 Accepts list of keys.
      *
-     * @param string ... List of keys.
+     * @param string $_ List of keys.
      * @return mixed
      */
-    public function getKey();
+    public function getKey($_);
 
     /**
      * Get a (multi-dimensional) array of all the configuration settings.
@@ -98,8 +98,8 @@ interface ConfigInterface extends IteratorAggregate, ArrayAccess, Serializable, 
      *
      * @since 0.1.13
      *
-     * @param string ... List of keys.
+     * @param string $_ List of keys.
      * @return ConfigInterface
      */
-    public function getSubConfig();
+    public function getSubConfig($_);
 }

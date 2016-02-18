@@ -65,12 +65,12 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      * @since 0.1.0
      * @since 0.1.4 Accepts list of keys.
      *
-     * @param string ... List of keys.
+     * @param string $_ List of keys.
      * @return mixed
      * @throws BadMethodCallException If no argument was provided.
      * @throws OutOfRangeException If an unknown key is requested.
      */
-    public function getKey()
+    public function getKey($_)
     {
         $keys = $this->validateKeys(func_get_args());
 
@@ -92,10 +92,10 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      * @since 0.1.0
      * @since 0.1.4 Accepts list of keys.
      *
-     * @param string ... List of keys.
+     * @param string $_ List of keys.
      * @return bool
      */
-    public function hasKey()
+    public function hasKey($_)
     {
         try {
             $keys = array_reverse($this->getKeyArguments(func_get_args()));
@@ -143,12 +143,12 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      *
      * @since 0.1.13
      *
-     * @param string ... List of keys.
+     * @param string $_ List of keys.
      * @return ConfigInterface
      * @throws BadMethodCallException If no argument was provided.
      * @throws OutOfRangeException If an unknown key is requested.
      */
-    public function getSubConfig()
+    public function getSubConfig($_)
     {
         $keys = $this->validateKeys(func_get_args());
 
@@ -163,12 +163,12 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      *
      * @since 0.1.13
      *
-     * @param string ... List of keys.
+     * @param string $_ List of keys.
      * @return array List of keys.
      * @throws BadMethodCallException If no argument was provided.
      * @throws OutOfRangeException If an unknown key is requested.
      */
-    public function validateKeys()
+    public function validateKeys($_)
     {
         $keys = $this->getKeyArguments(func_get_args());
 
