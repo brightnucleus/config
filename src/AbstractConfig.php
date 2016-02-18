@@ -193,7 +193,7 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      *
      * @param array $keys Array of keys that point to a key down in the hierarchy.
      */
-    protected function reduceToSubkey(array $keys)
+    protected function reduceToSubKey(array $keys)
     {
         $this->exchangeArray($this->getKey($keys));
     }
