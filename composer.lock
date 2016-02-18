@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f23319a958538498cef542ce38af7eca",
+    "hash": "d515db4537f3ca57ae8f6104e39b4526",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -61,16 +61,16 @@
         },
         {
             "name": "brightnucleus/exceptions",
-            "version": "v0.1.1",
+            "version": "v0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brightnucleus/exceptions.git",
-                "reference": "db45d5b4557d947da26b5f759b3642e2e08c4cc6"
+                "reference": "1ef7a33796067e21f67c5c34525432c7a1f44c41"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brightnucleus/exceptions/zipball/db45d5b4557d947da26b5f759b3642e2e08c4cc6",
-                "reference": "db45d5b4557d947da26b5f759b3642e2e08c4cc6",
+                "url": "https://api.github.com/repos/brightnucleus/exceptions/zipball/1ef7a33796067e21f67c5c34525432c7a1f44c41",
+                "reference": "1ef7a33796067e21f67c5c34525432c7a1f44c41",
                 "shasum": ""
             },
             "require-dev": {
@@ -94,7 +94,7 @@
                 }
             ],
             "description": "Exceptions shared across Bright Nucleus components.",
-            "time": "2016-02-17 16:20:23"
+            "time": "2016-02-18 09:40:22"
         },
         {
             "name": "symfony/options-resolver",
