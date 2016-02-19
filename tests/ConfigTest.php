@@ -166,7 +166,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     public function testHasKeyWithMultipleLevels()
     {
         $config = new Config(ConfigTest::$test_multi_array);
-        $this->assertFalse($config->hasKey());
         $this->assertTrue($config->hasKey('level1'));
         $this->assertTrue($config->hasKey('level1', 'level2'));
         $this->assertTrue($config->hasKey('level1', 'level2', 'level3'));
@@ -238,16 +237,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             'The configuration key some_other_key does not exist.'
         );
         $config->getKey('some_other_key');
-    }
-
-    /**
-     * @covers \BrightNucleus\Config\AbstractConfig::getKeyArguments
-     */
-    public function testGetKeyThrowsExceptionOnNoKey()
-    {
-        $config = new Config(ConfigTest::$test_array);
-        $this->setExpectedException('Assert\InvalidArgumentException', 'is empty, but non empty value was expected.');
-        $config->getKey();
     }
 
     /**
