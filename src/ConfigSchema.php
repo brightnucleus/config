@@ -32,22 +32,6 @@ class ConfigSchema extends AbstractConfigSchema
      * The key that is used in the schema to define a required value.
      */
     const REQUIRED_KEY = 'required';
-    /**
-     * The list of values that are recognized as true in the schema.
-     */
-    const TRUTHY_VALUES = [
-        true,
-        1,
-        'true',
-        'True',
-        'TRUE',
-        'y',
-        'Y',
-        'yes',
-        'Yes',
-        'YES',
-        '√',
-    ];
 
     /**
      * Instantiate a ConfigSchema object.
@@ -153,6 +137,20 @@ class ConfigSchema extends AbstractConfigSchema
      */
     protected function isTruthy($data)
     {
-        return in_array($data, self::TRUTHY_VALUES, true);
+        $truthy_values = [
+            true,
+            1,
+            'true',
+            'True',
+            'TRUE',
+            'y',
+            'Y',
+            'yes',
+            'Yes',
+            'YES',
+            '√',
+        ];
+
+        return in_array($data, $truthy_values, true);
     }
 }
