@@ -17,6 +17,10 @@ This is a very lean Config component to help you write reusable code. It only of
 
 * [Installation](#installation)
 * [Basic Usage](#basic-usage)
+	* [Working With Config Data](#working-with-config-data)
+		* [Checking The Existence Of A Key](#checking-the-existence-of-a-key)
+		* [Getting The Value Of A Key](#getting-the-value-of-a-key)
+		* [Nested Keys](#nested-keys)
 	* [Example - Configuration File](#example-configuration-file)
 	* [Example - Configurable Class](#example-configurable-class)
 	* [Example - Getting The Config Into The Class](#example-getting-the-config-into-the-class)
@@ -37,6 +41,24 @@ composer require brightnucleus/config
 ## Basic Usage
 
 A class that wants to be configurable should accept a `ConfigInterface` in its constructor, so that the Config can be injected. The surrounding code then should inject an instance of an object (for example the generic `Config` that is provided with this component). This way, the class that accepts the Config can be written in a 100% reusable way, while all project-specific stuff will be injected through the Config.
+
+### Working With Config Data
+
+#### Checking The Existence Of A Key
+
+To check whether the configuration has a certain key, you can use the `ConfigInterface::hasKey($key)` method, or, if you are using the `ConfigTrait` in your class, you can use the convenience method `$this->hasConfigKey($key)`.
+
+#### Getting The Value Of A Key
+
+To get the configuration value of a certain key, you can use the `ConfigInterface::getKey($key)` method, or, if you are using the `ConfigTrait` in your class, you can use the convenience method `$this->getConfigKey($key)`.
+
+#### Nested Keys
+
+If your keys are nested, you can provide multiple levels of keys in one request. So, whenever you need to provide a key and want to use a nested one, you can either provide a comma-separated list of keys ( `$this->getConfigKey( 'level1', 'level2', 'level3' );` ) or a string that contains the list of keys separated by a delimiter ( `$this->getConfigKey( 'level1/level2/level3' );` ).
+
+You can freely mix-and-match these two approaches as you like.
+
+The default delimiters are: `/`, `\` and `.`. You can choose different delimiters by passing an array of delimiters as a fourth argument to the `Config`s constructor.
 
 ### Example - Configuration File
 
