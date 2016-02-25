@@ -13,6 +13,19 @@
 
 This is a very lean Config component to help you write reusable code. It only offers basic functionality and is meant to be used in libraries and small projects. If you need a Config component for more complex projects, you should take a look at the [Symfony Config Component](http://symfony.com/doc/current/components/config/index.html).
 
+## Table Of Contents
+
+* [Installation](#installation)
+* [Basic Usage](#basic-usage)
+	* [Example - Configuration File](#example-configuration-file)
+	* [Example - Configurable Class](#example-configurable-class)
+	* [Example - Getting The Config Into The Class](#example-getting-the-config-into-the-class)
+* [Advanced Usage](#advanced-usage)
+	* [Configuration Schema](#configuration-schema)
+	* [Configuration Validation](#configuration-validation)
+	* [Custom Implementations](#custom-implementations)
+* [Contributing](#contributing)
+
 ## Installation
 
 The best way to use this component is through Composer:
@@ -21,11 +34,11 @@ The best way to use this component is through Composer:
 composer require brightnucleus/config
 ```
 
-## Usage
+## Basic Usage
 
 A class that wants to be configurable should accept a `ConfigInterface` in its constructor, so that the Config can be injected. The surrounding code then should inject an instance of an object (for example the generic `Config` that is provided with this component). This way, the class that accepts the Config can be written in a 100% reusable way, while all project-specific stuff will be injected through the Config.
 
-### Example configuration file
+### Example - Configuration File
 
 The snippet below shows the basic structure of a config file.
 
@@ -46,7 +59,7 @@ return [
 ];
 ```
 
-### Example of a configurable class
+### Example - Configurable Class
 
 Here is an example setup of how you could feed this configuration into a plugin.
 
@@ -86,9 +99,9 @@ class Example {
 }
 ```
 
-### Example of how to put the configuration into the class
+### Example - Getting The Config Into The Class
 
-You can combine all of your configurations into 1 single file and only pass "Sub-Configurations" to the individual components. This way, you can save a file access and a complete validation pass for each component.
+You can combine all of your configurations into 1 single file and only pass "Sub-Configurations" to the individual components using the `getSubConfig()` method. This way, you can avoid an additional file access and an additional validation pass for each component.
 
 Here's how you can pass the configuration file into the class:
 
@@ -106,7 +119,19 @@ function init() {
 }
 ```
 
-See [link to post coming soon] for more details.
+## Advanced Usage
+
+### Configuration Schema
+
+> TODO
+
+### Configuration Validation
+
+> TODO
+
+### Custom Implementations
+
+> TODO
 
 ## Contributing
 
