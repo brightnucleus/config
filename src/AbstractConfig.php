@@ -65,7 +65,7 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      * @since 0.1.0
      * @since 0.1.4 Accepts list of keys.
      *
-     * @param string $_ List of keys.
+     * @param string|array $_ List of keys.
      * @return mixed
      * @throws BadMethodCallException If no argument was provided.
      * @throws OutOfRangeException If an unknown key is requested.
@@ -92,7 +92,7 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      * @since 0.1.0
      * @since 0.1.4 Accepts list of keys.
      *
-     * @param string $_ List of keys.
+     * @param string|array $_ List of keys.
      * @return bool
      */
     public function hasKey($_)
@@ -143,7 +143,7 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      *
      * @since 0.1.13
      *
-     * @param string $_ List of keys.
+     * @param string|array $_ List of keys.
      * @return ConfigInterface
      * @throws BadMethodCallException If no argument was provided.
      * @throws OutOfRangeException If an unknown key is requested.
@@ -163,7 +163,7 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      *
      * @since 0.1.13
      *
-     * @param string $_ List of keys.
+     * @param string|array $_ List of keys.
      * @return array List of keys.
      * @throws BadMethodCallException If no argument was provided.
      * @throws OutOfRangeException If an unknown key is requested.
