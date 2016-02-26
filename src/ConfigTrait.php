@@ -63,10 +63,10 @@ trait ConfigTrait
      * @since 0.1.2
      * @since 0.1.5 Accepts list of keys.
      *
-     * @param string ... List of keys.
+     * @param string|array $_ List of keys.
      * @return bool Whether the key is known.
      */
-    protected function hasConfigKey()
+    protected function hasConfigKey($_)
     {
         $keys = func_get_args();
         Assert\that($keys)->all()->string()->notEmpty();
@@ -82,10 +82,10 @@ trait ConfigTrait
      * @since 0.1.2
      * @since 0.1.5 Accepts list of keys.
      *
-     * @param string ... List of keys.
+     * @param string|array $_ List of keys.
      * @return mixed Value of the key.
      */
-    protected function getConfigKey()
+    protected function getConfigKey($_)
     {
         $keys = func_get_args();
         Assert\that($keys)->all()->string()->notEmpty();
