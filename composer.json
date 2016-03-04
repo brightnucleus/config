@@ -1,25 +1,33 @@
 {
-	"name": "brightnucleus/config",
-	"description": "Minimal, reusable Config component.",
-	"require-dev": {
-		"phpunit/phpunit": "~4",
-		"squizlabs/php_codesniffer": "~2.5"
-	},
-	"license": "GPL-2.0+",
-	"authors": [
-		{
-			"name": "Alain Schlesser",
-			"email": "alain.schlesser@gmail.com"
-		}
-	],
-	"require": {
-		"symfony/options-resolver": ">2.8",
-		"beberlei/assert": ">2",
-		"brightnucleus/exceptions": "^0.2"
-	},
-	"autoload": {
-		"psr-4": {
-			"BrightNucleus\\Config\\": "src/"
-		}
-	}
+  "name": "brightnucleus/config",
+  "description": "Minimal, reusable Config component.",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require-dev": {
+    "phpunit/phpunit": "~4",
+    "squizlabs/php_codesniffer": "~2.5"
+  },
+  "license": "GPL-2.0+",
+  "authors": [
+    {
+      "name": "Alain Schlesser",
+      "email": "alain.schlesser@gmail.com"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/schlessera/assert"
+    }
+  ],
+  "require": {
+    "symfony/options-resolver": ">2.8",
+    "beberlei/assert": "dev-schlessera-138-functions-file-causes-collisions",
+    "brightnucleus/exceptions": "^0.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "BrightNucleus\\Config\\": "src/"
+    }
+  }
 }
