@@ -4,20 +4,20 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7c18473a3e6780a46893db3f3d5bf263",
+    "hash": "60081cf6f7e45a0f2a69d4834c8639c1",
     "packages": [
         {
             "name": "beberlei/assert",
-            "version": "dev-schlessera-138-functions-file-causes-collisions",
+            "version": "v2.5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/schlessera/assert.git",
-                "reference": "1390523e1f40f3ba24acae002ede94db61c6399d"
+                "url": "https://github.com/beberlei/assert.git",
+                "reference": "91e2690c4ecc8a4e3e2d333430069f6a0c694a7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schlessera/assert/zipball/1390523e1f40f3ba24acae002ede94db61c6399d",
-                "reference": "1390523e1f40f3ba24acae002ede94db61c6399d",
+                "url": "https://api.github.com/repos/beberlei/assert/zipball/91e2690c4ecc8a4e3e2d333430069f6a0c694a7a",
+                "reference": "91e2690c4ecc8a4e3e2d333430069f6a0c694a7a",
                 "shasum": ""
             },
             "require": {
@@ -41,6 +41,7 @@
                     "lib/Assert/functions.php"
                 ]
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-2-Clause"
             ],
@@ -56,27 +57,24 @@
                 "assertion",
                 "validation"
             ],
-            "support": {
-                "source": "https://github.com/schlessera/assert/tree/schlessera-138-functions-file-causes-collisions"
-            },
-            "time": "2016-03-04 11:46:48"
+            "time": "2016-03-22 14:34:51"
         },
         {
             "name": "brightnucleus/exceptions",
-            "version": "v0.2.2",
+            "version": "v0.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brightnucleus/exceptions.git",
-                "reference": "6d41bc26c3aff956e46e5ee4fa00d053fe0516f5"
+                "reference": "d80cc71ba60fec7eb4da85da817f3ba3ba543b54"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brightnucleus/exceptions/zipball/6d41bc26c3aff956e46e5ee4fa00d053fe0516f5",
-                "reference": "6d41bc26c3aff956e46e5ee4fa00d053fe0516f5",
+                "url": "https://api.github.com/repos/brightnucleus/exceptions/zipball/d80cc71ba60fec7eb4da85da817f3ba3ba543b54",
+                "reference": "d80cc71ba60fec7eb4da85da817f3ba3ba543b54",
                 "shasum": ""
             },
             "require": {
-                "beberlei/assert": "dev-schlessera-138-functions-file-causes-collisions"
+                "beberlei/assert": "^2.5"
             },
             "require-dev": {
                 "phpunit/phpunit": "~4",
@@ -99,7 +97,7 @@
                 }
             ],
             "description": "Exceptions shared across Bright Nucleus components.",
-            "time": "2016-03-04 13:15:47"
+            "time": "2016-03-22 15:53:29"
         },
         {
             "name": "symfony/options-resolver",
@@ -564,16 +562,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.23",
+            "version": "4.8.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "6e351261f9cd33daf205a131a1ba61c6d33bd483"
+                "reference": "a1066c562c52900a142a0e2bbf0582994671385e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/6e351261f9cd33daf205a131a1ba61c6d33bd483",
-                "reference": "6e351261f9cd33daf205a131a1ba61c6d33bd483",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/a1066c562c52900a142a0e2bbf0582994671385e",
+                "reference": "a1066c562c52900a142a0e2bbf0582994671385e",
                 "shasum": ""
             },
             "require": {
@@ -632,7 +630,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-02-11 14:56:33"
+            "time": "2016-03-14 06:16:08"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -1190,9 +1188,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "beberlei/assert": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": [],
