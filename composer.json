@@ -5,7 +5,8 @@
   "prefer-stable": true,
   "require-dev": {
     "phpunit/phpunit": "~4",
-    "squizlabs/php_codesniffer": "~2.5"
+    "squizlabs/php_codesniffer": "~2.5",
+    "php-composter/php-composter-phpcs-psr2": "^0.1.0"
   },
   "license": "GPL-2.0+",
   "authors": [

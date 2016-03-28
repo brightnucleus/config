@@ -159,7 +159,7 @@ function init() {
 
 All feedback / bug reports / pull requests are welcome.
 
-Please use the provided `pre-commit` hook. To install it, run the following command from the project's root:
+This package uses the [PHP Composter PHPCS PSR-2](https://github.com/php-composter/php-composter-phpcs-psr2) package to check committed files for compliance with the [PSR-2 Coding Style Guide](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md). If you have valid reasons to skip this check, add the `--no-verify` option to your commit command:
 ```BASH
-ln -s ../../.pre-commit .git/hooks/pre-commit
+git commit --no-verify
 ```
