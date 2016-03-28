@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ff618a6ed1885f6ae9c7c76a385b980c",
-    "content-hash": "00ffd2d108eaeacb834ad29c53667755",
+    "hash": "a16c246a2e0607bb02b1594a32569fae",
+    "content-hash": "dab193fb75187c64ce2a3bc89d3d155a",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -212,16 +212,16 @@
         },
         {
             "name": "php-composter/php-composter",
-            "version": "v0.1.3",
+            "version": "v0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-composter/php-composter.git",
-                "reference": "87be2a976026b7d59daf99e1446dddcb3c90c5c5"
+                "reference": "1573ba4ec30e567cc9fd4a2ef33a78e5454e311e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-composter/php-composter/zipball/87be2a976026b7d59daf99e1446dddcb3c90c5c5",
-                "reference": "87be2a976026b7d59daf99e1446dddcb3c90c5c5",
+                "url": "https://api.github.com/repos/php-composter/php-composter/zipball/1573ba4ec30e567cc9fd4a2ef33a78e5454e311e",
+                "reference": "1573ba4ec30e567cc9fd4a2ef33a78e5454e311e",
                 "shasum": ""
             },
             "require": {
@@ -248,29 +248,31 @@
                 }
             ],
             "description": "Git Hooks Management through Composer.",
-            "time": "2016-03-25 07:49:54"
+            "time": "2016-03-28 05:29:17"
         },
         {
             "name": "php-composter/php-composter-phpcs-psr2",
-            "version": "v0.1.0",
+            "version": "v0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-composter/php-composter-phpcs-psr2.git",
-                "reference": "6c480ea97b9437dc118988f739a1b235ac74e5d8"
+                "reference": "1b079112d083f1b670648994c9594ece5fc259a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-composter/php-composter-phpcs-psr2/zipball/6c480ea97b9437dc118988f739a1b235ac74e5d8",
-                "reference": "6c480ea97b9437dc118988f739a1b235ac74e5d8",
+                "url": "https://api.github.com/repos/php-composter/php-composter-phpcs-psr2/zipball/1b079112d083f1b670648994c9594ece5fc259a2",
+                "reference": "1b079112d083f1b670648994c9594ece5fc259a2",
                 "shasum": ""
             },
             "require": {
-                "php-composter/php-composter": "^0.1",
+                "php-composter/php-composter": "^0.2",
                 "squizlabs/php_codesniffer": "^2.5"
             },
             "type": "php-composter-action",
             "extra": {
-                "10.pre-commit": "PHPComposter\\PHPComposter_PHPCS_PSR2\\Sniffer::preCommit"
+                "php-composter-hooks": {
+                    "10.pre-commit": "PHPComposter\\PHPComposter_PHPCS_PSR2\\Sniffer::preCommit"
+                }
             },
             "autoload": {
                 "psr-4": {
@@ -288,7 +290,7 @@
                 }
             ],
             "description": "PHP Composter PHP Code Sniffer PSR-2 (pre-commit).",
-            "time": "2016-03-25 07:57:18"
+            "time": "2016-03-28 05:34:40"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
