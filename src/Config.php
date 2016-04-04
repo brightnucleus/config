@@ -1,10 +1,10 @@
 <?php
 /**
- * Generic Config contract implementation
+ * Bright Nucleus Config Component.
  *
  * @package   BrightNucleus\Config
  * @author    Alain Schlesser <alain.schlesser@gmail.com>
- * @license   GPL-2.0+
+ * @license   MIT
  * @link      http://www.brightnucleus.com/
  * @copyright 2016 Alain Schlesser, Bright Nucleus
  */
@@ -21,7 +21,7 @@ use Exception;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class Config
+ * Generic implementation of a Config object.
  *
  * @since   0.1.0
  *
@@ -64,6 +64,7 @@ class Config extends AbstractConfig
      *                                        actual validation.
      * @param string[]|string|null $delimiter A string or array of strings that are used as delimiters to parse
      *                                        configuration keys. Defaults to "\", "/" & ".".
+     *
      * @throws InvalidArgumentException If the config source is not a string or
      *                                        array.
      * @throws RuntimeException         If loading of the config source failed.
@@ -79,7 +80,7 @@ class Config extends AbstractConfig
         $this->validator = $validator;
 
         // Make sure $config is either a string or array.
-        if (! (is_string($config) || is_array($config))) {
+        if ( ! (is_string($config) || is_array($config))) {
             throw new InvalidArgumentException(
                 sprintf(
                     _('Invalid configuration source: %1$s'),
@@ -109,7 +110,7 @@ class Config extends AbstractConfig
         }
 
         // Finally, validate the resulting config.
-        if (! $this->isValid()) {
+        if ( ! $this->isValid()) {
             throw new UnexpectedValueException(
                 sprintf(
                     _('ConfigInterface file is not valid: %1$s'),
@@ -140,7 +141,8 @@ class Config extends AbstractConfig
      *
      * @since 0.1.0
      *
-     * @param  string $filename         Filename for the settings file.
+     * @param  string $filename Filename for the settings file.
+     *
      * @return array                    Array with configuration settings.
      * @throws RuntimeException         If the config source is a non-existing
      *                                  file.
@@ -182,14 +184,15 @@ class Config extends AbstractConfig
      *
      * @since 0.1.0
      *
-     * @param array $config             Configuration settings to resolve.
+     * @param array $config Configuration settings to resolve.
+     *
      * @return array                    Resolved configuration settings.
      * @throws UnexpectedValueException If there are errors while resolving the
      *                                  options.
      */
     protected function resolveOptions($config)
     {
-        if (! $this->schema) {
+        if ( ! $this->schema) {
             return $config;
         }
 
@@ -220,6 +223,7 @@ class Config extends AbstractConfig
      *
      * @param OptionsResolver $resolver Reference to the OptionsResolver
      *                                  instance.
+     *
      * @return bool Whether to do the resolving.
      * @throws UnexpectedValueException If there are errors while processing.
      */
@@ -229,7 +233,7 @@ class Config extends AbstractConfig
         $defaults = $this->schema->getDefaultOptions();
         $required = $this->schema->getRequiredOptions();
 
-        if (! $defined && ! $defaults && ! $required) {
+        if ( ! $defined && ! $defaults && ! $required) {
             return false;
         }
 

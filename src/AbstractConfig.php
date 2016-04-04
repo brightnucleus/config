@@ -1,10 +1,10 @@
 <?php
 /**
- * Abstract Config Object
+ * Bright Nucleus Config Component.
  *
  * @package   BrightNucleus\Config
  * @author    Alain Schlesser <alain.schlesser@gmail.com>
- * @license   GPL-2.0+
+ * @license   MIT
  * @link      http://www.brightnucleus.com/
  * @copyright 2016 Alain Schlesser, Bright Nucleus
  */
@@ -18,7 +18,7 @@ use BrightNucleus\Exception\OutOfRangeException;
 use Exception;
 
 /**
- * Config loader used to load config PHP files as objects.
+ * Handles basic manipulation of configuration values.
  *
  * @since      0.1.0
  *
@@ -66,6 +66,7 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      * @since 0.1.4 Accepts list of keys.
      *
      * @param string|array $_ List of keys.
+     *
      * @return mixed
      * @throws BadMethodCallException If no argument was provided.
      * @throws OutOfRangeException If an unknown key is requested.
@@ -93,6 +94,7 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      * @since 0.1.4 Accepts list of keys.
      *
      * @param string|array $_ List of keys.
+     *
      * @return bool
      */
     public function hasKey($_)
@@ -103,7 +105,7 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
             $array = $this->getArrayCopy();
             while (count($keys) > 0) {
                 $key = array_pop($keys);
-                if (! array_key_exists($key, $array)) {
+                if ( ! array_key_exists($key, $array)) {
                     return false;
                 }
                 $array = $array[$key];
@@ -144,6 +146,7 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      * @since 0.1.13
      *
      * @param string|array $_ List of keys.
+     *
      * @return ConfigInterface
      * @throws BadMethodCallException If no argument was provided.
      * @throws OutOfRangeException If an unknown key is requested.
@@ -164,6 +167,7 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      * @since 0.1.13
      *
      * @param string|array $_ List of keys.
+     *
      * @return array List of keys.
      * @throws BadMethodCallException If no argument was provided.
      * @throws OutOfRangeException If an unknown key is requested.
@@ -174,7 +178,7 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
 
         Assert\that($keys)->all()->string()->notEmpty();
 
-        if (! $this->hasKey($keys)) {
+        if ( ! $this->hasKey($keys)) {
             throw new OutOfRangeException(
                 sprintf(
                     _('The configuration key %1$s does not exist.'),
@@ -204,6 +208,7 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      * @since 0.1.6
      *
      * @param array $arguments Array as fetched through get_func_args().
+     *
      * @return array Array of strings.
      * @throws BadMethodCallException If no argument was provided.
      */
@@ -230,6 +235,7 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      * @since 0.1.6
      *
      * @param string $keyString Delimited string of keys.
+     *
      * @return array Array of key strings.
      */
     protected function parseKeysString($keyString)

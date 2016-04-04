@@ -163,3 +163,9 @@ This package uses the [PHP Composter PHPCS PSR-2](https://github.com/php-compost
 ```BASH
 git commit --no-verify
 ```
+
+## License
+
+This code is released under the MIT license.
+
+For the full copyright and license information, please view the [`LICENSE`](LICENSE) file distributed with this source code.

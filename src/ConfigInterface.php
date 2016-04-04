@@ -1,10 +1,10 @@
 <?php
 /**
- * Config Interface
+ * Bright Nucleus Config Component.
  *
  * @package   BrightNucleus\Config
  * @author    Alain Schlesser <alain.schlesser@gmail.com>
- * @license   GPL-2.0+
+ * @license   MIT
  * @link      http://www.brightnucleus.com/
  * @copyright 2016 Alain Schlesser, Bright Nucleus
  */
@@ -17,7 +17,7 @@ use IteratorAggregate;
 use Serializable;
 
 /**
- * Config loader used to load config PHP files as objects.
+ * Contract to deal with configuration values.
  *
  * @since      0.1.0
  *
@@ -49,6 +49,7 @@ interface ConfigInterface extends IteratorAggregate, ArrayAccess, Serializable, 
      * @since 0.1.4 Accepts list of keys.
      *
      * @param string $_ List of keys.
+     *
      * @return bool
      */
     public function hasKey($_);
@@ -62,6 +63,7 @@ interface ConfigInterface extends IteratorAggregate, ArrayAccess, Serializable, 
      * @since 0.1.4 Accepts list of keys.
      *
      * @param string $_ List of keys.
+     *
      * @return mixed
      */
     public function getKey($_);
@@ -99,6 +101,7 @@ interface ConfigInterface extends IteratorAggregate, ArrayAccess, Serializable, 
      * @since 0.1.13
      *
      * @param string $_ List of keys.
+     *
      * @return ConfigInterface
      */
     public function getSubConfig($_);

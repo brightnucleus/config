@@ -1,10 +1,10 @@
 <?php
 /**
- * Abstract Config Schema Class.
+ * Bright Nucleus Config Component.
  *
  * @package   BrightNucleus\Config
  * @author    Alain Schlesser <alain.schlesser@gmail.com>
- * @license   GPL-2.0+
+ * @license   MIT
  * @link      http://www.brightnucleus.com/
  * @copyright 2016 Alain Schlesser, Bright Nucleus
  */
@@ -12,7 +12,7 @@
 namespace BrightNucleus\Config;
 
 /**
- * Class AbstractConfigSchema
+ * Handles basic validation of the config schema.
  *
  * @since   0.1.0
  *
@@ -52,7 +52,7 @@ abstract class AbstractConfigSchema implements ConfigSchemaInterface
      */
     public function getDefinedOptions()
     {
-        if (! $this->defined) {
+        if ( ! $this->defined) {
             return null;
         }
 
@@ -72,7 +72,7 @@ abstract class AbstractConfigSchema implements ConfigSchemaInterface
      */
     public function getDefaultOptions()
     {
-        if (! $this->defaults) {
+        if ( ! $this->defaults) {
             return null;
         }
 
@@ -92,7 +92,7 @@ abstract class AbstractConfigSchema implements ConfigSchemaInterface
      */
     public function getRequiredOptions()
     {
-        if (! $this->required) {
+        if ( ! $this->required) {
             return null;
         }
 

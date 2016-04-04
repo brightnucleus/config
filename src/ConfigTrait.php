@@ -1,10 +1,10 @@
 <?php
 /**
- * Config Trait
+ * Bright Nucleus Config Component.
  *
  * @package   BrightNucleus\Config
  * @author    Alain Schlesser <alain.schlesser@gmail.com>
- * @license   GPL-2.0+
+ * @license   MIT
  * @link      http://www.brightnucleus.com/
  * @copyright 2016 Alain Schlesser, Bright Nucleus
  */
@@ -15,6 +15,14 @@ use Assert;
 use BrightNucleus\Exception\RuntimeException;
 use Exception;
 
+/**
+ * Basic config processing that can be included within classes.
+ *
+ * @since   0.1.2
+ *
+ * @package BrightNucleus\Config
+ * @author  Alain Schlesser <alain.schlesser@gmail.com>
+ */
 trait ConfigTrait
 {
 
@@ -34,6 +42,7 @@ trait ConfigTrait
      *
      * @param ConfigInterface $config The Config to process.
      * @param                 string  ... List of keys.
+     *
      * @throws RuntimeException If the arguments could not be parsed into a Config.
      */
     protected function processConfig(ConfigInterface $config)
@@ -64,6 +73,7 @@ trait ConfigTrait
      * @since 0.1.5 Accepts list of keys.
      *
      * @param string|array $_ List of keys.
+     *
      * @return bool Whether the key is known.
      */
     protected function hasConfigKey($_)
@@ -83,6 +93,7 @@ trait ConfigTrait
      * @since 0.1.5 Accepts list of keys.
      *
      * @param string|array $_ List of keys.
+     *
      * @return mixed Value of the key.
      */
     protected function getConfigKey($_)

@@ -1,10 +1,10 @@
 <?php
 /**
- * Generic Config Schema Class.
+ * Bright Nucleus Config Component.
  *
  * @package   BrightNucleus\Config
  * @author    Alain Schlesser <alain.schlesser@gmail.com>
- * @license   GPL-2.0+
+ * @license   MIT
  * @link      http://www.brightnucleus.com/
  * @copyright 2016 Alain Schlesser, Bright Nucleus
  */
@@ -14,7 +14,7 @@ namespace BrightNucleus\Config;
 use BrightNucleus\Exception\InvalidArgumentException;
 
 /**
- * Class ConfigSchema
+ * Generic implementation of a configuration requirements check.
  *
  * @since   0.1.0
  *
@@ -39,6 +39,7 @@ class ConfigSchema extends AbstractConfigSchema
      * @since 0.1.0
      *
      * @param ConfigInterface|array $schema The schema to parse.
+     *
      * @throws InvalidArgumentException
      */
     public function __construct($schema)
@@ -47,7 +48,7 @@ class ConfigSchema extends AbstractConfigSchema
             $schema = $schema->getArrayCopy();
         }
 
-        if (! is_array($schema)) {
+        if ( ! is_array($schema)) {
             throw new InvalidArgumentException(
                 sprintf(
                     _('Invalid schema source: %1$s'),
@@ -133,6 +134,7 @@ class ConfigSchema extends AbstractConfigSchema
      * @since 0.1.0
      *
      * @param mixed $data The data to evaluate.
+     *
      * @return bool
      */
     protected function isTruthy($data)
