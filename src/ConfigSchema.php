@@ -48,7 +48,7 @@ class ConfigSchema extends AbstractConfigSchema
             $schema = $schema->getArrayCopy();
         }
 
-        if ( ! is_array($schema)) {
+        if (! is_array($schema)) {
             throw new InvalidArgumentException(
                 sprintf(
                     _('Invalid schema source: %1$s'),

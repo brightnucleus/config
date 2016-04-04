@@ -52,7 +52,7 @@ abstract class AbstractConfigSchema implements ConfigSchemaInterface
      */
     public function getDefinedOptions()
     {
-        if ( ! $this->defined) {
+        if (! $this->defined) {
             return null;
         }
 
@@ -72,7 +72,7 @@ abstract class AbstractConfigSchema implements ConfigSchemaInterface
      */
     public function getDefaultOptions()
     {
-        if ( ! $this->defaults) {
+        if (! $this->defaults) {
             return null;
         }
 
@@ -92,7 +92,7 @@ abstract class AbstractConfigSchema implements ConfigSchemaInterface
      */
     public function getRequiredOptions()
     {
-        if ( ! $this->required) {
+        if (! $this->required) {
             return null;
         }
 

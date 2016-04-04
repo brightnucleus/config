@@ -105,7 +105,7 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
             $array = $this->getArrayCopy();
             while (count($keys) > 0) {
                 $key = array_pop($keys);
-                if ( ! array_key_exists($key, $array)) {
+                if (! array_key_exists($key, $array)) {
                     return false;
                 }
                 $array = $array[$key];
@@ -178,7 +178,7 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
 
         Assert\that($keys)->all()->string()->notEmpty();
 
-        if ( ! $this->hasKey($keys)) {
+        if (! $this->hasKey($keys)) {
             throw new OutOfRangeException(
                 sprintf(
                     _('The configuration key %1$s does not exist.'),

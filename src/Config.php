@@ -80,7 +80,7 @@ class Config extends AbstractConfig
         $this->validator = $validator;
 
         // Make sure $config is either a string or array.
-        if ( ! (is_string($config) || is_array($config))) {
+        if (! (is_string($config) || is_array($config))) {
             throw new InvalidArgumentException(
                 sprintf(
                     _('Invalid configuration source: %1$s'),
@@ -110,7 +110,7 @@ class Config extends AbstractConfig
         }
 
         // Finally, validate the resulting config.
-        if ( ! $this->isValid()) {
+        if (! $this->isValid()) {
             throw new UnexpectedValueException(
                 sprintf(
                     _('ConfigInterface file is not valid: %1$s'),
@@ -192,7 +192,7 @@ class Config extends AbstractConfig
      */
     protected function resolveOptions($config)
     {
-        if ( ! $this->schema) {
+        if (! $this->schema) {
             return $config;
         }
 
@@ -233,7 +233,7 @@ class Config extends AbstractConfig
         $defaults = $this->schema->getDefaultOptions();
         $required = $this->schema->getRequiredOptions();
 
-        if ( ! $defined && ! $defaults && ! $required) {
+        if (! $defined && ! $defaults && ! $required) {
             return false;
         }
 
