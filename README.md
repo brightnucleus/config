@@ -125,6 +125,10 @@ class Example {
 
 You can combine all of your configurations into 1 single file and only pass "Sub-Configurations" to the individual components using the `getSubConfig()` method. This way, you can avoid an additional file access and an additional validation pass for each component.
 
+To create a new instance of a `ConfigInterface`, you should use the `ConfigFactory`. The basic method `ConfigFactory::create()` can take either an array of values, or one or more file names (with absolute paths) as strings.
+
+If you provide a comma-separated list of file names, they are processed consecutively until the first one could be loaded successfully.
+
 Here's how you can pass the configuration file into the class:
 
 ```PHP
