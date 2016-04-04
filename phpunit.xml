@@ -17,6 +17,9 @@
         <testsuite name="trait">
             <file>tests/ConfigTraitTest.php</file>
         </testsuite>
+        <testsuite name="factory">
+            <file>tests/ConfigFactoryTest.php</file>
+        </testsuite>
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">

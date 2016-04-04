@@ -130,9 +130,11 @@ Here's how you can pass the configuration file into the class:
 ```PHP
 <?php namespace BrightNucleus\Example;
 
+use BrightNucleus\Config\ConfigFactory;
+
 function init() {
 	$configFile = __DIR__ . '/config/example_settings.php';
-	$config     = new Config( include( $configFile ) );
+	$config     = ConfigFactory::create($configFile);
 	$example    = new Example( $config->getSubConfig( 'BrightNucleus\Example' ) );
 
 	// Outputs:

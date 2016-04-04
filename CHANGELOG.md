@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.3.0] - 2016-04-04
+### Added
+- Added `ConfigFactory`.
+
+### Changed
+- Changed licensing from GPL2 to MIT.
+
 ## [0.2.8] - 2016-03-28
 ### Changed
 - Bumped [PHP Composter PHPCS PSR-2](https://github.com/php-composter/php-composter-phpcs-psr2) version.
@@ -118,6 +125,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Initial release to GitHub.
 
+[0.3.0]: https://github.com/brightnucleus/config/compare/v0.3.8...v0.3.0
 [0.2.8]: https://github.com/brightnucleus/config/compare/v0.2.7...v0.2.8
 [0.2.7]: https://github.com/brightnucleus/config/compare/v0.2.6...v0.2.7
 [0.2.6]: https://github.com/brightnucleus/config/compare/v0.2.5...v0.2.6
