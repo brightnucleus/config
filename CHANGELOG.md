@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.4.0] - 2016-04-28
+### Added
+- Added extensible loader framework that includes `PHPLoader` and can be extended by other packages.
+
+### Changed
+- Changed the extensions that are being thrown to more specific ones. They types are extensions of the ones that were previously used, but some exception messages have changed.
+- Generic `Config` class now uses the loader framework instead of reading the data on its own.
+
 ## [0.3.1] - 2016-04-05
 ### Changed
 - Update Composer dependencies.

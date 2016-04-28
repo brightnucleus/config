@@ -13,8 +13,7 @@ namespace BrightNucleus\Config;
 
 use ArrayObject;
 use Assert;
-use BrightNucleus\Exception\BadMethodCallException;
-use BrightNucleus\Exception\OutOfRangeException;
+use BrightNucleus\Config\Exception\KeyNotFoundException;
 use Exception;
 
 /**
@@ -68,8 +67,7 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      * @param string|array $_ List of keys.
      *
      * @return mixed
-     * @throws BadMethodCallException If no argument was provided.
-     * @throws OutOfRangeException If an unknown key is requested.
+     * @throws KeyNotFoundException If an unknown key is requested.
      */
     public function getKey($_)
     {
@@ -148,8 +146,7 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      * @param string|array $_ List of keys.
      *
      * @return ConfigInterface
-     * @throws BadMethodCallException If no argument was provided.
-     * @throws OutOfRangeException If an unknown key is requested.
+     * @throws KeyNotFoundException If an unknown key is requested.
      */
     public function getSubConfig($_)
     {
@@ -169,8 +166,7 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      * @param string|array $_ List of keys.
      *
      * @return array List of keys.
-     * @throws BadMethodCallException If no argument was provided.
-     * @throws OutOfRangeException If an unknown key is requested.
+     * @throws KeyNotFoundException If an unknown key is requested.
      */
     public function validateKeys($_)
     {
@@ -179,7 +175,7 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
         Assert\that($keys)->all()->string()->notEmpty();
 
         if (! $this->hasKey($keys)) {
-            throw new OutOfRangeException(
+            throw new KeyNotFoundException(
                 sprintf(
                     _('The configuration key %1$s does not exist.'),
                     implode('->', $keys)
@@ -210,7 +206,6 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      * @param array $arguments Array as fetched through get_func_args().
      *
      * @return array Array of strings.
-     * @throws BadMethodCallException If no argument was provided.
      */
     protected function getKeyArguments($arguments)
     {

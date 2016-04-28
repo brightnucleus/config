@@ -70,7 +70,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      *
      * @covers       BrightNucleus\Config\AbstractConfig::__construct
      * @covers       BrightNucleus\Config\Config::__construct
-     * @covers       BrightNucleus\Config\Config::fetchArrayData
      *
      * @dataProvider configExceptionsDataProvider
      *
@@ -90,7 +89,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $validator = null
     ) {
         $this->setExpectedException($exception, $message);
-        $config = new Config($config, $defaults, $validator);
+        new Config($config, $defaults, $validator);
     }
 
     /**
@@ -104,15 +103,20 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     {
         return [
             // $exception, $message, $config, $defaults, $validator
-            ['InvalidArgumentException', 'Invalid configuration source', null],
             [
-                'BrightNucleus\Exception\RuntimeException',
-                'File "/folder/missing_file.php" was expected to exist.',
+                'BrightNucleus\Config\Exception\InvalidConfigurationSourceException',
+                'Invalid configuration source',
+                null,
+            ],
+            [
+                'BrightNucleus\Config\Exception\FailedToLoadConfigException',
+                'Could not load resource located at "/folder/missing_file.php". Reason: '
+                . '"The requested PHP config file "/folder/missing_file.php" does not exist or is not readable.".',
                 '/folder/missing_file.php',
             ],
             [
-                'BrightNucleus\Exception\RuntimeException',
-                'is not an array.',
+                'BrightNucleus\Config\Exception\FailedToLoadConfigException',
+                'Could not find a suitable loader for URI',
                 __DIR__ . '/fixtures/dummy_file.txt',
             ],
         ];
@@ -139,7 +143,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $false_validator->method('isValid')
                         ->willReturn(false);
         $this->setExpectedException(
-            'BrightNucleus\Exception\UnexpectedValueException',
+            'BrightNucleus\Config\Exception\InvalidConfigException',
             'ConfigInterface file is not valid'
         );
         new Config(ConfigTest::$test_array, null, $false_validator);
@@ -233,7 +237,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     {
         $config = new Config(ConfigTest::$test_array);
         $this->setExpectedException(
-            'BrightNucleus\Exception\OutOfRangeException',
+            'BrightNucleus\Config\Exception\KeyNotFoundException',
             'The configuration key some_other_key does not exist.'
         );
         $config->getKey('some_other_key');
@@ -259,7 +263,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('level4_value', $config->getKey('level1.level2.level3.level4_key'));
         $this->assertEquals('level4_value', $config->getKey('level1\level2/level3.level4_key'));
         $this->setExpectedException(
-            'BrightNucleus\Exception\OutOfRangeException',
+            'BrightNucleus\Config\Exception\KeyNotFoundException',
             'The configuration key level1->level2->level4_key does not exist.'
         );
         $config->getKey('level1', 'level2', 'level4_key');
@@ -276,7 +280,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \BrightNucleus\Config\Config::__construct
-     * @covers \BrightNucleus\Config\Config::fetchArrayData
      * @covers \BrightNucleus\Config\Config::resolveOptions
      * @covers \BrightNucleus\Config\Config::configureOptions
      */
@@ -295,7 +298,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($config->getKey('positive_boolean'));
         $this->assertFalse($config->getKey('negative_boolean'));
         $this->setExpectedException(
-            'BrightNucleus\Exception\OutOfRangeException',
+            'BrightNucleus\Config\Exception\KeyNotFoundException',
             'The configuration key some_other_key does not exist.'
         );
         $this->assertFalse($config->getKey('some_other_key'));
@@ -303,7 +306,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \BrightNucleus\Config\Config::__construct
-     * @covers \BrightNucleus\Config\Config::fetchArrayData
      * @covers \BrightNucleus\Config\Config::resolveOptions
      * @covers \BrightNucleus\Config\Config::configureOptions
      */
@@ -311,7 +313,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     {
         $schema = new ConfigSchema(new Config(__DIR__ . '/fixtures/schema_config_file.php'));
         $this->setExpectedException(
-            'BrightNucleus\Exception\UnexpectedValueException',
+            'BrightNucleus\Config\Exception\FailedToResolveConfigException',
             'Error while resolving config options: The required option "negative_integer" is missing.'
         );
         new Config([], $schema);
@@ -319,7 +321,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \BrightNucleus\Config\Config::__construct
-     * @covers \BrightNucleus\Config\Config::fetchArrayData
      * @covers \BrightNucleus\Config\Config::resolveOptions
      * @covers \BrightNucleus\Config\Config::configureOptions
      */
@@ -338,7 +339,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(-333, $config->getKey('negative_integer'));
         $this->assertTrue($config->getKey('positive_boolean'));
         $this->setExpectedException(
-            'BrightNucleus\Exception\OutOfRangeException',
+            'BrightNucleus\Config\Exception\KeyNotFoundException',
             'The configuration key some_other_key does not exist.'
         );
         $this->assertFalse($config->getKey('some_other_key'));
@@ -370,7 +371,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($subsection1->hasKey('test_key_1'));
         $this->assertTrue($subsection2->hasKey('test_key_2'));
         $this->setExpectedException(
-            'BrightNucleus\Exception\OutOfRangeException',
+            'BrightNucleus\Config\Exception\KeyNotFoundException',
             'The configuration key some_other_key does not exist.'
         );
         $this->assertFalse($config->getSubConfig('some_other_key'));

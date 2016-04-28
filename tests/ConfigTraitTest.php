@@ -118,7 +118,7 @@ class ConfigTraitTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('level4_value', $this->getConfigKey('level1.level2.level3.level4_key'));
         $this->assertEquals('level4_value', $this->getConfigKey('level1\level2/level3.level4_key'));
         $this->setExpectedException(
-            'OutOfRangeException',
+            'BrightNucleus\Config\Exception\KeyNotFoundException',
             'The configuration key level1->level2->level4_key does not exist.'
         );
         $this->getConfigKey('level1', 'level2', 'level4_key');
@@ -188,7 +188,10 @@ class ConfigTraitTest extends \PHPUnit_Framework_TestCase
      */
     public function testProcessConfigThrowsException()
     {
-        $this->setExpectedException('RuntimeException', 'Could not process the config with the arguments');
+        $this->setExpectedException(
+            'BrightNucleus\Config\Exception\FailedToProcessConfigException',
+            'Could not process the config with the arguments'
+        );
         $this->processConfig(
             new Config(
                 [

@@ -12,7 +12,7 @@
 namespace BrightNucleus\Config;
 
 use Assert;
-use BrightNucleus\Exception\RuntimeException;
+use BrightNucleus\Config\Exception\FailedToProcessConfigException;
 use Exception;
 
 /**
@@ -43,7 +43,7 @@ trait ConfigTrait
      * @param ConfigInterface $config The Config to process.
      * @param                 string  ... List of keys.
      *
-     * @throws RuntimeException If the arguments could not be parsed into a Config.
+     * @throws FailedToProcessConfigException If the arguments could not be parsed into a Config.
      */
     protected function processConfig(ConfigInterface $config)
     {
@@ -53,7 +53,7 @@ trait ConfigTrait
                 array_shift($keys);
                 $config = $config->getSubConfig($keys);
             } catch (Exception $exception) {
-                throw new RuntimeException(
+                throw new FailedToProcessConfigException(
                     sprintf(
                         _('Could not process the config with the arguments "%1$s".'),
                         print_r(func_get_args(), true)

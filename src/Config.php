@@ -14,9 +14,11 @@ namespace BrightNucleus\Config;
 use Assert;
 use BrightNucleus\Config\ConfigSchemaInterface as Schema;
 use BrightNucleus\Config\ConfigValidatorInterface as Validator;
-use BrightNucleus\Exception\InvalidArgumentException;
-use BrightNucleus\Exception\RuntimeException;
-use BrightNucleus\Exception\UnexpectedValueException;
+use BrightNucleus\Config\Exception\FailedToInstantiateParentException;
+use BrightNucleus\Config\Exception\FailedToLoadConfigException;
+use BrightNucleus\Config\Exception\FailedToResolveConfigException;
+use BrightNucleus\Config\Exception\InvalidConfigException;
+use BrightNucleus\Config\Exception\InvalidConfigurationSourceException;
 use Exception;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -65,10 +67,11 @@ class Config extends AbstractConfig
      * @param string[]|string|null $delimiter A string or array of strings that are used as delimiters to parse
      *                                        configuration keys. Defaults to "\", "/" & ".".
      *
-     * @throws InvalidArgumentException If the config source is not a string or
-     *                                        array.
-     * @throws RuntimeException         If loading of the config source failed.
-     * @throws UnexpectedValueException If the config file is not valid.
+     * @throws InvalidConfigurationSourceException If the config source is not a string or array.
+     * @throws FailedToInstantiateParentException  If the parent class could not be instantiated.
+     * @throws FailedToLoadConfigException         If loading of the config source failed.
+     * @throws FailedToResolveConfigException      If the config file could not be resolved.
+     * @throws InvalidConfigException              If the config file is not valid.
      */
     public function __construct(
         $config,
@@ -81,7 +84,7 @@ class Config extends AbstractConfig
 
         // Make sure $config is either a string or array.
         if (! (is_string($config) || is_array($config))) {
-            throw new InvalidArgumentException(
+            throw new InvalidConfigurationSourceException(
                 sprintf(
                     _('Invalid configuration source: %1$s'),
                     print_r($config, true)
@@ -90,7 +93,7 @@ class Config extends AbstractConfig
         }
 
         if (is_string($config)) {
-            $config = $this->fetchArrayData($config);
+            $config = Loader::load($config);
         }
 
         // Run the $config through the OptionsResolver.
@@ -101,7 +104,7 @@ class Config extends AbstractConfig
         try {
             parent::__construct($config, $delimiter);
         } catch (Exception $exception) {
-            throw new RuntimeException(
+            throw new FailedToInstantiateParentException(
                 sprintf(
                     _('Could not instantiate the configuration through its parent. Reason: %1$s'),
                     $exception->getMessage()
@@ -111,7 +114,7 @@ class Config extends AbstractConfig
 
         // Finally, validate the resulting config.
         if (! $this->isValid()) {
-            throw new UnexpectedValueException(
+            throw new InvalidConfigException(
                 sprintf(
                     _('ConfigInterface file is not valid: %1$s'),
                     print_r($config, true)
@@ -137,48 +140,6 @@ class Config extends AbstractConfig
     }
 
     /**
-     * Fetch array data from a string pointing to a file.
-     *
-     * @since 0.1.0
-     *
-     * @param  string $filename Filename for the settings file.
-     *
-     * @return array                    Array with configuration settings.
-     * @throws RuntimeException         If the config source is a non-existing
-     *                                  file.
-     * @throws RuntimeException         If loading of the config source failed.
-     */
-    protected function fetchArrayData($filename)
-    {
-        try {
-            // Assert that $filename is a readable file.
-            Assert\that($filename)
-                ->notEmpty()
-                ->file()
-                ->readable();
-
-            // Try to load the file through PHP's include().
-            // Make sure we don't accidentally create output.
-            ob_get_contents();
-            $config = include($filename);
-            ob_clean();
-
-            // The included should return an array.
-            Assert\that($config)->isArray();
-        } catch (Exception $exception) {
-            throw new RuntimeException(
-                sprintf(
-                    _('Loading from configuration source %1$s failed. Reason: %2$s'),
-                    (string)$filename,
-                    (string)$exception->getMessage()
-                )
-            );
-        }
-
-        return $config;
-    }
-
-    /**
      * Process the passed-in defaults and merge them with the new values, while
      * checking that all required options are set.
      *
@@ -186,9 +147,8 @@ class Config extends AbstractConfig
      *
      * @param array $config Configuration settings to resolve.
      *
-     * @return array                    Resolved configuration settings.
-     * @throws UnexpectedValueException If there are errors while resolving the
-     *                                  options.
+     * @return array Resolved configuration settings.
+     * @throws FailedToResolveConfigException If there are errors while resolving the options.
      */
     protected function resolveOptions($config)
     {
@@ -202,7 +162,7 @@ class Config extends AbstractConfig
                 $config = $resolver->resolve($config);
             }
         } catch (Exception $exception) {
-            throw new UnexpectedValueException(
+            throw new FailedToResolveConfigException(
                 sprintf(
                     _('Error while resolving config options: %1$s'),
                     $exception->getMessage()
@@ -225,7 +185,7 @@ class Config extends AbstractConfig
      *                                  instance.
      *
      * @return bool Whether to do the resolving.
-     * @throws UnexpectedValueException If there are errors while processing.
+     * @throws FailedToResolveConfigException If there are errors while processing.
      */
     protected function configureOptions(OptionsResolver $resolver)
     {
@@ -248,7 +208,7 @@ class Config extends AbstractConfig
                 $resolver->setRequired($required);
             }
         } catch (Exception $exception) {
-            throw new UnexpectedValueException(
+            throw new FailedToResolveConfigException(
                 sprintf(
                     _('Error while processing config options: %1$s'),
                     $exception->getMessage()

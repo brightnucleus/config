@@ -24,6 +24,7 @@ This is a very lean Config component to help you write reusable code. It only of
 	* [Example - Configuration File](#example-configuration-file)
 	* [Example - Configurable Class](#example-configurable-class)
 	* [Example - Getting The Config Into The Class](#example-getting-the-config-into-the-class)
+* [Config Formats](#config-formats)
 * [Advanced Usage](#advanced-usage)
 	* [Configuration Schema](#configuration-schema)
 	* [Configuration Validation](#configuration-validation)
@@ -147,6 +148,14 @@ function init() {
 }
 ```
 
+## Config Formats
+
+The Bright Nucleus Config component can be extended to load a multitude of different file formats. The base package includes a very minimal `PHPLoader` class. It can load basic PHP files that just `return` an array.
+
+Additional packages that add other formats like JSON or YAML are planned and will be released soon.
+
+Custom loaders are lazily instantiated only when needed.
+
 ## Advanced Usage
 
 ### Configuration Schema
@@ -165,7 +174,7 @@ function init() {
 
 All feedback / bug reports / pull requests are welcome.
 
-This package uses the [PHP Composter PHPCS PSR-2](https://github.com/php-composter/php-composter-phpcs-psr2) package to check committed files for compliance with the [PSR-2 Coding Style Guide](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md). If you have valid reasons to skip this check, add the `--no-verify` option to your commit command:
+This library uses the [PHP Composter PHPCS PSR-2](https://github.com/php-composter/php-composter-phpcs-psr2) package to check committed files for compliance with the [PSR-2 Coding Style Guide](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md). If you have valid reasons to skip this check, add the `--no-verify` option to your commit command:
 ```BASH
 git commit --no-verify
 ```

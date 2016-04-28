@@ -48,17 +48,25 @@ class ConfigFactory
             try {
                 $file = array_pop($files);
 
-                if (! file_exists($file)) {
+                if (! is_readable($file)) {
                     continue;
                 }
 
-                return new Config(include $file);
-            } catch (Exception $exception) {
+                $data = (array)Loader::load($file);
 
+                $config = static::createFromArray($data);
+
+                if (null === $config) {
+                    continue;
+                }
+
+                return $config;
+            } catch (Exception $exception) {
+                // Fail silently and try next file.
             }
         }
 
-        return new Config([]);
+        return static::createFromArray([]);
     }
 
     /**
@@ -72,7 +80,13 @@ class ConfigFactory
      */
     public static function createFromArray(array $array)
     {
-        return new Config($array);
+        try {
+            return new Config($array);
+        } catch (Exception $exception) {
+            // Fail silently and try next file.
+        }
+
+        return null;
     }
 
     /**
@@ -89,15 +103,15 @@ class ConfigFactory
     public static function create($_)
     {
         if (func_num_args() < 1) {
-            return new Config([]);
+            return static::createFromArray([]);
         }
 
         $arguments = func_get_args();
 
         if (is_array($arguments[0]) && func_num_args() === 1) {
-            return self::createFromArray($arguments[0]);
+            return static::createFromArray($arguments[0]);
         }
 
-        return self::createFromFile($arguments);
+        return static::createFromFile($arguments);
     }
 }
