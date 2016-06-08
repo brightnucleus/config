@@ -11,7 +11,6 @@
 
 namespace BrightNucleus\Config;
 
-use Assert;
 use BrightNucleus\Config\ConfigSchemaInterface as Schema;
 use BrightNucleus\Config\ConfigValidatorInterface as Validator;
 use BrightNucleus\Config\Exception\FailedToInstantiateParentException;
@@ -97,7 +96,6 @@ class Config extends AbstractConfig
         }
 
         // Run the $config through the OptionsResolver.
-        Assert\that($config)->isArray();
         $config = $this->resolveOptions($config);
 
         // Instantiate the parent class.

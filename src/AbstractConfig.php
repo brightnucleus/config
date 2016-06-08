@@ -12,7 +12,6 @@
 namespace BrightNucleus\Config;
 
 use ArrayObject;
-use Assert;
 use BrightNucleus\Config\Exception\KeyNotFoundException;
 use Exception;
 
@@ -172,8 +171,6 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
     {
         $keys = $this->getKeyArguments(func_get_args());
 
-        Assert\that($keys)->all()->string()->notEmpty();
-
         if (! $this->hasKey($keys)) {
             throw new KeyNotFoundException(
                 sprintf(
@@ -209,8 +206,6 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      */
     protected function getKeyArguments($arguments)
     {
-        Assert\that($arguments)->isArray()->notEmpty();
-
         $keys = [];
         foreach ($arguments as $argument) {
             if (is_array($argument)) {
@@ -235,8 +230,6 @@ abstract class AbstractConfig extends ArrayObject implements ConfigInterface
      */
     protected function parseKeysString($keyString)
     {
-        Assert\that($keyString)->string()->notEmpty();
-
         // Replace all of the configured delimiters by the first one, so that we can then use explode().
         $normalizedString = str_replace($this->delimiter, $this->delimiter[0], $keyString);
 

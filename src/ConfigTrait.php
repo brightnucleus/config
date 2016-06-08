@@ -11,7 +11,6 @@
 
 namespace BrightNucleus\Config;
 
-use Assert;
 use BrightNucleus\Config\Exception\FailedToProcessConfigException;
 use Exception;
 
@@ -79,7 +78,6 @@ trait ConfigTrait
     protected function hasConfigKey($_)
     {
         $keys = func_get_args();
-        Assert\that($keys)->all()->string()->notEmpty();
 
         return $this->config->hasKey($keys);
     }
@@ -99,7 +97,6 @@ trait ConfigTrait
     protected function getConfigKey($_)
     {
         $keys = func_get_args();
-        Assert\that($keys)->all()->string()->notEmpty();
 
         return $this->config->getKey($keys);
     }

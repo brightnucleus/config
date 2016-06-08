@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.4.1] - 2016-06-08
+### Removed
+- Removed `beberlei/assert` and all assert checks for now, until a better replacement has been found.
+
 ## [0.4.0] - 2016-04-28
 ### Added
 - Added extensible loader framework that includes `PHPLoader` and can be extended by other packages.
@@ -137,6 +141,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Initial release to GitHub.
 
+[0.4.1]: https://github.com/brightnucleus/config/compare/v0.4.0...v0.4.1
+[0.4.0]: https://github.com/brightnucleus/config/compare/v0.3.1...v0.4.0
 [0.3.1]: https://github.com/brightnucleus/config/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/brightnucleus/config/compare/v0.2.8...v0.3.0
 [0.2.8]: https://github.com/brightnucleus/config/compare/v0.2.7...v0.2.8
