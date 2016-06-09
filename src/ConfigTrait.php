@@ -124,4 +124,41 @@ trait ConfigTrait
     {
         return $this->config->getKeys();
     }
+
+    /**
+     * Get a default configuration in case none was injected into the constructor.
+     *
+     * The name and path of the configuration needs to be set as a const called DEFAULT_CONFIG within the class
+     * containing the trait. The path needs to be relative to the location of the containing class file.
+     *
+     * @since 0.4.2
+     *
+     * @return ConfigInterface Configuration settings to use.
+     */
+    protected function fetchDefaultConfig()
+    {
+        $configFile = method_exists($this, 'getDefaultConfigFile')
+            ? $this->getDefaultConfigFile()
+            : __DIR__ . '/../config/defaults.php';
+
+        return $this->fetchConfig($configFile);
+    }
+
+    /**
+     * Get a configuration from a specified $file.
+     *
+     * If file is not accessible or readable, returns an empty Config.
+     *
+     * @since 0.4.2
+     *
+     * @return ConfigInterface Configuration settings to use.
+     */
+    protected function fetchConfig($configFile)
+    {
+        if (is_string($configFile) && ! is_readable($configFile)) {
+            $configFile = [];
+        }
+
+        return ConfigFactory::create($configFile);
+    }
 }

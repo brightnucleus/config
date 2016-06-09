@@ -202,4 +202,62 @@ class ConfigTraitTest extends \PHPUnit_Framework_TestCase
             'vendor\package'
         );
     }
+
+    /**
+     * @covers \BrightNucleus\Config\ConfigTrait::fetchConfig
+     */
+    public function testFetchConfigWithExistingFile()
+    {
+        $config = $this->fetchConfig(__DIR__ . '/fixtures/config_file.php');
+        $this->assertNotNull($config);
+        $this->assertInstanceOf(
+            'BrightNucleus\Config\ConfigInterface',
+            $config
+        );
+        $this->assertTrue($config->hasKey('random_string'));
+        $this->assertTrue($config->hasKey('positive_integer'));
+        $this->assertTrue($config->hasKey('negative_integer'));
+        $this->assertTrue($config->hasKey('positive_boolean'));
+        $this->assertTrue($config->hasKey('negative_boolean'));
+        $this->assertFalse($config->hasKey('some_other_key'));
+    }
+
+    /**
+     * @covers \BrightNucleus\Config\ConfigTrait::fetchConfig
+     */
+    public function testFetchConfigWithNonExistingFile()
+    {
+        $config = $this->fetchConfig(__DIR__ . '/fixtures/file_does_not_exist.php');
+        $this->assertNotNull($config);
+        $this->assertInstanceOf(
+            'BrightNucleus\Config\ConfigInterface',
+            $config
+        );
+        $this->assertEquals([], $config->getArrayCopy());
+    }
+
+    /**
+     * @covers \BrightNucleus\Config\ConfigTrait::fetchDefaultConfig
+     */
+    public function testFetchDefaultConfig()
+    {
+        $config = $this->fetchDefaultConfig();
+        $this->assertNotNull($config);
+        $this->assertInstanceOf(
+            'BrightNucleus\Config\ConfigInterface',
+            $config
+        );
+        $this->assertTrue($config->hasKey('random_string'));
+        $this->assertTrue($config->hasKey('positive_integer'));
+        $this->assertTrue($config->hasKey('negative_integer'));
+        $this->assertTrue($config->hasKey('positive_boolean'));
+        $this->assertTrue($config->hasKey('negative_boolean'));
+        $this->assertFalse($config->hasKey('some_other_key'));
+    }
+
+    // Used to provide a file name for fetchDefaultConfig().
+    protected function getDefaultConfigFile()
+    {
+        return __DIR__ . '/fixtures/config_file.php';
+    }
 }
