@@ -148,6 +148,51 @@ function init() {
 }
 ```
 
+### Example - Class That Loads Default Config Unless Config Was Injected
+
+The `ConfigTrait` provides some convenience functionality that lets you write classes that can receive an injected Config, but fall back to a default configuration file if non was injected.
+
+Here's you can code such a class:
+
+```PHP
+<?php namespace BrightNucleus\Example;
+
+use BrightNucleus\Config\ConfigInterface;
+use BrightNucleus\Config\ConfigTrait;
+use BrightNucleus\Exception\RuntimeException;
+
+class Example {
+
+	use ConfigTrait;
+
+	/**
+	 * Instantiate an Example object.
+	 *
+	 * For this constructor, the `$config` argument is optional, and the class will
+	 * load a default configuration if none was injected.
+	 *
+	 * @param ConfigInterface|null $config Optional. Config to parametrize the object.
+	 * @throws RuntimeException If the Config could not be parsed correctly.
+	 */
+	public function __construct( ConfigInterface $config = null ) {
+
+	    // We either process the $config that was injected or fetch a default one.
+		$this->processConfig( $config ?: $this->fetchDefaultConfig() );
+	}
+
+	/**
+	 * Get the default configuration file name.
+	 *
+	 * This is used to override the default location.
+	 *
+	 * @return string Path & filename to the default configuration file.
+	 */
+	protected function getDefaultConfigFile() {
+	    return __DIR__ '/../config/my_default_config.php';
+	}
+}
+```
+
 ## Config Formats
 
 The Bright Nucleus Config component can be extended to load a multitude of different file formats. The base package includes a very minimal `PHPLoader` class. It can load basic PHP files that just `return` an array.
