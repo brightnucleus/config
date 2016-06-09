@@ -24,6 +24,7 @@ This is a very lean Config component to help you write reusable code. It only of
 	* [Example - Configuration File](#example-configuration-file)
 	* [Example - Configurable Class](#example-configurable-class)
 	* [Example - Getting The Config Into The Class](#example-getting-the-config-into-the-class)
+	* [Example - Class That Loads Default Config Unless Config Was Injected](#example-class-that-loads-default-config-unless-config-was-injected)
 * [Config Formats](#config-formats)
 * [Advanced Usage](#advanced-usage)
 	* [Configuration Schema](#configuration-schema)
