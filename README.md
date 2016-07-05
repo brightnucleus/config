@@ -131,6 +131,8 @@ To create a new instance of a `ConfigInterface`, you should use the `ConfigFacto
 
 If you provide a comma-separated list of file names, they are processed consecutively until the first one could be loaded successfully.
 
+There's a convenience function `ConfigFactory::createSubConfig()` to immediately fetch a sub-config from a loaded config file. This allows you to quickly bypass the vendor/package prefixes and only pass in the relevant data into the new object.
+
 Here's how you can pass the configuration file into the class:
 
 ```PHP
@@ -140,8 +142,8 @@ use BrightNucleus\Config\ConfigFactory;
 
 function init() {
 	$configFile = __DIR__ . '/config/example_settings.php';
-	$config     = ConfigFactory::create($configFile);
-	$example    = new Example( $config->getSubConfig( 'BrightNucleus\Example' ) );
+	$config     = ConfigFactory::createSubConfig($configFile, 'BrightNucleus\Example');
+	$example    = new Example( $config );
 
 	// Outputs:
 	// The value of the config key "test_key" is "test_value".

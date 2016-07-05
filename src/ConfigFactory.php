@@ -127,6 +127,33 @@ class ConfigFactory
     }
 
     /**
+     * Create a new ConfigInterface object from a file and return a sub-portion of it.
+     *
+     * The first argument needs to be the file name to load, and the subsequent arguments will be passed on to
+     * `Config::getSubConfig()`.
+     *
+     * @since 0.4.5
+     *
+     * @param mixed $_ File name of the config to load as a string, followed by an array of keys to pass to
+     *                 `Config::getSubConfig()`.
+     *
+     * @return ConfigInterface Instance of a ConfigInterface implementation.
+     */
+    public static function createSubConfig($_)
+    {
+        if (func_num_args() < 2) {
+            return static::createFromArray([]);
+        }
+
+        $arguments = func_get_args();
+        $file      = array_shift($arguments);
+
+        $config = static::createFromFile($file);
+
+        return $config->getSubConfig($arguments);
+    }
+
+    /**
      * Get a config file from the config file cache.
      *
      * @since 0.4.4

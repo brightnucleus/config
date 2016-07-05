@@ -155,7 +155,6 @@ class ConfigFactoryTest extends \PHPUnit_Framework_TestCase
      * Test whether the caching system works when loading the same config file several times.
      *
      * @since 0.4.3
-     *
      */
     public function testWhetherCachingWorks()
     {
@@ -176,5 +175,22 @@ class ConfigFactoryTest extends \PHPUnit_Framework_TestCase
 
         $configB = ConfigFactory::create($configFile->url());
         $this->assertTrue($configB->hasKey('test_key'));
+    }
+
+    /**
+     * Test whether a subconfig can be immediately created through the ConfigFactory.
+     *
+     * @covers \BrightNucleus\Config\ConfigFactory::createSubConfig
+     *
+     * @since  0.4.5
+     */
+    public function testCreateSubConfig()
+    {
+        $config = ConfigFactory::createSubConfig(__DIR__ . '/fixtures/deep_config_file.php', 'vendor', 'package');
+
+        $this->assertInstanceOf('\BrightNucleus\Config\ConfigInterface', $config);
+        $this->assertInstanceOf('\BrightNucleus\Config\AbstractConfig', $config);
+        $this->assertInstanceOf('\BrightNucleus\Config\Config', $config);
+        $this->assertTrue($config->hasKey('section_1', 'test_key_1'));
     }
 }

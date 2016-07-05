@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.4.5] - 2016-07-05
+### Added
+- Added `ConfigFactory::createSubConfig()` to quickly create a new config at a sublevel.
+- Added corresponding unit test.
+
 ## [0.4.4] - 2016-07-05
 ### Changed
 - Extracted the cache retrieval in `ConfigFactory` into its own method.
@@ -155,6 +160,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Initial release to GitHub.
 
+[0.4.5]: https://github.com/brightnucleus/config/compare/v0.4.4...v0.4.5
 [0.4.4]: https://github.com/brightnucleus/config/compare/v0.4.3...v0.4.4
 [0.4.3]: https://github.com/brightnucleus/config/compare/v0.4.2...v0.4.3
 [0.4.2]: https://github.com/brightnucleus/config/compare/v0.4.1...v0.4.2
