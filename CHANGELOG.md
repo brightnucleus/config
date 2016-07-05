@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.4.3] - 2016-07-05
+### Added
+- Added file caching to CreateFactory.
+- Added unit tests to make sure the caching works.
+
 ## [0.4.2] - 2016-06-09
 ### Added
 - Added trait functionality to load a default config file.
@@ -146,6 +151,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Initial release to GitHub.
 
+[0.4.3]: https://github.com/brightnucleus/config/compare/v0.4.2...v0.4.3
 [0.4.2]: https://github.com/brightnucleus/config/compare/v0.4.1...v0.4.2
 [0.4.1]: https://github.com/brightnucleus/config/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/brightnucleus/config/compare/v0.3.1...v0.4.0
