@@ -25,6 +25,15 @@ class ConfigFactory
 {
 
     /**
+     * Cached contents of the config files.
+     *
+     * @since 0.4.3
+     *
+     * @var array
+     */
+    protected static $configFilesCache = [];
+
+    /**
      * Create a new ConfigInterface object from a file.
      *
      * If a comma-separated list of files is provided, they are checked in sequence until the first one could be loaded
@@ -52,9 +61,13 @@ class ConfigFactory
                     continue;
                 }
 
-                $data = (array)Loader::load($file);
+                if (! array_key_exists($file, static::$configFilesCache)) {
+                    static::$configFilesCache[$file] = Loader::load($file);
+                }
 
-                $config = static::createFromArray($data);
+                $config = static::createFromArray(
+                    static::$configFilesCache[$file]
+                );
 
                 if (null === $config) {
                     continue;

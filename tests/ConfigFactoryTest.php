@@ -11,6 +11,8 @@
 
 namespace BrightNucleus\Config;
 
+use org\bovigo\vfs\vfsStream;
+
 /**
  * Class ConfigFactoryTest.
  *
@@ -147,5 +149,32 @@ class ConfigFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\BrightNucleus\Config\Config', $config);
         $this->assertTrue($config->hasKey('some_key'));
         $this->assertEquals('some_value', $config->getKey('some_key'));
+    }
+
+    /**
+     * Test whether the caching system works when loading the same config file several times.
+     *
+     * @since 0.4.3
+     *
+     */
+    public function testWhetherCachingWorks()
+    {
+        $content       = '<?php return [ "test_key" => "test_value" ];';
+        $empty_content = '<?php return [];';
+        $filesystem    = vfsStream::setup();
+        $configFile    = vfsStream::newFile('test_config.php')
+                                  ->withContent($content);
+        $filesystem->addChild($configFile);
+        $this->assertTrue($filesystem->hasChild('test_config.php'));
+        $this->assertEquals($content, $configFile->getContent());
+
+        $configA = ConfigFactory::create($configFile->url());
+        $this->assertTrue($configA->hasKey('test_key'));
+
+        $configFile->setContent($empty_content);
+        $this->assertEquals($empty_content, $configFile->getContent());
+
+        $configB = ConfigFactory::create($configFile->url());
+        $this->assertTrue($configB->hasKey('test_key'));
     }
 }
