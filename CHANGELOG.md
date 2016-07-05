@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.4.4] - 2016-07-05
+### Changed
+- Extracted the cache retrieval in `ConfigFactory` into its own method.
+
 ## [0.4.3] - 2016-07-05
 ### Added
 - Added file caching to CreateFactory.
@@ -151,6 +155,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Initial release to GitHub.
 
+[0.4.4]: https://github.com/brightnucleus/config/compare/v0.4.3...v0.4.4
 [0.4.3]: https://github.com/brightnucleus/config/compare/v0.4.2...v0.4.3
 [0.4.2]: https://github.com/brightnucleus/config/compare/v0.4.1...v0.4.2
 [0.4.1]: https://github.com/brightnucleus/config/compare/v0.4.0...v0.4.1

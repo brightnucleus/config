@@ -61,12 +61,10 @@ class ConfigFactory
                     continue;
                 }
 
-                if (! array_key_exists($file, static::$configFilesCache)) {
-                    static::$configFilesCache[$file] = Loader::load($file);
-                }
-
                 $config = static::createFromArray(
-                    static::$configFilesCache[$file]
+                    static::getFromCache($file, function ($file) {
+                        return Loader::load($file);
+                    })
                 );
 
                 if (null === $config) {
@@ -126,5 +124,27 @@ class ConfigFactory
         }
 
         return static::createFromFile($arguments);
+    }
+
+    /**
+     * Get a config file from the config file cache.
+     *
+     * @since 0.4.4
+     *
+     * @param string $identifier Identifier to look for in the cache.
+     * @param mixed  $fallback   Fallback to use to fill the cache. If $fallback is a callable, it will be executed
+     *                           with $identifier as an argument.
+     *
+     * @return mixed The latest content of the cache for the given identifier.
+     */
+    protected static function getFromCache($identifier, $fallback)
+    {
+        if (! array_key_exists($identifier, static::$configFilesCache)) {
+            static::$configFilesCache[$identifier] = is_callable($fallback)
+                ? $fallback($identifier)
+                : $fallback;
+        }
+
+        return static::$configFilesCache[$identifier];
     }
 }
