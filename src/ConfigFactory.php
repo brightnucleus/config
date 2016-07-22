@@ -127,6 +127,78 @@ class ConfigFactory
     }
 
     /**
+     * Create a new ConfigInterface object, by merging several files together.
+     *
+     * Duplicate keys in later files will override those in earlier files.
+     *
+     * @since 0.4.6
+     *
+     * @param mixed $_ Array with configuration values.
+     *
+     * @return ConfigInterface Instance of a ConfigInterface implementation.
+     */
+    public static function merge($_)
+    {
+        if (func_num_args() < 1) {
+            return static::createFromArray([]);
+        }
+
+        $arguments = func_get_args();
+
+        if (is_array($arguments[0]) && func_num_args() === 1) {
+            return static::createFromArray($arguments[0]);
+        }
+
+        return static::mergeFromFiles($arguments);
+    }
+
+    /**
+     * Create a new ConfigInterface object by merging data from several files.
+     *
+     * If a comma-separated list of files is provided, they are loaded in sequence and later files override settings in
+     * earlier files.
+     *
+     * @since 0.4.6
+     *
+     * @param string|array $_ List of files.
+     *
+     * @return ConfigInterface Instance of a ConfigInterface implementation.
+     */
+    public static function mergeFromFiles($_)
+    {
+        $files = array_reverse(func_get_args());
+        $data  = [];
+
+        if (is_array($files[0])) {
+            $files = array_reverse($files[0]);
+        }
+
+        while (count($files) > 0) {
+            try {
+                $file = array_pop($files);
+
+                if (! is_readable($file)) {
+                    continue;
+                }
+
+                $new_data = static::getFromCache($file, function ($file) {
+                    return Loader::load($file);
+                });
+
+                if (null === $data) {
+                    continue;
+                }
+
+                $data = array_merge($data, $new_data);
+            } catch (Exception $exception) {
+                // Fail silently and try next file.
+            }
+        }
+
+        return static::createFromArray($data);
+    }
+
+    /**
      * Create a new ConfigInterface object from a file and return a sub-portion of it.
      *
      * The first argument needs to be the file name to load, and the subsequent arguments will be passed on to
