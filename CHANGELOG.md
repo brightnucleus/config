@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.4.7] - 2016-07-22
+### Fixed
+- Fixed the way arrays were merged recursively.
+
 ## [0.4.6] - 2016-07-22
 ### Added
 - Added `ConfigFactory::merge()` to merge several Config files into one.
@@ -165,6 +169,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Initial release to GitHub.
 
+[0.4.7]: https://github.com/brightnucleus/config/compare/v0.4.6...v0.4.7
 [0.4.6]: https://github.com/brightnucleus/config/compare/v0.4.5...v0.4.6
 [0.4.5]: https://github.com/brightnucleus/config/compare/v0.4.4...v0.4.5
 [0.4.4]: https://github.com/brightnucleus/config/compare/v0.4.3...v0.4.4

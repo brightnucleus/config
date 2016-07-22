@@ -189,7 +189,7 @@ class ConfigFactory
                     continue;
                 }
 
-                $data = array_merge($data, $new_data);
+                $data = array_replace_recursive($data, $new_data);
             } catch (Exception $exception) {
                 // Fail silently and try next file.
             }
