@@ -193,4 +193,46 @@ class ConfigFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\BrightNucleus\Config\Config', $config);
         $this->assertTrue($config->hasKey('section_1', 'test_key_1'));
     }
+
+    /**
+     * Test merging using several files.
+     *
+     * @covers \BrightNucleus\Config\ConfigFactory::merge
+     *
+     * @since  0.3.0
+     */
+    public function testMergeUsingSeveralFiles()
+    {
+        $config = ConfigFactory::merge(
+            __DIR__ . '/fixtures/config_file.php',
+            __DIR__ . '/fixtures/override_config_file.php'
+        );
+
+        $this->assertInstanceOf('\BrightNucleus\Config\ConfigInterface', $config);
+        $this->assertInstanceOf('\BrightNucleus\Config\AbstractConfig', $config);
+        $this->assertInstanceOf('\BrightNucleus\Config\Config', $config);
+        $this->assertTrue($config->hasKey('random_string'));
+        $this->assertEquals('override_value', $config->getKey('random_string'));
+    }
+
+    /**
+     * Test merging using invalid files.
+     *
+     * @covers \BrightNucleus\Config\ConfigFactory::merge
+     *
+     * @since  0.3.0
+     */
+    public function testMergeUsingInvalidFiles()
+    {
+        $config = ConfigFactory::merge(
+            'nonsense_file.php',
+            'still_nonsense.txt',
+            __DIR__ . '/fixtures/config_file.php'
+        );
+
+        $this->assertInstanceOf('\BrightNucleus\Config\ConfigInterface', $config);
+        $this->assertInstanceOf('\BrightNucleus\Config\AbstractConfig', $config);
+        $this->assertInstanceOf('\BrightNucleus\Config\Config', $config);
+        $this->assertTrue($config->hasKey('random_string'));
+    }
 }
