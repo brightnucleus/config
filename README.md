@@ -25,6 +25,7 @@ This is a very lean Config component to help you write reusable code. It only of
 	* [Example - Configurable Class](#example-configurable-class)
 	* [Example - Getting The Config Into The Class](#example-getting-the-config-into-the-class)
 	* [Example - Class That Loads Default Config Unless Config Was Injected](#example-class-that-loads-default-config-unless-config-was-injected)
+	* [Example - Merging Several Configs Into One](#example-merging-several-configs-into-one)
 * [Config Formats](#config-formats)
 * [Advanced Usage](#advanced-usage)
 	* [Configuration Schema](#configuration-schema)
@@ -193,6 +194,47 @@ class Example {
 	protected function getDefaultConfigFile() {
 	    return __DIR__ '/../config/my_default_config.php';
 	}
+}
+```
+
+### Example - Merging Several Configs Into One
+
+You can provide a comma-separated list of file names to the `ConfigFactory::merge()` method. They are loaded consecutively and merged into one coherent Config. For each duplicate Config key, the calue in the later files will override the value in the earlier files.
+
+For our example, we'll define a new Config file called `override_settings.php`, that overrides a key that was already set in the default Config file.
+
+```PHP
+<?php namespace BrightNucleus\Example;
+
+/*
+ * Example class main settings.
+ */
+$example = [
+	'test_key' => 'override_value',
+];
+
+return [
+	'BrightNucleus' => [
+		'Example' => $example,
+	],
+];
+```
+
+```PHP
+<?php namespace BrightNucleus\Example;
+
+use BrightNucleus\Config\ConfigFactory;
+
+function init() {
+	$configFile   = __DIR__ . '/config/example_settings.php';
+	$overrideFile = __DIR__ . '/config/override_settings.php';
+	$config       = ConfigFactory::merge($configFile, $overrideFile);
+	$example      = new Example( $config );
+
+	// Outputs:
+	// Both files will be loaded, but values from the second override the first.
+	// The value of the config key "test_key" is "override_value".
+	echo $example->run();
 }
 ```
 
