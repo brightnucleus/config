@@ -216,6 +216,33 @@ class ConfigFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test merging using several files.
+     *
+     * @covers \BrightNucleus\Config\ConfigFactory::merge
+     *
+     * @since  0.3.0
+     */
+    public function testMergeUsingHierarchicalData()
+    {
+        $config = ConfigFactory::merge(
+            __DIR__ . '/fixtures/deep_config_file.php',
+            __DIR__ . '/fixtures/override_deep_config_file.php'
+        )->getSubConfig('vendor\package');
+
+        $this->assertInstanceOf('\BrightNucleus\Config\ConfigInterface', $config);
+        $this->assertInstanceOf('\BrightNucleus\Config\AbstractConfig', $config);
+        $this->assertInstanceOf('\BrightNucleus\Config\Config', $config);
+        $this->assertTrue($config->hasKey('section_1', 'test_key_1'));
+        $this->assertTrue($config->hasKey('section_2', 'test_key_2'));
+        $this->assertTrue($config->hasKey('section_1', 'test_key_3'));
+        $this->assertTrue($config->hasKey('section_3', 'test_key_4'));
+        $this->assertEquals('test_value_1', $config->getKey('section_1', 'test_key_1'));
+        $this->assertEquals('override_value_2', $config->getKey('section_2', 'test_key_2'));
+        $this->assertEquals('override_value_3', $config->getKey('section_1', 'test_key_3'));
+        $this->assertEquals('override_value_4', $config->getKey('section_3', 'test_key_4'));
+    }
+
+    /**
      * Test merging using invalid files.
      *
      * @covers \BrightNucleus\Config\ConfigFactory::merge

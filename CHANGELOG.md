@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [0.4.7] - 2016-07-22
 ### Fixed
 - Fixed the way arrays were merged recursively.
+- Added regression test.
 
 ## [0.4.6] - 2016-07-22
 ### Added
