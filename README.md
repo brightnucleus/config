@@ -55,6 +55,8 @@ To check whether the configuration has a certain key, you can use the `ConfigInt
 
 To get the configuration value of a certain key, you can use the `ConfigInterface::getKey($key)` method, or, if you are using the `ConfigTrait` in your class, you can use the convenience method `$this->getConfigKey($key)`.
 
+If you use closures in your Config file, you can also use the convenience function `$this->getConfigCallable( $key, array $args )` provided by the `ConfigTrait`, which will immediately execute the closure by passing it the provided arguments, and return the resultant value instead.
+
 #### Nested Keys
 
 If your keys are nested, you can provide multiple levels of keys in one request. So, whenever you need to provide a key and want to use a nested one, you can either provide a comma-separated list of keys ( `$this->getConfigKey( 'level1', 'level2', 'level3' );` ) or a string that contains the list of keys separated by a delimiter ( `$this->getConfigKey( 'level1/level2/level3' );` ).

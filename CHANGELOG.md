@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.4.8] - 2016-08-06
+### Added
+- Added `ConfigTrait::getConfigCallable()` to get a callable and immmediately execute it to get the resultant value.
+- Added corresponding unit test.
+
 ## [0.4.7] - 2016-07-22
 ### Fixed
 - Fixed the way arrays were merged recursively.
@@ -170,6 +175,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Initial release to GitHub.
 
+[0.4.8]: https://github.com/brightnucleus/config/compare/v0.4.7...v0.4.8
 [0.4.7]: https://github.com/brightnucleus/config/compare/v0.4.6...v0.4.7
 [0.4.6]: https://github.com/brightnucleus/config/compare/v0.4.5...v0.4.6
 [0.4.5]: https://github.com/brightnucleus/config/compare/v0.4.4...v0.4.5

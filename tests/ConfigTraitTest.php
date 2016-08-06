@@ -260,4 +260,43 @@ class ConfigTraitTest extends \PHPUnit_Framework_TestCase
     {
         return __DIR__ . '/fixtures/config_file.php';
     }
+
+    public function testGetConfigCallable()
+    {
+        $this->processConfig(
+            new Config(
+                [
+                    'testkey1'     => function ($a, $b, $c) { return "${c}-${b}-${a}"; },
+                    'testkey2'     => 'testvalue2',
+                    'nestedlevel0' => [
+                        'nestedlevel1' => [
+                            'nestedlevel2' => [
+                                'testkey3' => function ($a, $b, $c) { return "${c}.${b}.${a}"; },
+                            ],
+                        ],
+                    ],
+                    'testkey4'     => function ($a = null, $b = null, $c = null) { return "${c}-${b}-${a}"; },
+                ]
+            )
+        );
+
+        $this->assertEquals('3-2-1', $this->getConfigCallable('testkey1', [1, 2, 3]));
+        $this->assertEquals('testvalue2', $this->getConfigCallable('testkey2', [1, 2, 3]));
+        $this->assertEquals(
+            '3.2.1',
+            $this->getConfigCallable(
+                'nestedlevel0/nestedlevel1\nestedlevel2.testkey3',
+                [1, 2, 3]
+            )
+        );
+        $this->assertEquals(
+            '3.2.1',
+            $this->getConfigCallable(
+                ['nestedlevel0', 'nestedlevel1', 'nestedlevel2\testkey3'],
+                [1, 2, 3]
+            )
+        );
+        $this->assertEquals('--', $this->getConfigCallable('testkey4', []));
+        $this->assertEquals('--', $this->getConfigCallable('testkey4'));
+    }
 }

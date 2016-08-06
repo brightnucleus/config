@@ -102,6 +102,30 @@ trait ConfigTrait
     }
 
     /**
+     * Get the callable Config value for a specific key.
+     *
+     * If the fetched value is indeed a callable, it will be executed with the provided arguments, and the resultant
+     * value will be returned instead.
+     *
+     * @since 0.4.8
+     *
+     * @param string|array $key  Key or array of nested keys.
+     * @param array        $args Optional. Array of arguments to pass to the callable.
+     *
+     * @return mixed Resultant value of the key's callable.
+     */
+    protected function getConfigCallable($key, array $args = [])
+    {
+        $value = $this->config->getKey($key);
+
+        if (is_callable($value)) {
+            $value = $value(...$args);
+        }
+
+        return $value;
+    }
+
+    /**
      * Get a (multi-dimensional) array of all the configuration settings.
      *
      * @since 0.1.4
