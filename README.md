@@ -194,7 +194,7 @@ class Example {
 	 * @return string Path & filename to the default configuration file.
 	 */
 	protected function getDefaultConfigFile() {
-	    return __DIR__ '/../config/my_default_config.php';
+	    return __DIR__ . '/../config/my_default_config.php';
 	}
 }
 ```
