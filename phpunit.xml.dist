@@ -3,7 +3,6 @@
          bootstrap="vendor/autoload.php"
          colors="true"
          beStrictAboutTestsThatDoNotTestAnything="true"
-         checkForUnintentionallyCoveredCode="false"
          beStrictAboutOutputDuringTests="true"
          beStrictAboutTestSize="true"
          beStrictAboutChangesToGlobalState="true">
