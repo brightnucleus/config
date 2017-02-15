@@ -266,11 +266,6 @@ Custom loaders are lazily instantiated only when needed.
 
 All feedback / bug reports / pull requests are welcome.
 
-This library uses the [PHP Composter PHPCS PSR-2](https://github.com/php-composter/php-composter-phpcs-psr2) package to check committed files for compliance with the [PSR-2 Coding Style Guide](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md). If you have valid reasons to skip this check, add the `--no-verify` option to your commit command:
-```BASH
-git commit --no-verify
-```
-
 ## License
 
 This code is released under the MIT license.

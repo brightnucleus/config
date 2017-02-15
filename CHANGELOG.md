@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.4.9] - 2017-02-16
+### Added
+- Added several checks that can be run through Composer scripts.
+- Added Travis CI configuration.
+
 ## [0.4.8] - 2016-08-06
 ### Added
 - Added `ConfigTrait::getConfigCallable()` to get a callable and immmediately execute it to get the resultant value.
@@ -175,6 +180,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Initial release to GitHub.
 
+[0.4.9]: https://github.com/brightnucleus/config/compare/v0.4.8...v0.4.9
 [0.4.8]: https://github.com/brightnucleus/config/compare/v0.4.7...v0.4.8
 [0.4.7]: https://github.com/brightnucleus/config/compare/v0.4.6...v0.4.7
 [0.4.6]: https://github.com/brightnucleus/config/compare/v0.4.5...v0.4.6
