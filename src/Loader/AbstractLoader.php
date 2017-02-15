@@ -6,7 +6,7 @@
  * @author    Alain Schlesser <alain.schlesser@gmail.com>
  * @license   MIT
  * @link      http://www.brightnucleus.com/
- * @copyright 2016 Alain Schlesser, Bright Nucleus
+ * @copyright 2016-2017 Alain Schlesser, Bright Nucleus
  */
 
 namespace BrightNucleus\Config\Loader;
