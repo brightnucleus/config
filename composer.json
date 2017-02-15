@@ -30,7 +30,7 @@
           "@cs-check",
           "@test"
       ],
-      "upload-coverage": "coveralls -v",
+      "upload-coverage": "coveralls -v --coverage-clover clover.xml",
       "cs-check": "phpcs --colors",
       "cs-fix": "phpcbf --colors",
       "test": "phpunit --colors",
