@@ -266,16 +266,22 @@ class ConfigTraitTest extends \PHPUnit_Framework_TestCase
         $this->processConfig(
             new Config(
                 [
-                    'testkey1'     => function ($a, $b, $c) { return "${c}-${b}-${a}"; },
+                    'testkey1'     => function ($a, $b, $c) {
+                        return "${c}-${b}-${a}";
+                    },
                     'testkey2'     => 'testvalue2',
                     'nestedlevel0' => [
                         'nestedlevel1' => [
                             'nestedlevel2' => [
-                                'testkey3' => function ($a, $b, $c) { return "${c}.${b}.${a}"; },
+                                'testkey3' => function ($a, $b, $c) {
+                                    return "${c}.${b}.${a}";
+                                },
                             ],
                         ],
                     ],
-                    'testkey4'     => function ($a = null, $b = null, $c = null) { return "${c}-${b}-${a}"; },
+                    'testkey4'     => function ($a = null, $b = null, $c = null) {
+                        return "${c}-${b}-${a}";
+                    },
                 ]
             )
         );

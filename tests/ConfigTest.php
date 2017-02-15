@@ -375,6 +375,5 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             'The configuration key some_other_key does not exist.'
         );
         $this->assertFalse($config->getSubConfig('some_other_key'));
-
     }
 }
