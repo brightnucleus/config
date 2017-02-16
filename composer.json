@@ -30,11 +30,11 @@
           "@cs-check",
           "@test"
       ],
-      "upload-coverage": "coveralls -v --coverage_clover clover.xml",
-      "cs-check": "phpcs --colors",
-      "cs-fix": "phpcbf --colors",
-      "test": "phpunit --colors",
-      "test-coverage": "phpunit --colors --coverage-clover clover.xml",
-      "license-check": "docheader --ansi check src/"
+      "upload-coverage": "vendor/bin/coveralls -v --coverage_clover clover.xml",
+      "cs-check": "vendor/bin/phpcs --colors",
+      "cs-fix": "vendor/bin/phpcbf --colors",
+      "test": "vendor/bin/phpunit --colors",
+      "test-coverage": "vendor/bin/phpunit --colors --coverage-clover clover.xml",
+      "license-check": "vendor/bin/docheader --ansi check src/"
   }
 }
