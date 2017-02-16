@@ -1,8 +1,8 @@
 # Bright Nucleus Config Component
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/brightnucleus/config/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/brightnucleus/config/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/brightnucleus/config/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/brightnucleus/config/?branch=master)
-[![Build Status](https://scrutinizer-ci.com/g/brightnucleus/config/badges/build.png?b=master)](https://scrutinizer-ci.com/g/brightnucleus/config/build-status/master)
+[![Code Coverage](https://coveralls.io/repos/github/brightnucleus/config/badge.svg?branch=master)](https://coveralls.io/github/brightnucleus/config?branch=master)
+[![Build Status](https://travis-ci.org/brightnucleus/config.svg?branch=master)](https://travis-ci.org/brightnucleus/config)
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/e718c34afc46409b90fd72a107158009)](https://www.codacy.com/app/BrightNucleus/config)
 [![Code Climate](https://codeclimate.com/github/brightnucleus/config/badges/gpa.svg)](https://codeclimate.com/github/brightnucleus/config)
 
