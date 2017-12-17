@@ -201,7 +201,7 @@ class Example {
 
 ### Example - Merging Several Configs Into One
 
-You can provide a comma-separated list of file names to the `ConfigFactory::merge()` method. They are loaded consecutively and merged into one coherent Config. For each duplicate Config key, the calue in the later files will override the value in the earlier files.
+You can provide a comma-separated list of file names to the `ConfigFactory::merge()` method. They are loaded consecutively and merged into one coherent Config. For each duplicate Config key, the value in the later files will override the value in the earlier files.
 
 For our example, we'll define a new Config file called `override_settings.php`, that overrides a key that was already set in the default Config file.
 
