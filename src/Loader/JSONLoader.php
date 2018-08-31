@@ -57,7 +57,7 @@ class JSONLoader extends AbstractLoader
             // Try to load the file through PHP's include().
             // Make sure we don't accidentally create output.
             ob_start();
-            $data = json_decode(file_get_contents($uri));
+            $data = json_decode(file_get_contents($uri), true);
             ob_end_clean();
 
             return (array)$data;
