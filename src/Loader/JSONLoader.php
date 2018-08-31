@@ -54,8 +54,6 @@ class JSONLoader extends AbstractLoader
     protected function loadUri($uri)
     {
         try {
-            // Try to load the file through PHP's include().
-            // Make sure we don't accidentally create output.
             ob_start();
             $data = json_decode(file_get_contents($uri), true);
             ob_end_clean();
@@ -64,7 +62,7 @@ class JSONLoader extends AbstractLoader
         } catch (Exception $exception) {
             throw new FailedToLoadConfigException(
                 sprintf(
-                    _('Could not include PHP config file "%1$s". Reason: "%2$s".'),
+                    _('Could not include JSON config file "%1$s". Reason: "%2$s".'),
                     $uri,
                     $exception->getMessage()
                 ),
@@ -89,7 +87,7 @@ class JSONLoader extends AbstractLoader
         if (! is_readable($uri)) {
             throw new FailedToLoadConfigException(
                 sprintf(
-                    _('The requested PHP config file "%1$s" does not exist or is not readable.'),
+                    _('The requested JSON config file "%1$s" does not exist or is not readable.'),
                     $uri
                 )
             );
