@@ -26,13 +26,13 @@ class JSONLoader extends AbstractLoader
 {
 
     /**
-     * Load the configuration from an URI.
+     * Check whether the loader is able to load a given URI.
      *
      * @since 0.4.0
      *
-     * @param string $uri URI of the resource to load.
+     * @param string $uri URI to check.
      *
-     * @return array Data contained within the resource.
+     * @return bool Whether the loader can load the given URI.
      */
     public static function canLoad($uri)
     {

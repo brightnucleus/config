@@ -40,7 +40,8 @@ interface LoaderInterface
      *
      * @param string $uri URI of the resource to load.
      *
-     * @return array Data contained within the resource.
+     * @return array|null Data contained within the resource. Null if no data could be loaded/parsed.
+     * @throws FailedToLoadConfigException If the configuration could not be loaded.
      */
     public function load($uri);
 }
