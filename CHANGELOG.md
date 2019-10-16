@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.4.11] - 2019-10-16
+### Added
+- Added JSON loader. Props [@pascalknecht](https://github.com/pascalknecht)
+- Fixed docblocks for PHP & JSON loader `canLoad()` methods.
+- Adapted docblock for `LoaderInterface::load()` method.
+
 ## [0.4.10] - 2017-02-16
 ### Fixed
 - Fix Coveralls integration.
@@ -184,6 +190,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Initial release to GitHub.
 
+[0.4.11]: https://github.com/brightnucleus/config/compare/v0.4.10...v0.4.11
 [0.4.10]: https://github.com/brightnucleus/config/compare/v0.4.9...v0.4.10
 [0.4.9]: https://github.com/brightnucleus/config/compare/v0.4.8...v0.4.9
 [0.4.8]: https://github.com/brightnucleus/config/compare/v0.4.7...v0.4.8
