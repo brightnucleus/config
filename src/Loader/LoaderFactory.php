@@ -34,6 +34,7 @@ class LoaderFactory
      */
     protected static $loaders = [
         'BrightNucleus\Config\Loader\PHPLoader',
+        'BrightNucleus\Config\Loader\JSONLoader',
     ];
 
     /**
