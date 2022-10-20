@@ -9,9 +9,12 @@
  * @copyright 2016 Alain Schlesser, Bright Nucleus
  */
 
-namespace BrightNucleus\Config;
+namespace BrightNucleus\Config\Tests;
 
-class ConfigSchemaTest extends \PHPUnit_Framework_TestCase
+use BrightNucleus\Config\Config;
+use BrightNucleus\Config\ConfigSchema;
+
+class ConfigSchemaTest extends TestCase
 {
 
     /**
@@ -33,10 +36,8 @@ class ConfigSchemaTest extends \PHPUnit_Framework_TestCase
             $schema
         );
         $this->assertInstanceOf('\BrightNucleus\Config\ConfigSchema', $schema);
-        $this->setExpectedException(
-            'BrightNucleus\Exception\InvalidArgumentException',
-            'Invalid schema source:'
-        );
+        $this->expectException('BrightNucleus\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage('Invalid schema source:');
         new ConfigSchema(25);
     }
 

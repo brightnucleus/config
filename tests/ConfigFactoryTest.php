@@ -9,8 +9,9 @@
  * @copyright 2016 Alain Schlesser, Bright Nucleus
  */
 
-namespace BrightNucleus\Config;
+namespace BrightNucleus\Config\Tests;
 
+use BrightNucleus\Config\ConfigFactory;
 use org\bovigo\vfs\vfsStream;
 
 /**
@@ -21,7 +22,7 @@ use org\bovigo\vfs\vfsStream;
  * @package BrightNucleus\Config
  * @author  Alain Schlesser <alain.schlesser@gmail.com>
  */
-class ConfigFactoryTest extends \PHPUnit_Framework_TestCase
+class ConfigFactoryTest extends TestCase
 {
 
     /*

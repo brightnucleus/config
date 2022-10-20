@@ -9,7 +9,10 @@
  * @copyright 2016 Alain Schlesser, Bright Nucleus
  */
 
-namespace BrightNucleus\Config;
+namespace BrightNucleus\Config\Tests;
+
+use BrightNucleus\Config\Config;
+use BrightNucleus\Config\ConfigSchema;
 
 /**
  * Class ConfigTest
@@ -19,7 +22,7 @@ namespace BrightNucleus\Config;
  * @package BrightNucleus\Config
  * @author  Alain Schlesser <alain.schlesser@gmail.com>
  */
-class ConfigTest extends \PHPUnit_Framework_TestCase
+class ConfigTest extends TestCase
 {
 
     /*
@@ -88,7 +91,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $defaults = null,
         $validator = null
     ) {
-        $this->setExpectedException($exception, $message);
+        $this->expectException($exception);
+        $this->expectExceptionMessage($message);
         new Config($config, $defaults, $validator);
     }
 
@@ -142,10 +146,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
                                 ->getMock();
         $false_validator->method('isValid')
                         ->willReturn(false);
-        $this->setExpectedException(
-            'BrightNucleus\Config\Exception\InvalidConfigException',
-            'ConfigInterface file is not valid'
-        );
+        $this->expectException('BrightNucleus\Config\Exception\InvalidConfigException');
+        $this->expectExceptionMessage('ConfigInterface file is not valid');
         new Config(ConfigTest::$test_array, null, $false_validator);
     }
 
@@ -236,10 +238,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     public function testGetKeyThrowsExceptionOnWrongKey()
     {
         $config = new Config(ConfigTest::$test_array);
-        $this->setExpectedException(
-            'BrightNucleus\Config\Exception\KeyNotFoundException',
-            'The configuration key some_other_key does not exist.'
-        );
+        $this->expectException('BrightNucleus\Config\Exception\KeyNotFoundException');
+        $this->expectExceptionMessage('The configuration key some_other_key does not exist.');
         $config->getKey('some_other_key');
     }
 
@@ -262,10 +262,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('level4_value', $config->getKey('level1/level2/level3/level4_key'));
         $this->assertEquals('level4_value', $config->getKey('level1.level2.level3.level4_key'));
         $this->assertEquals('level4_value', $config->getKey('level1\level2/level3.level4_key'));
-        $this->setExpectedException(
-            'BrightNucleus\Config\Exception\KeyNotFoundException',
-            'The configuration key level1->level2->level4_key does not exist.'
-        );
+        $this->expectException('BrightNucleus\Config\Exception\KeyNotFoundException');
+        $this->expectExceptionMessage('The configuration key level1->level2->level4_key does not exist.');
         $config->getKey('level1', 'level2', 'level4_key');
     }
 
@@ -297,10 +295,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(-256, $config->getKey('negative_integer'));
         $this->assertTrue($config->getKey('positive_boolean'));
         $this->assertFalse($config->getKey('negative_boolean'));
-        $this->setExpectedException(
-            'BrightNucleus\Config\Exception\KeyNotFoundException',
-            'The configuration key some_other_key does not exist.'
-        );
+        $this->expectException('BrightNucleus\Config\Exception\KeyNotFoundException');
+        $this->expectExceptionMessage('The configuration key some_other_key does not exist.');
         $this->assertFalse($config->getKey('some_other_key'));
     }
 
@@ -312,8 +308,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     public function testConfigFileWithMissingKeys()
     {
         $schema = new ConfigSchema(new Config(__DIR__ . '/fixtures/schema_config_file.php'));
-        $this->setExpectedException(
-            'BrightNucleus\Config\Exception\FailedToResolveConfigException',
+        $this->expectException('BrightNucleus\Config\Exception\FailedToResolveConfigException');
+        $this->expectExceptionMessage(
             'Error while resolving config options: The required option "negative_integer" is missing.'
         );
         new Config([], $schema);
@@ -338,10 +334,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(99, $config->getKey('positive_integer'));
         $this->assertEquals(-333, $config->getKey('negative_integer'));
         $this->assertTrue($config->getKey('positive_boolean'));
-        $this->setExpectedException(
-            'BrightNucleus\Config\Exception\KeyNotFoundException',
-            'The configuration key some_other_key does not exist.'
-        );
+        $this->expectException('BrightNucleus\Config\Exception\KeyNotFoundException');
+        $this->expectExceptionMessage('The configuration key some_other_key does not exist.');
         $this->assertFalse($config->getKey('some_other_key'));
     }
 
@@ -370,10 +364,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($subconfig->hasKey('section_2/test_key_2'));
         $this->assertTrue($subsection1->hasKey('test_key_1'));
         $this->assertTrue($subsection2->hasKey('test_key_2'));
-        $this->setExpectedException(
-            'BrightNucleus\Config\Exception\KeyNotFoundException',
-            'The configuration key some_other_key does not exist.'
-        );
+        $this->expectException('BrightNucleus\Config\Exception\KeyNotFoundException');
+        $this->expectExceptionMessage('The configuration key some_other_key does not exist.');
         $this->assertFalse($config->getSubConfig('some_other_key'));
     }
 }

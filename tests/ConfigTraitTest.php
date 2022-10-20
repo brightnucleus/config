@@ -9,9 +9,12 @@
  * @copyright 2016 Alain Schlesser, Bright Nucleus
  */
 
-namespace BrightNucleus\Config;
+namespace BrightNucleus\Config\Tests;
 
-class ConfigTraitTest extends \PHPUnit_Framework_TestCase
+use BrightNucleus\Config\Config;
+use BrightNucleus\Config\ConfigTrait;
+
+class ConfigTraitTest extends TestCase
 {
 
     use ConfigTrait;
@@ -93,7 +96,7 @@ class ConfigTraitTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertEquals('testvalue1', $this->getConfigKey('testkey1'));
         $this->assertEquals('testvalue2', $this->getConfigKey('testkey2'));
-        $this->setExpectedException('OutOfRangeException');
+        $this->expectException('OutOfRangeException');
         $this->getConfigKey('testkey3');
     }
 
@@ -117,10 +120,8 @@ class ConfigTraitTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('level4_value', $this->getConfigKey('level1/level2/level3/level4_key'));
         $this->assertEquals('level4_value', $this->getConfigKey('level1.level2.level3.level4_key'));
         $this->assertEquals('level4_value', $this->getConfigKey('level1\level2/level3.level4_key'));
-        $this->setExpectedException(
-            'BrightNucleus\Config\Exception\KeyNotFoundException',
-            'The configuration key level1->level2->level4_key does not exist.'
-        );
+        $this->expectException('BrightNucleus\Config\Exception\KeyNotFoundException');
+        $this->expectExceptionMessage('The configuration key level1->level2->level4_key does not exist.');
         $this->getConfigKey('level1', 'level2', 'level4_key');
     }
 
@@ -188,10 +189,8 @@ class ConfigTraitTest extends \PHPUnit_Framework_TestCase
      */
     public function testProcessConfigThrowsException()
     {
-        $this->setExpectedException(
-            'BrightNucleus\Config\Exception\FailedToProcessConfigException',
-            'Could not process the config with the arguments'
-        );
+        $this->expectException('BrightNucleus\Config\Exception\FailedToProcessConfigException');
+        $this->expectExceptionMessage('Could not process the config with the arguments');
         $this->processConfig(
             new Config(
                 [
