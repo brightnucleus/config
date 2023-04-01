@@ -57,6 +57,10 @@ class ConfigFactory
             try {
                 $file = array_pop($files);
 
+                if (! is_string($file)) {
+                    continue;
+                }
+                
                 if (! is_readable($file)) {
                     continue;
                 }
