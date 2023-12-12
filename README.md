@@ -4,7 +4,7 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/brightnucleus/config/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/brightnucleus/config/?branch=main)
 [![Code Coverage](https://coveralls.io/repos/github/brightnucleus/config/badge.svg?branch=main)](https://coveralls.io/github/brightnucleus/config?branch=main)
 [![Build Status](https://github.com/brightnucleus/config/actions/workflows/testing.yml/badge.svg?branch=main)](https://github.com/brightnucleus/config/actions/workflows/testing.yml)
-[![Codacy Badge](https://api.codacy.com/project/badge/grade/e718c34afc46409b90fd72a107158009)](https://www.codacy.com/app/BrightNucleus/config)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/7ac6b6b664f14ebdb660d8b0242dc3f7)](https://app.codacy.com/gh/brightnucleus/config/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![Code Climate](https://codeclimate.com/github/brightnucleus/config/badges/gpa.svg)](https://codeclimate.com/github/brightnucleus/config)
 
 [![Latest Stable Version](https://poser.pugx.org/brightnucleus/config/v/stable)](https://packagist.org/packages/brightnucleus/config)
