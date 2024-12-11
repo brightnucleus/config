@@ -13,4 +13,4 @@ jobs:
   test:
     uses: brightnucleus/.github/.github/workflows/reusable-testing.yml@main
     with:
-        minimum-php: '5.6'
+        minimum-php: '8.0'
