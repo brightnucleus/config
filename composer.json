@@ -21,7 +21,7 @@
   "require": {
     "php": ">=8.0",
     "symfony/options-resolver": ">=2.8",
-    "brightnucleus/exceptions": ">=0.2"
+    "brightnucleus/exceptions": ">=0.4"
   },
   "autoload": {
     "psr-4": {
