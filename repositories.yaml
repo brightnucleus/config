@@ -1,0 +1,34 @@
+# BrightNucleus Repository Sync Configuration
+# ==========================================
+
+# GitHub organization name
+organization: brightnucleus
+
+# Repositories to exclude from sync (e.g., the dev repo itself)
+exclude_repos:
+    - brightnucleus.dev
+
+# Common default branch names to check (in order of preference)
+default_branch_names:
+    - main
+    - master
+    - develop
+
+# Safety checks before updating repositories
+safety_checks:
+    # Check for uncommitted changes before updating
+    check_uncommitted: true
+    
+    # Check for unpushed commits before updating
+    check_unpushed: true
+    
+    # Create backup before updating (not implemented yet)
+    create_backup: false
+
+# Additional repository-specific configurations
+# You can override settings for specific repositories
+repository_overrides: []
+    # Example:
+    # - name: specific-repo
+    #   default_branch: custom-branch
+    #   skip_update: false

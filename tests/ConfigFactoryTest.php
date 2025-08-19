@@ -155,6 +155,8 @@ class ConfigFactoryTest extends TestCase
     /**
      * Test whether the caching system works when loading the same config file several times.
      *
+     * @covers \BrightNucleus\Config\ConfigFactory::create
+     *
      * @since 0.4.3
      */
     public function testWhetherCachingWorks()

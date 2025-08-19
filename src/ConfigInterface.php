@@ -105,4 +105,22 @@ interface ConfigInterface extends IteratorAggregate, ArrayAccess, Serializable, 
      * @return ConfigInterface
      */
     public function getSubConfig($_);
+
+    /**
+     * Serialize the config.
+     *
+     * @since 0.1.13
+     *
+     * @return array
+     */
+    public function __serialize(): array;
+
+    /**
+     * Unserialize the config.
+     *
+     * @since 0.1.13
+     *
+     * @param array $data The data to unserialize.
+     */
+    public function __unserialize(array $data): void;
 }

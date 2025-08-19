@@ -260,26 +260,29 @@ class ConfigTraitTest extends TestCase
         return __DIR__ . '/fixtures/config_file.php';
     }
 
+    /**
+     * @covers \BrightNucleus\Config\ConfigTrait::getConfigCallable
+     */
     public function testGetConfigCallable()
     {
         $this->processConfig(
             new Config(
                 [
                     'testkey1'     => function ($a, $b, $c) {
-                        return "${c}-${b}-${a}";
+                        return "{$c}-{$b}-{$a}";
                     },
                     'testkey2'     => 'testvalue2',
                     'nestedlevel0' => [
                         'nestedlevel1' => [
                             'nestedlevel2' => [
                                 'testkey3' => function ($a, $b, $c) {
-                                    return "${c}.${b}.${a}";
+                                    return "{$c}.{$b}.{$a}";
                                 },
                             ],
                         ],
                     ],
                     'testkey4'     => function ($a = null, $b = null, $c = null) {
-                        return "${c}-${b}-${a}";
+                        return "{$c}-{$b}-{$a}";
                     },
                 ]
             )

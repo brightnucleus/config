@@ -74,8 +74,8 @@ class Config extends AbstractConfig
      */
     public function __construct(
         $config,
-        Schema $schema = null,
-        Validator $validator = null,
+        ?Schema $schema = null,
+        ?Validator $validator = null,
         $delimiter = null
     ) {
         $this->schema    = $schema;

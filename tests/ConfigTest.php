@@ -339,6 +339,9 @@ class ConfigTest extends TestCase
         $this->assertFalse($config->getKey('some_other_key'));
     }
 
+    /**
+     * @covers \BrightNucleus\Config\AbstractConfig::getSubConfig
+     */
     public function testGetSubConfig()
     {
         $config      = new Config(__DIR__ . '/fixtures/deep_config_file.php');
